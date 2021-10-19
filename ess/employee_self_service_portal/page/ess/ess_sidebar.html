@@ -1,0 +1,36 @@
+<div class="user-profile-sidebar sidebar vh-100">
+	<div class="user-image-container hidden-xs hidden-sm">
+		<div class="sidebar-image-wrapper">
+			{% if image %}
+			<img class="avatar-frame" src="{{ image }}" />
+			{% else %}
+			<div class="sidebar-standard-image hide">
+				<div class="standard-image"></div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="profile-details">
+		<div class="frappe-card detail-item user-stats-detail hide">
+			<h5>{%=__("Details") %}</h5>
+			<div class="user-stats mt-3">
+			</div>
+		</div>
+
+		<div class="frappe-card  profile-links detail-item scroll">
+			<p><a class="edit-profile-link">{%=__("Edit Profile") %}</a></p>
+			<p><a class="user-settings-link">{%=__("User Settings") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Holiday List") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Leave Management") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Payslip") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Investment Declaration") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Travel management") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Expense claims") %}</a></p>
+			<p><a class="user-settings-link">{%=__("To Do") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Ticket") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Performance") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Training") %}</a></p>
+			<p><a class="user-settings-link">{%=__("Employee grievance") %}</a></p>
+		</div>
+	</div>
+</div>

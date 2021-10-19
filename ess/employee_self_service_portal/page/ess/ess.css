@@ -1,0 +1,53 @@
+.recent-activity .new-timeline {
+	padding-top: 0;
+}
+
+.recent-activity .new-timeline:before {
+	top: 25px;
+}
+
+.recent-activity-title {
+	font-weight: 700;
+	font-size: var(--text-xl);
+	color: var(--text-color);
+}
+
+.recent-activity .recent-activity-footer {
+	margin-left: calc(var(--timeline-left-padding) + var(--timeline-item-left-margin));
+	max-width: var(--timeline-content-max-width);
+}
+
+.recent-activity .show-more-activity-btn {
+	display: block;
+	margin: auto;
+	width: max-content;
+	margin-top: 35px;
+	font-size: var(--text-md);
+}
+
+.recent-activity {
+	padding-bottom: 60px;
+}
+
+a:not([href]):hover{
+	transform: scale(1.1);
+	color: yellowgreen !important;
+  }
+
+.section-2 {
+    margin-top: 15px;
+}
+
+.holiday {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.sidebar {
+    position:fixed;
+    z-index: 1;
+}
+
+.scroll {
+    max-height: 300px;
+    overflow-y: scroll;
+}

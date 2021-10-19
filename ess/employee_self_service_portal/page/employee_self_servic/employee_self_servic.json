@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2021-10-18 12:31:58.807560",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2021-10-18 12:32:04.072836",
+ "modified_by": "Administrator",
+ "module": "Employee Self Service Portal",
+ "name": "employee-self-servic",
+ "owner": "Administrator",
+ "page_name": "Employee Self Service",
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Employee Self Service"
+}
