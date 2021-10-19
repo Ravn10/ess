@@ -84,8 +84,8 @@ ESS = Class.extend({
                 let html = r.message;
                 let div = document.createElement('div');
                 div.innerHTML = html;
-
                 find.appendChild(div);
+                document.getElementById("checkin").disabled = true;
             })
           });
     },
@@ -95,6 +95,14 @@ ESS = Class.extend({
             frappe.call({
                 method:"ess.employee_self_service_portal.page.ess.ess.checkin",
                 args:{"employee":frappe.get_route()[1],"log_type":"OUT"}
+            }).then(r => {
+                console.log(r)
+                let find = document.querySelector('#attendance-text');
+                let html = r.message;
+                let div = document.createElement('div');
+                div.innerHTML = html;
+                find.appendChild(div);
+                document.getElementById("checkout").disabled = true;
             })
           });
     }
