@@ -1,0 +1,135 @@
+body {
+
+}
+
+.main {
+  margin: auto;
+  height: 500px;
+  width: 300px;
+  background: #edebe8;
+  z-index: 1;
+  position: relative;
+  top: 40px;
+  -webkit-box-shadow: -2px 6px 52px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px 6px 52px -2px rgba(0,0,0,0.75);
+box-shadow: -2px 6px 52px -2px rgba(0,0,0,0.75);
+}
+
+.avatar {
+  width: 100px;
+	height: 100px;
+  position: relative;
+  top: 10px;
+  left: 10px;
+	background: #d9d8d6;
+  border-radius: 20px;
+  z-index: 2;
+  animation: 2s fadeIn infinite;
+  animation: 2s fadeOut infinite alternate;
+}
+
+.name {
+  width: 170px;
+	height: 30px;
+  position: relative;
+  bottom: 80px;
+  left: 120px;
+	background: #d9d8d6;
+  z-index: 2;
+  animation: 2s fadeIn infinite;
+  animation: 2s fadeOut infinite alternate;
+}
+
+.location {
+  width: 170px;
+	height: 30px;
+  position: relative;
+  bottom: 60px;
+  left: 120px;
+	background: #d9d8d6;
+  z-index: 2;
+  animation: 2s fadeIn infinite;
+  animation: 2s fadeOut infinite alternate;
+}
+
+.bio {
+  width: 280px;
+	height: 90px;
+  position: relative;
+  bottom: 30px;
+  left: 10px;
+	background: #d9d8d6;
+  z-index: 2;
+  animation: 2s fadeIn infinite;
+  animation: 2s fadeOut infinite alternate;
+}
+
+.gallary {
+  width: 280px;
+	height: 250px;
+  position: relative;
+  bottom: 10px;
+  left: 10px;
+	background: #d9d8d6;
+  z-index: 2;
+  animation: fadeIn 2s infinite;
+  animation: 2s fadeOut infinite alternate;
+}
+
+
+.divider_one {
+  width: 250px;
+	height: 10px;
+  margin: auto;
+  position: relative;
+  bottom: 140px;
+  left: 2px;
+	background: #edebe8;
+  z-index: 2;
+  transform: rotate(90deg);
+}
+
+.divider_two {
+  width: 285px;
+	height: 10px;
+  margin: auto;
+  position: relative;
+  bottom: 140px;
+  left: 2px;
+	background: #edebe8;
+  z-index: 2;
+}
+
+         .fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+  }
+  @keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+  }
+
+       .fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+  }
+  @keyframes fadeOut {
+  0% {opacity: 1;}
+  100% {opacity: 0;}
+  }

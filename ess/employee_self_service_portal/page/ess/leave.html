@@ -1,0 +1,24 @@
+<p class="card-text ">
+    {% if not jQuery.isEmptyObject(data) %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Employee</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for(const [key, value] of Object.entries(data)) { %}
+            <tr>
+                <td class="text-centre"> {%= value["employee_name"] %} </td>
+                <td class="text-centre"> {%= value["from"] %} </td>
+                <td class="text-centre"> {%= value["to"] %} </td>
+            </tr>
+            {% } %}
+        </tbody>
+    </table>
+    {% else %}
+     No Leaves this month.
+    {% endif %}
+</p>

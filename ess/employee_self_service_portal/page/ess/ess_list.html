@@ -1,0 +1,23 @@
+{% if not jQuery.isEmptyObject(data) %}
+<p class="card-text">
+
+<table class="table small table-responsive">
+    <thead>
+        <tr>
+        <th>Date</th>
+        <th>Event</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for(const [key, value] of Object.entries(data)) { %}
+        <tr>
+            <td class="text-centre"> {%= value["day"] %} </td>
+            <td class="text-centre"> {%= value["description"] %} </td>
+        </tr>
+    {% } %}
+    </tbody>
+</table>
+{% else %}
+<p style="margin-top: 30px;"> No Leave has been allocated. </p>
+</p>
+{% endif %}

@@ -3,6 +3,10 @@
 		"employee_self_service_portal/page/employee_self_servic/employee_self_servic/employee_self_servic.html",
         "employee_self_service_portal/page/employee_self_servic/employee_self_servic/employee_self_servic_sidebar.html",
         "employee_self_service_portal/page/ess/ess/ess_sidebar.html",
-        "employee_self_service_portal/page/ess/ess/ess_body.html"
+        "employee_self_service_portal/page/ess/ess/ess_body.html",
+        "employee_self_service_portal/page/ess/ess/ess_table.html",
+        "employee_self_service_portal/page/ess/ess/ess_list.html",
+        "employee_self_service_portal/page/ess/ess/birthday.html",
+        "employee_self_service_portal/page/ess/ess/leave.html"
 	]
 }

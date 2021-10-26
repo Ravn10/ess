@@ -42,6 +42,10 @@ a:not([href]):hover{
     max-height: 200px;
     overflow-y: auto;
 }
+.card-body {
+    max-height: 200px;
+    overflow-y: auto;
+}
 .sidebar {
     position:fixed;
     z-index: 1;
@@ -51,3 +55,20 @@ a:not([href]):hover{
     max-height: 300px;
     overflow-y: scroll;
 }
+
+.clock {
+    color: black;
+}
+@media (max-width: 1000px) {
+    .sidebar {
+        left:-300px;
+    }
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }

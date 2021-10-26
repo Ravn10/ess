@@ -64,7 +64,8 @@
                           <a href="#" class="btn btn-danger checkout">Checkout</a> -->
                         </div>
                         <div class="card-footer text-muted">
-                            Updated Now
+                            <div id="date" class="clock" ></div>
+                            <div id="MyClockDisplay" class="clock" ></div>
                         </div>
                     </div>
                     <!-- attendance buttons ends-->
@@ -75,28 +76,8 @@
                         </div>
                         <div class="card-body">
                           <!-- <h5 class="card-title">Mark your attendance</h5> -->
-                          <p class="card-text">
-                            <table class="table table-sm">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">PL</th>
-                                    <th scope="col">CL</th>
-                                    <th scope="col">LWP</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>*</td>
-                                  </tr>
-                                  <tr>
-                                    <td><button type="button" class="btn btn-info pl">Apply</button></td>
-                                    <td><button type="button" class="btn btn-success">Apply</button></td>
-                                    <td><button type="button" class="btn btn-danger">Apply</button></td>
-                                  </tr>
-                                </tbody>
-                              </table>
+                          <p class="card-text leaves">
+
                           </p>
                         </div>
                         <div class="card-footer text-muted">
@@ -110,41 +91,13 @@
                           Holidays For the Month
                         </div>
                         <div class="card-body holiday">
-                          <h5 class="card-title">January</h5>
-                          <p class="card-text">
-                            <table class="table">
+                          <h4 class="card-title">October</h4>
 
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Day</th>
-                                    <th scope="col">Event</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>2-10-2021</td>
-                                    <td>Monday</td>
-                                    <td>Dasera</td>
-                                  </tr>
-                                  <tr>
-                                    <td>22-10-2021</td>
-                                    <td>Tuesday</td>
-                                    <td>EID</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2-11-2021</td>
-                                    <td>Wednesday</td>
-                                    <td>Laxmi Puja</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </p>
-                          <a href="#" class="btn btn-primary">Total : 3</a>
+                          <!-- <a href="#" class="btn btn-primary">Total : 3</a> -->
                         </div>
-                        <div class="card-footer text-muted">
+                        <!-- <div class="card-footer text-muted">
                         Updated 2 days ago
-                        </div>
+                        </div> -->
                     </div>
                       <!-- Holidays for Month End-->
                   </div>
@@ -160,34 +113,8 @@
                         <div class="card-header">
                           Birthday For the Month
                         </div>
-                        <div class="card-body holiday">
-                          <h5 class="card-title">January</h5>
-                          <p class="card-text">
-                            <table class="table">
+                        <div class="card-body birthday">
 
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Employee</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>2-10-2021</td>
-                                    <td>Aniket</td>
-                                  </tr>
-                                  <tr>
-                                    <td>22-10-2021</td>
-                                    <td>Basant</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2-11-2021</td>
-                                    <td>Shashi</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </p>
-                          <a href="#" class="btn btn-primary">Total : 3</a>
                         </div>
                         <div class="card-footer text-muted">
                         Updated 2 days ago
@@ -199,31 +126,11 @@
                         <div class="card-header">
                           Pending Actions
                         </div>
-                        <div class="card-body holiday">
-                        <h5 class="card-title">Leave Approval</h5>
+                        <div class="card-body approvals holiday">
+
+                          <h5 class="card-title">Leave Approvals</h5>
                           <p class="card-text">
-                            <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Employee</th>
-                                    <th scope="col">Application</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>EMP-001</td>
-                                    <td>LEAVE-001</td>
-                                  </tr>
-                                  <tr>
-                                    <td>EMP-002</td>
-                                    <td>LEAVE-001</td>
-                                  </tr>
-                                </tbody>
-                            </table>
-                          </p>
-                          <h5 class="card-title">Approvals</h5>
-                          <p class="card-text">
-                            <table class="table">
+                            <!-- <table class="table">
                                 <thead>
                                   <tr>
                                     <th scope="col">Type</th>
@@ -240,9 +147,8 @@
                                     <td>EXP-001</td>
                                   </tr>
                                 </tbody>
-                            </table>
+                            </table> -->
                           </p>
-                          <a href="#" class="btn btn-primary">Total : 3</a>
                         </div>
                         <div class="card-footer text-muted">
                         Updated 2 days ago
@@ -252,36 +158,10 @@
                     <!-- Holidays for Month -->
                     <div class="card text-center">
                         <div class="card-header">
-                          Birthday For the Month
+                          Team Members On Leave
                         </div>
-                        <div class="card-body holiday">
-                          <h5 class="card-title">January</h5>
-                          <p class="card-text">
-                            <table class="table">
+                        <div class="card-body onleave">
 
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Employee</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>2-10-2021</td>
-                                    <td>Aniket</td>
-                                  </tr>
-                                  <tr>
-                                    <td>22-10-2021</td>
-                                    <td>Basant</td>
-                                  </tr>
-                                  <tr>
-                                    <td>2-11-2021</td>
-                                    <td>Shashi</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </p>
-                          <a href="#" class="btn btn-primary">Total : 3</a>
                         </div>
                         <div class="card-footer text-muted">
                         Updated 2 days ago
@@ -294,47 +174,4 @@
         <!-- section 3 ends -->
 	</div>
 </div>
-
-
-<!-- Attendance -->
-<!-- <div class="performance-graphs">
-    <div class="frappe-card chart-column-container heatmap-container hidden-xs hidden-sm">
-        <div class="title-area">
-            <h4 class="card-title">{%=__("Overview") %}</h4>
-            <div class="card-options heatmap-options"></div>
-        </div>
-        <div class="chart-wrapper performance-heatmap">
-            <div class="null-state">
-                <span>{%=__("No Data to Show") %}</span>
-            </div>
-        </div>
-    </div>
-    <div class="frappe-card chart-column-container percentage-chart-container">
-        <div class="title-area">
-            <h4 class="card-title">{%=__("Type Distribution") %}</h4>
-            <div class="card-options percentage-chart-options"></div>
-        </div>
-        <div class="chart-wrapper performance-percentage-chart">
-            <div class="null-state">
-                <span>{%=__("No Data to Show") %}</span>
-            </div>
-        </div>
-    </div>
-    <div class="frappe-card chart-column-container line-chart-container">
-        <div class="title-area">
-            <h4 class="card-title">{%=__("Energy Points") %}</h4>
-            <div class="card-options line-chart-options"></div>
-        </div>
-        <div class="chart-wrapper performance-line-chart">
-            <div class="null-state">
-                <span>{%=__("No Data to Show") %}</span>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- <div class="row attendance" style="display: flex"> -->
-    <!-- <div class="row user-profile" style="display: flex">
-        <div class="col-md-12">
-            <div class="frappe-card hidden-xs hidden-sm"> -->
-
 

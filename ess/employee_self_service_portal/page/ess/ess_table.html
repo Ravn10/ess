@@ -1,0 +1,27 @@
+{% if not jQuery.isEmptyObject(data) %}
+<table class="table small table-responsive">
+    <thead>
+        <tr>
+        {% for(const [key, value] of Object.entries(data)) { %}
+        <th> {%= frappe.get_abbr(key) %} </th>
+        {% } %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        {% for(const [key, value] of Object.entries(data)) { %}
+        <td class="text-centre"> {%= value["remaining_leaves"] %} </td>
+        {% } %}
+        </tr>
+        <tr>
+        {% for(const [key, value] of Object.entries(data)) { %}
+            <td class="text-centre">
+                <button type="button" class="btn btn-info leave_application" id="leave_application" value="{%= key %}">Apply</button>
+            </td>
+        {% } %}
+        </tr>
+    </tbody>
+</table>
+{% else %}
+<p style="margin-top: 30px;"> No Leave has been allocated. </p>
+{% endif %}

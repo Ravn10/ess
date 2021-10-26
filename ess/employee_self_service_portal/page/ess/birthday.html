@@ -1,0 +1,23 @@
+<!-- <h5 class="card-title card-table">Jan</h5> -->
+<p class="card-text ">
+    {% if not jQuery.isEmptyObject(data) %}
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Employee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for(const [key, value] of Object.entries(data)) { %}
+            <tr>
+                <td class="text-centre"> {%= value["day"] %} </td>
+                <td class="text-centre"> {%= value["employee_name"] %} </td>
+            </tr>
+            {% } %}
+        </tbody>
+    </table>
+    {% else %}
+     No Birthdays this month.
+    {% endif %}
+</p>
