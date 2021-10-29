@@ -13,7 +13,29 @@ ESS = Class.extend({
             single_column: false
         });
         // this.make()
-        this.make_sidebar()
+        if(frappe.boot.employee){
+            this.make_sidebar()
+        }
+        else{
+                let dialog = new frappe.ui.Dialog({
+                    title: __('Select Employee'),
+                    fields: [
+                        {
+                            fieldtype: 'Link',
+                            fieldname: 'employee',
+                            options: 'Employee',
+                            label: __('Employee'),
+                        }
+                    ],
+                    primary_action_label: __('Go'),
+                    primary_action: ({ employee }) => {
+                        dialog.hide();
+                        frappe.boot.employee = employee
+                        this.make_sidebar()
+                    }
+                });
+                dialog.show();
+        }
     },
 
     // bind event to all buttons on page
@@ -86,7 +108,7 @@ ESS = Class.extend({
 		});
 
 		edit_profile_dialog.set_values({
-			employee: frappe.get_route()[1],
+			employee: frappe.boot.employee,
 		});
 		edit_profile_dialog.show();
         });
@@ -106,7 +128,7 @@ ESS = Class.extend({
             method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
-                employee:frappe.get_route()[1] ,
+                employee:frappe.boot.employee ,
                 date: frappe.datetime.get_today()
             },
             callback: function(r) {
@@ -134,7 +156,7 @@ ESS = Class.extend({
         // get employee details
         frappe.call({
             method:"ess.employee_self_service_portal.page.ess.ess.get_employee_details",
-            args:{"employee":frappe.get_route()[1]}
+            args:{"employee":frappe.boot.employee}
         }).then(r => {
                 console.log(r.message)
                 $(frappe.render_template("ess_sidebar",
@@ -199,7 +221,7 @@ ESS = Class.extend({
             method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
-                employee:frappe.get_route()[1] ,
+                employee:frappe.boot.employee ,
                 date: frappe.datetime.get_today()
             },
             callback: function(r) {
@@ -222,7 +244,7 @@ ESS = Class.extend({
             console.log("Checkin")
             frappe.call({
                 method:"ess.employee_self_service_portal.page.ess.ess.checkin",
-                args:{"employee":frappe.get_route()[1],"log_type":"IN"}
+                args:{"employee":frappe.boot.employee,"log_type":"IN"}
             }).then(r => {
                 console.log(r)
                 let find = document.querySelector('#attendance-text');
@@ -240,7 +262,7 @@ ESS = Class.extend({
             console.log("Check Out")
             frappe.call({
                 method:"ess.employee_self_service_portal.page.ess.ess.checkin",
-                args:{"employee":frappe.get_route()[1],"log_type":"OUT"}
+                args:{"employee":frappe.boot.employee,"log_type":"OUT"}
             }).then(r => {
                 console.log(r)
                 let find = document.querySelector('#attendance-text');
@@ -257,7 +279,7 @@ ESS = Class.extend({
     get_checkin: function(){
         frappe.call({
             method:"ess.employee_self_service_portal.page.ess.ess.get_checkin",
-            args:{"employee":frappe.get_route()[1]}
+            args:{"employee":frappe.boot.employee}
         }).then(r => {
             console.log(r.message)
             if(r.message['checkin_count']>0 || r.message['checkout_count']>0 ){
@@ -293,13 +315,13 @@ ESS = Class.extend({
                 console.log(r.message['checkout'])
             }
             else{
-                alert("Not Checked In Yet!!!")
+                // alert("Not Checked In Yet!!!")
                 frappe.confirm(
                     'Do You want to Checked In Now??',
                     function(){
                         frappe.call({
                             method:"ess.employee_self_service_portal.page.ess.ess.checkin",
-                            args:{"employee":frappe.get_route()[1],"log_type":"IN"}
+                            args:{"employee":frappe.boot.employee,"log_type":"IN"}
                         }).then(r => {
                             console.log(r)
                             let find = document.querySelector('#attendance-text');
@@ -312,7 +334,7 @@ ESS = Class.extend({
                         window.close();
                     },
                     function(){
-                        show_alert('Thanks for continue here!')
+                        show_alert('Welcome' + frappe.session.user + ' to ESS Portal!')
                     }
                 )
             }

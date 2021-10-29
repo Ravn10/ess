@@ -9,6 +9,10 @@ app_color = "grey"
 app_email = "support@firsterp.in"
 app_license = "MIT"
 
+
+on_session_creation = ["ess.employee_self_service_portal.page.ess.ess.on_login"]
+extend_bootinfo = "ess.boot.boot_session"
+
 # Includes in <head>
 # ------------------
 

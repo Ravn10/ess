@@ -1,5 +1,6 @@
 import frappe
 from frappe.utils import get_link_to_form, now_datetime, nowdate, get_first_day, get_last_day
+from frappe import _
 
 @frappe.whitelist()
 def get_employee_details(employee):
@@ -133,3 +134,22 @@ def get_employee_on_leave_this_month():
         data['to'] = data['to_date'].day
     list(map(get_day,leave_info))
     return leave_info
+
+def on_login():
+    # frappe.msgprint(_(frappe.session.user))
+    # frappe.local.flags.redirect_location = "/ess/"
+    # frappe.local.response["location"] =  frappe.utils.get_url("/ess/")
+    # frappe.msgprint(_(frappe.session.user))
+    if frappe.session.user:
+        frappe.msgprint(_(frappe.session.user))
+        employee_docname = frappe.db.exists(
+            {'doctype': 'Employee', 'user_id': frappe.session.user})
+        if employee_docname:
+            # frappe.db.exists returns a tuple of a tuple
+            emp = frappe.get_doc('Employee', employee_docname[0][0])
+            frappe.msgprint(_(emp.employee))
+    #         frappe.local.flags.redirect_location = "/ess/"
+    #         raise frappe.Redirect
+    # else:
+    #     frappe.msgprint("Couldn't Get your name")
+
