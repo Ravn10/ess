@@ -17,8 +17,8 @@ extend_bootinfo = "ess.boot.boot_session"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/ess/css/ess.css"
-# app_include_js = "/assets/ess/js/ess.js"
+app_include_css = "/assets/ess/css/ess-float.min.css"
+app_include_js = ["/assets/ess/js/ess-template.min.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/ess/css/ess.css"

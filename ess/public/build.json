@@ -8,5 +8,14 @@
         "employee_self_service_portal/page/ess/ess/ess_list.html",
         "employee_self_service_portal/page/ess/ess/birthday.html",
         "employee_self_service_portal/page/ess/ess/leave.html"
-	]
+	],
+    "js/ess-template.min.js": [
+        "public/js/float.html"
+    ],
+    "js/ess-float.min.js": [
+        "public/js/float.js"
+    ],
+    "css/ess-float.min.css": [
+        "public/css/float.css"
+    ]
 }
