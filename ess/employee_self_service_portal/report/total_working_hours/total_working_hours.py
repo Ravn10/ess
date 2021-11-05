@@ -100,5 +100,5 @@ def update_shift_details(attendance_dict):
     if shift_start_time and shift_end_time:
         shift_time_in_hours = time_diff_in_hours(shift_start_time,shift_end_time)
         attendance_dict['shift_time_in_hours'] = shift_time_in_hours
-        if 'woring_hours' in attendance_dict.keys and shift_time_in_hours:
+        if 'woring_hours' in attendance_dict and shift_time_in_hours:
             attendance_dict['overtime'] = float(attendance_dict['woring_hours']-shift_time_in_hours)
