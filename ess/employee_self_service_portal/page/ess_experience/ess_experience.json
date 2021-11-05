@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2021-11-04 17:03:01.151950",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2021-11-04 17:04:19.872761",
+ "modified_by": "Administrator",
+ "module": "Employee Self Service Portal",
+ "name": "ess-experience",
+ "owner": "Administrator",
+ "page_name": "ESS Experience",
+ "roles": [
+  {
+   "role": "All"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "ESS Experience"
+}

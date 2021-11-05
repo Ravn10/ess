@@ -1,7 +1,6 @@
 frappe.pages['ess'].on_page_load = function(wrapper) {
     new ESS(wrapper);
     console.log(wrapper)
-
 }
 
 //Page content
@@ -10,7 +9,8 @@ ESS = Class.extend({
         this.page = frappe.ui.make_app_page({
             parent: wrapper,
             title: 'Employee Self Service Portal',
-            single_column: false
+            single_column: true,
+            with_dashboard: true
         });
         // this.make()
         if(frappe.boot.employee){
@@ -37,10 +37,22 @@ ESS = Class.extend({
                 dialog.show();
         }
     },
-
     // bind event to all buttons on page
     bind_events: function() {
 		let btns = document.querySelectorAll('#leave_application');
+        let secondary_btns = document.querySelectorAll('#attendance_');
+        for (i of secondary_btns) {
+            i.addEventListener('click', function() {
+                alert(this.value)
+                frappe.model.with_doctype('Attendance', () => {
+                    // route to  Attendance
+                    let attendance = frappe.model.get_new_doc('Attendance');
+                    attendance.status = this.value
+                    attendance.employee = frappe.boot.employee
+                    frappe.set_route('Form','Attendance', attendance.name);
+                });
+            })
+        }
         for (i of btns) {
         i.addEventListener('click', function(me) {
             console.log(this.value);
@@ -158,12 +170,14 @@ ESS = Class.extend({
             method:"ess.employee_self_service_portal.page.ess.ess.get_employee_details",
             args:{"employee":frappe.boot.employee}
         }).then(r => {
+                console.log("Employee Details")
                 console.log(r.message)
-                $(frappe.render_template("ess_sidebar",
-                                                        {
-                                                            "employee_name":r.message['employee_name'],
-                                                            "image":r.message['image']
-                                                        })).appendTo(this.page.sidebar)
+                // render sidebar
+                // $(frappe.render_template("ess_sidebar",
+                //                                         {
+                //                                             "employee_name":r.message['employee_name'],
+                //                                             "image":r.message['image']
+                //                                         })).appendTo(this.page.sidebar)
 
                 $(frappe.render_template("ess_body",r.message)).appendTo(this.page.main)
                 this.page.set_title(r.message['employee_name'])
@@ -179,12 +193,14 @@ ESS = Class.extend({
                 this.get_checkin()
                 this.checkin()
                 this.checkout()
+                this.loadReport()
                 setInterval(() => {
                     this.showTime()
                     frappe.datetime.refresh_when();
                 }, 1000);
                 this.get_balance_leaves()
                 this.bind_events()
+                this.openNav()
                 this.get_holiday_list()
                 this.get_employee_with_birthday_this_month()
                 this.get_employee_on_leave_this_month()
@@ -399,5 +415,61 @@ ESS = Class.extend({
         document.getElementById("date").textContent = frappe.datetime.get_datetime_as_string();
 
         // setTimeout(showTime, 1000);
+    },
+    // render report
+    loadReport: function(){
+        frappe.call({
+            method: "frappe.desk.query_report.run",
+            async: false,
+            args: {
+                report_name:'Total Working Hours'
+            }
+        }).then(r => {
+            console.log(r.message.result)
+            console.log(r)
+            // columns = []
+            const columns = r.message.columns.map(item => {
+                return { id: item.fieldname, name: item.label };
+              });
+            // r.message.columns.forEach(col => {columns.push(col.label)})
+            console.log('Coulmns')
+            console.log(columns)
+            // var res = []
+            const res = r.message.result.map(item => {
+                return { id: item.fieldname, name: item.label };
+              });
+            r.message.result.forEach(c => {
+
+            if(typeof c === 'object') {
+                console.log(Object.values(c))
+                res.push({"name":Object.values(c),"resizable":false, "width": 2,})
+                }
+            else{
+                res.push(c)
+            }
+            console.log("print res")
+            console.log(res)
+            })
+            const datatable_options = {
+                columns: columns,
+                data: r.message.result,
+                layout:'fixed'
+            };
+            datatable = new frappe.DataTable('.report-container',
+            datatable_options
+            // {
+            //     columns: [
+            //         {id: "attendance_date",name: "Date"},
+            //         {id: "position",name: "Position"},
+            //         {id: "salary",name: "Salary"},
+            //      ],
+            //     data: [
+            //       {"attendance_date":'Faris',"position": 'Software Developer',"salary": '$1200'},
+            //       {"attendance_date":'Manas', "position":'Software Engineer', "salary":'$1400'},
+            //     ]
+            //   }
+            );
+
+        })
     }
 })

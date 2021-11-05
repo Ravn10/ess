@@ -7,9 +7,11 @@ ESS = Class.extend({
         this.page = frappe.ui.make_app_page({
             parent: wrapper,
             title: 'Employee Self Service Portal',
-            single_column: false
+            card_layout: true,
+            single_column: true
         });
         this.make()
+        this.myFunction()
         // this.make_sidebar()
 
     },

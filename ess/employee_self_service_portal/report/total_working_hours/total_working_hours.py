@@ -6,10 +6,12 @@ from frappe import _
 from frappe.utils import cint, get_datetime
 
 def execute(filters=None):
-	columns, data = [], []
-	columns = get_columns(filters)
-	data = get_data(filters)
-	return columns, data
+    columns, data = [], []
+    columns = get_columns(filters)
+    data = get_data(filters)
+    print("Printing Data")
+    print(data)
+    return columns, data
 
 def get_columns(filters=None):
 	return [
@@ -51,7 +53,7 @@ def get_columns(filters=None):
 			"width": 100
 		},
 		{
-			"label": _("Overtime"),
+			"label": _("Overtime/Deficit"),
 			"fieldtype": "Float",
 			"fieldname": "overtime",
 			"width": 140
@@ -79,7 +81,7 @@ def get_columns(filters=None):
 def get_conditions(filters):
 	conditions = ''
 	if filters.get('employee'):
-		conditions += "AND so_item.employee = %s" %frappe.db.escape(filters.employee)
+		conditions += "AND employee = %s" %frappe.db.escape(filters.employee)
 
 	return conditions
 
@@ -87,25 +89,16 @@ def time_diff_in_hours(start, end):
     return round((end-start).total_seconds() / 3600, 1)
 
 def get_data(filters=None):
-	conditions = get_conditions(filters)
-	attendance = frappe.db.sql('''select attendance_date, shift,employee, working_hours, in_time, out_time from `tabAttendance`  {0}'''.format(conditions),as_dict=True)
+    conditions = get_conditions(filters)
+    attendance = frappe.db.sql('''select attendance_date, shift,employee, working_hours, in_time, out_time, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
+    list(map(update_shift_details, attendance))
+    return attendance
 
-    def update_shift_details(attendance_dict):
-        shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
-        shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
+def update_shift_details(attendance_dict):
+    shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
+    shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
+    if shift_start_time and shift_end_time:
         shift_time_in_hours = time_diff_in_hours(shift_start_time,shift_end_time)
         attendance_dict['shift_time_in_hours'] = shift_time_in_hours
-        varriance_in_working_hours = 
-	# if attendance:
-	# 	for i in attendance:
-    #         if i['shift']:
-
-			# i['date']=i['time'].date()
-	return attendance
-
-
-def get_check_in_out_log(attendance, shift):
-    pass
-    # in_log , out_log
-    # shift_doc = frappe.get_
-    # employee_checkin = frappe.db.get_all('Employee Checkin',filters={'attendance':attendance,''})
+        if attendance_dict['woring_hours'] and shift_time_in_hours:
+            attendance_dict['overtime'] = float(attendance_dict['woring_hours']-shift_time_in_hours)

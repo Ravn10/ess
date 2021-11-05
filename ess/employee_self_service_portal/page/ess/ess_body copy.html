@@ -1,0 +1,180 @@
+<!-- user profile info starts -->
+
+<!-- user profile info ends -->
+<div class="row user-profile" style="display: flex">
+	<div class="col-md-12">
+        <!-- User Detials Section -->
+        <div class="employee-customer-details">
+            <div class="frappe-card hidden-xs hidden-sm">
+                <div class="title-area ">
+                    <h4 class="text-center">
+                        <b>Employee Details</b>
+                    </h4>
+                    <hr>
+                </div>
+                <div class="container employee-details">
+                    <div class="row">
+                        <div class="col">
+                            <p><b>Employee Id</b> :-  {{ name }}</p>
+                        </div>
+                        <div class="col">
+                            <p><b>Email</b> :-  {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>Designation</b> :- {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
+                        </div>
+                        <div class="col">
+                            <p><b>Phone</b> :-  {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>Department</b> :-  {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
+                        </div>
+                        <div class="col">
+                            <p><b>Birthday</b> :-  {% if date_of_birth %}{{ date_of_birth }}{% else %}"No Date of Birt set"{% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p><b>Date of Joining</b> :-  {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
+                        </div>
+                        <div class="col">
+                            <p><b>Reporting To</b> :-  {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  User Detials Section Ends -->
+        <!-- Attendance -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container">
+                <div class="card-deck">
+                    <!-- attendance buttons -->
+                    <div class="card text-center">
+                        <div class="card-header">
+                          Attendance
+                        </div>
+                        <div class="card-body" id="attendance">
+                          <h5 class="card-title">Mark your attendance</h5>
+                          <p class="card-text" id="attendance-text"><br></p>
+                          <button type="button" class="btn btn-success checkin" id="checkin" >Checkin</button>
+                          <button type="button" class="btn btn-danger checkout" id="checkout" >Checkout</button>
+                          <!-- <a href="#" class="btn btn-success checkin">Checkin</a>
+                          <a href="#" class="btn btn-danger checkout">Checkout</a> -->
+                        </div>
+                        <div class="card-footer text-muted">
+                            <div id="date" class="clock" ></div>
+                            <div id="MyClockDisplay" class="clock" ></div>
+                        </div>
+                    </div>
+                    <!-- attendance buttons ends-->
+                    <!-- Leave Balance -->
+                    <div class="card text-center">
+                        <div class="card-header">
+                            Leave Balance
+                        </div>
+                        <div class="card-body">
+                          <!-- <h5 class="card-title">Mark your attendance</h5> -->
+                          <p class="card-text leaves">
+
+                          </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Updated 2 minutes ago
+                        </div>
+                    </div>
+                    <!-- Leave Balance ends-->
+                    <!-- Holidays for Month -->
+                    <div class="card text-center">
+                        <div class="card-header">
+                          Holidays For the Month
+                        </div>
+                        <div class="card-body holiday">
+                          <h4 class="card-title">October</h4>
+
+                          <!-- <a href="#" class="btn btn-primary">Total : 3</a> -->
+                        </div>
+                        <!-- <div class="card-footer text-muted">
+                        Updated 2 days ago
+                        </div> -->
+                    </div>
+                      <!-- Holidays for Month End-->
+                  </div>
+            </div>
+        </div>
+        <!-- Attendance Ends -->
+        <!-- section 3 -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container">
+                <div class="card-deck">
+                    <!-- attendance buttons -->
+                    <div class="card text-center">
+                        <div class="card-header">
+                          Birthday For the Month
+                        </div>
+                        <div class="card-body birthday">
+
+                        </div>
+                        <div class="card-footer text-muted">
+                        Updated 2 days ago
+                        </div>
+                    </div>
+                    <!-- attendance buttons ends-->
+                    <!-- Leave Balance -->
+                    <div class="card text-center">
+                        <div class="card-header">
+                          Pending Actions
+                        </div>
+                        <div class="card-body approvals holiday">
+
+                          <h5 class="card-title">Leave Approvals</h5>
+                          <p class="card-text">
+                            <!-- <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Docuemnt</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Leave</td>
+                                    <td>LEAVE-001</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Expense</td>
+                                    <td>EXP-001</td>
+                                  </tr>
+                                </tbody>
+                            </table> -->
+                          </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                        Updated 2 days ago
+                        </div>
+                    </div>
+                    <!-- Leave Balance ends-->
+                    <!-- Holidays for Month -->
+                    <div class="card text-center">
+                        <div class="card-header">
+                          Team Members On Leave
+                        </div>
+                        <div class="card-body onleave">
+
+                        </div>
+                        <div class="card-footer text-muted">
+                        Updated 2 days ago
+                        </div>
+                    </div>
+                      <!-- Holidays for Month End-->
+                  </div>
+            </div>
+        </div>
+        <!-- section 3 ends -->
+	</div>
+</div>
+
