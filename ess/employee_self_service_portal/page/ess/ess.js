@@ -192,6 +192,7 @@ ESS = Class.extend({
                 }
                 this.get_checkin()
                 this.loadReport()
+                this.loadLeaveAnalyticsReport()
                 this.checkin()
                 this.checkout()
                 setInterval(() => {
@@ -460,6 +461,63 @@ ESS = Class.extend({
                 layout:'fixed'
             };
             datatable = new frappe.DataTable('.report-container',
+            datatable_options
+            // {
+            //     columns: [
+            //         {id: "attendance_date",name: "Date"},
+            //         {id: "position",name: "Position"},
+            //         {id: "salary",name: "Salary"},
+            //      ],
+            //     data: [
+            //       {"attendance_date":'Faris',"position": 'Software Developer',"salary": '$1200'},
+            //       {"attendance_date":'Manas', "position":'Software Engineer', "salary":'$1400'},
+            //     ]
+            //   }
+            );
+
+        })
+    },
+    loadLeaveAnalyticsReport: function(){
+        frappe.call({
+            method: "frappe.desk.query_report.run",
+            async: false,
+            args: {
+                report_name:'Leave Analytics',
+                filters:{'employee':frappe.boot.employee}
+            }
+        }).then(r => {
+            console.log('Report')
+            console.log(r.message.result)
+            console.log(r)
+            // columns = []
+            const columns = r.message.columns.map(item => {
+                return { id: item.fieldname, name: item.label };
+              });
+            // r.message.columns.forEach(col => {columns.push(col.label)})
+            console.log('Coulmns')
+            console.log(columns)
+            // var res = []
+            const res = r.message.result.map(item => {
+                return { id: item.fieldname, name: item.label };
+              });
+            r.message.result.forEach(c => {
+
+            if(typeof c === 'object') {
+                console.log(Object.values(c))
+                res.push({"name":Object.values(c),"resizable":false, "width": 2,})
+                }
+            else{
+                res.push(c)
+            }
+            console.log("print res")
+            console.log(res)
+            })
+            const datatable_options = {
+                columns: columns,
+                data: r.message.result,
+                layout:'fixed'
+            };
+            datatable = new frappe.DataTable('.leave-report-container',
             datatable_options
             // {
             //     columns: [

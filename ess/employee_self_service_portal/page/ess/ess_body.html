@@ -7,9 +7,14 @@
     <div class="card-deck ">
         <!-- Image Card -->
         <div class="card border-info col-12 col-md-4 col-sm-6" >
+            {% if image%}
+            <img class="card-img-top" src="{{image}}">
+            {% else %}
             <img class="card-img-top" src="https://bootdey.com/img/Content/avatar/avatar7.png">
+            {% endif %}
             <div class="card-body">
                 <h4 class="card-title">{{ employee_name}}</h4>
+                <a class="btn btn-info" href="/app/employee/{{frappe.boot.employee}}">Edit Profile</a>
             </div>
         </div>
         <!-- Image Card Ends -->
@@ -252,7 +257,7 @@
                         <div class="card-header">
                             Attendance
                           </div>
-                          <div class="card-body report-container">
+                          <div class="card-body leave-report-container">
 
                           </div>
                           <div class="card-footer text-muted">
