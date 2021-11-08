@@ -383,21 +383,32 @@ ESS = Class.extend({
     // approvals list
     get_approvals_list: function(){
         console.log("appr")
-        // let find = document.querySelector('.approvals');
-        // let html =  frappe.render_template(`
-        // <button type="button" class="btn btn-danger" href="#/apps/leave-application">
-        // Leave Application <span class="badge badge-light">{{ open_la }}</span>
-        //                 <span class="sr-only">unread messages</span>
-        //             </button>`,{'open_la':2})
-        // let div = document.createElement('div');
-        // div.innerHTML = html;
-        // div.onclick = function(){
-        //     frappe.route_options = {
-        //         "status": "Open"
-        //     };
-        //     frappe.set_route("Form", "Leave Application");
-        //     }
-        // find.appendChild(div);
+        // frappe.call({
+        //     method:"ess.employee_self_service_portal.page.ess.ess.get_approval_doc"
+        //     }).then(r => {console.log(r)
+        //     let find = document.querySelector('.approvals');
+        //         template = `
+        //         <button type="button" class="btn btn-danger" href="#/apps/{%= key %}">
+        //         {{ key }} <span class="badge badge-light">{{ value}}</span>
+        //                         <span class="sr-only">unread messages</span>
+        //                     </button>`
+        //         let html =''
+        //         for (const [key, value] of Object.entries(r.message)) {
+        //         console.log(key, value);
+        //         html + =  frappe.render_template(template,({%= key %}, {%= value %}))
+               
+        //         } 
+        //         let div = document.createElement('div');
+        //         div.innerHTML = html;
+        //         div.onclick = function(){
+        //             frappe.route_options = {
+        //                 "status": "Open"
+        //             };
+        //             frappe.set_route("Form", "Leave Application");
+        //             }
+        //         find.appendChild(div);
+        //     });
+
     },
     // timer function
     showTime: function(){
