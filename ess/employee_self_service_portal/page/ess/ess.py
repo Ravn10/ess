@@ -167,4 +167,4 @@ def get_approval_doc():
     leave_applications = len(frappe.db.get_all("Leave Application",filters={'leave_approver':frappe.session.user,'status':'Open'}))
     todo = len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
     claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
-    return {"Leave Application":leave_applications,"ToDo":todo,"Expense Clain":claim}
+    return {"Leave Application":leave_applications,"ToDo":todo,"Expense Claim":claim}
