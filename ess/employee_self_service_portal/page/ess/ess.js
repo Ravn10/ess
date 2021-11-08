@@ -191,20 +191,19 @@ ESS = Class.extend({
                     this.page.set_indicator('Unknown', 'gray')
                 }
                 this.get_checkin()
+                this.loadReport()
                 this.checkin()
                 this.checkout()
-                this.loadReport()
                 setInterval(() => {
                     this.showTime()
                     frappe.datetime.refresh_when();
                 }, 1000);
+                // this.get_approvals_list()
                 this.get_balance_leaves()
                 this.bind_events()
-                this.openNav()
                 this.get_holiday_list()
                 this.get_employee_with_birthday_this_month()
                 this.get_employee_on_leave_this_month()
-                this.get_approvals_list()
                 console.log("printing me")
                 console.log(me)
                 console.log(me.curr_month)
@@ -218,7 +217,7 @@ ESS = Class.extend({
             method: "ess.employee_self_service_portal.page.ess.ess.holiday_for_month",
             async: false,
             args: {
-                employee:"HR-EMP-00001"
+                employee:frappe.boot.employee
             },
             callback: function(r) {
                 console.log(r.message)
@@ -383,30 +382,22 @@ ESS = Class.extend({
     },
     // approvals list
     get_approvals_list: function(){
-        // frm.add_custom_button(__('Ledger'), function() {
+        console.log("appr")
+        // let find = document.querySelector('.approvals');
+        // let html =  frappe.render_template(`
+        // <button type="button" class="btn btn-danger" href="#/apps/leave-application">
+        // Leave Application <span class="badge badge-light">{{ open_la }}</span>
+        //                 <span class="sr-only">unread messages</span>
+        //             </button>`,{'open_la':2})
+        // let div = document.createElement('div');
+        // div.innerHTML = html;
+        // div.onclick = function(){
         //     frappe.route_options = {
-        //         "voucher_no": frm.doc.name,
-        //         "from_date": frm.doc.posting_date,
-        //         "to_date": frm.doc.posting_date,
-        //         "company": frm.doc.company,
-        //         "show_cancelled_entries": frm.doc.docstatus === 2
+        //         "status": "Open"
         //     };
-        //     frappe.set_route("query-report", "General Ledger");
-        // }, __('View'));
-        let find = document.querySelector('.approvals');
-        let html =  frappe.render_template(`<button type="button" class="btn btn-danger" href="#/apps/leave-application">
-                        Profile <span class="badge badge-light">{{ open_la }}</span>
-                        <span class="sr-only">unread messages</span>
-                    </button>`,{'open_la':2})
-        let div = document.createElement('div');
-        div.innerHTML = html;
-        div.onclick = function(){
-            frappe.route_options = {
-                "status": "Open"
-            };
-            frappe.set_route("Form", "Leave Application");
-            }
-        find.appendChild(div);
+        //     frappe.set_route("Form", "Leave Application");
+        //     }
+        // find.appendChild(div);
     },
     // timer function
     showTime: function(){
@@ -422,9 +413,11 @@ ESS = Class.extend({
             method: "frappe.desk.query_report.run",
             async: false,
             args: {
-                report_name:'Total Working Hours'
+                report_name:'Total Working Hours',
+                filters:{'employee':frappe.boot.employee}
             }
         }).then(r => {
+            console.log('Report')
             console.log(r.message.result)
             console.log(r)
             // columns = []

@@ -2,200 +2,115 @@
 
 <!-- main section -->
 <div class="">
-
-<!-- user profile info starts -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class=" bootstrap snippets bootdey frappe-card">
-<div class="row">
-  <div class="profile-nav col-md-3">
-      <div class="panel">
-          <div class="user-heading round">
-              <a href="#">
-                {% if image %}
-                <img class="avatar-frame" src="{{ image }}" />
-                {% else %}
-                    {% if gender=="Male" %}
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
-                    {% else %}
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
-                    {% endif %}
-                {% endif %}
-              </a>
-              <div class="overflow-auto">
-
-              <span>
-              <h4>{{ employee_name }}</h4>
-            </span></div>
-              <!-- <p>deydey@theEmail.com</p> -->
-          </div>
-
-          <ul class="nav nav-pills nav-stacked ">
-              <!-- <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
-              <li><a href="#"> <i class="fa fa-calendar"></i> Recent Activity <span class="label label-warning pull-right r-activity">9</span></a></li> -->
-              <li class="active"><a href="/app/employee/{{ employee }}"> <i class="fa fa-edit"></i> Edit profile</a></li>
-          </ul>
-      </div>
-  </div>
-  <div class="profile-info col-md-9">
-      <div class="panel hide">
-          <!-- <form>
-              <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
-          </form> -->
-          <footer class="panel-footer">
-              <button class="btn btn-warning pull-right">Post</button>
-              <ul class="nav nav-pills">
-                  <li>
-                      <a href="#"><i class="fa fa-map-marker"></i></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class="fa fa-camera"></i></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class=" fa fa-film"></i></a>
-                  </li>
-                  <li>
-                      <a href="#"><i class="fa fa-microphone"></i></a>
-                  </li>
-              </ul>
-          </footer>
-      </div>
-      <div class="panel">
-          <!-- <div class="bio-graph-heading">
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-          </div> -->
-          <div class="panel-body bio-graph-info">
-              <h1>Bio Graph</h1>
-              <div class="row">
-                    <div class="bio-row">
-                        <p><span><b>Employee Id</b></span> {{ name }}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Email</b></span> {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Designation</b></span>{% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Phone</b></span> {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Department</b></span> {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Birthday</b></span> {% if date_of_birth %}{{ date_of_birth }}{% else %}"No Date of Birt set"{% endif %}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Date of Joining</b></span> {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span><b>Reporting To</b></span> {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
-                    </div>
-              </div>
-          </div>
-      </div>
-      <div>
-          <div class="row hide">
-              <div class="col-md-6">
-                  <div class="panel">
-                      <div class="panel-body">
-                          <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="35" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                          </div>
-                          <div class="bio-desk">
-                              <h4 class="red">Envato Website</h4>
-                              <p>Started : 15 July</p>
-                              <p>Deadline : 15 August</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                  <div class="panel">
-                      <div class="panel-body">
-                          <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="63" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(76, 197, 205); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                          </div>
-                          <div class="bio-desk">
-                              <h4 class="terques">ThemeForest CMS </h4>
-                              <p>Started : 15 July</p>
-                              <p>Deadline : 15 August</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                  <div class="panel">
-                      <div class="panel-body">
-                          <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="75" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(150, 190, 75); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                          </div>
-                          <div class="bio-desk">
-                              <h4 class="green">VectorLab Portfolio</h4>
-                              <p>Started : 15 July</p>
-                              <p>Deadline : 15 August</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-6">
-                  <div class="panel">
-                      <div class="panel-body">
-                          <div class="bio-chart">
-                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="50" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;"></div>
-                          </div>
-                          <div class="bio-desk">
-                              <h4 class="purple">Adobe Muse Template</h4>
-                              <p>Started : 15 July</p>
-                              <p>Deadline : 15 August</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-</div>
-
-<!-- user profile info ends -->
-<!-- Dashboard -->
-<div class="frappe-card">
-    <div class="form-links">
-        <p>
-            <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              Connections
-            </button>
-          </p>
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body">
-                  <!-- SIDEBAR -->
-                <!-- <div class="container page-body">
-
-                    <ul class="menu">
-
-                        <li title="home"><a href="#" class="menu-button home">menu</a></li>
-
-                        <li title="search"><a href="#" class="search">search</a></li>
-                        <li title="pencil"><a href="#" class="pencil">pencil</a></li>
-                        <li title="about"><a href="#" class="active about">about</a></li>
-                        <li title="archive"><a href="#" class="archive">archive</a></li>
-                        <li title="contact"><a href="#" class="contact">contact</a></li>
-                    </ul>
-
-                    <ul class="menu-bar">
-                        <li><a href="#" class="menu-button">Menu</a></li>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Editorial</a></li>
-                        <li><a href="#">About</a></li>
-                    </ul>
-                </div> -->
-                <!-- SIDEBAR END-->
+<!-- sample card -->
+<div class="frappe-card border-dark card-deck">
+    <div class="card-deck ">
+        <!-- Image Card -->
+        <div class="card border-info col-12 col-md-4 col-sm-6" >
+            <img class="card-img-top" src="https://bootdey.com/img/Content/avatar/avatar7.png">
+            <div class="card-body">
+                <h4 class="card-title">{{ employee_name}}</h4>
             </div>
-          </div>
+        </div>
+        <!-- Image Card Ends -->
+        <!-- info and connect card -->
+        <span class="col-12 col-md-8">
+            <div class=" card border-danger" style="max-width: auto; max-height: fit-content;" >
+                <div class="card-body" style=" overflow-y: overlay;">
+                    <h4 class="card-title">Personal Information</h4>
+                    <!-- <div class="container"> -->
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Employee Id</b></span><div class="info">
+                                    {{ name }}</p>
+                                </div>
+                            </div>
+                                    
+                            </div>
+                            
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Email</b></span><div class="info">
+                                    {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}</p>                            </div>
+                                </div>
+                            </div>
+                                    
+                            
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Designation </b></span><div class="info">
+                                    {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>                            </div>
+                                </div>
+                            </div>
+                                    
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Phone </b></span><div class="info">
+                                    {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>                            </div>
+                                </div>
+                            </div>
+                                    
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Department </b></span><div class="info">
+                                    {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>                            </div>
+                                </div>
+                            </div>
+                                    
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Birthday </b></span><div class="info">
+                                    {% if date_of_birth %}{{ date_of_birth }}{% else %}"No Date of Birt set"{% endif %}</p>
+                                </div>
+                            </div>
+                                    
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Date of Joining </b></span><div class="info">
+                                    {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
+                                </div>
+                            </div>
+                                    
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                            <div class="box">
+                                <p><span><b>Reporting To </b></span><div class="info">
+                                    {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
+                                </div>
+                            </div>
+                                    
+                            </div>
+                        </div>
+                      <!-- </div> -->
+            </div>
+        </div>
+        <div class="profile-info card border-danger" style="max-height: auto; max-width: auto;" >
+            <div class="card-body">
+                <h4 class="card-title">Connections</h4>
+                <!-- info -->
+                <div class="row card-body">
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        {%if connections %}
+                            {% for c in connections %}
+                        <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
+                            <a class="btn btn-info" href="/app/List/{{c}}">{{ c }}</a>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- info ends -->
+            </div>
+        </div>
+
+    </span>
+    <!-- info and connect card -->
     </div>
 </div>
-<!-- Dashboard Ends -->
+<!-- sample card ends -->
+
 <div class="row " style="display: flex">
 	<div class="col-md-12">
         <!-- User Detials Section -->
@@ -248,22 +163,24 @@
         <div class="section-2">
             <div class="frappe-card chart-column-container heatmap-container">
                 <div class="card-deck">
-                    <!-- attendance buttons -->
-                    <div class="card text-center">
+                   <div class="row no-gutters">
+                    <div class="col-6 col-md-4 col-xs-12">
+                        <!-- attendance buttons -->
+                    <div class="card text-center ">
                         <div class="card-header">
                           Attendance
                         </div>
                         <div class="card-body" id="attendance">
-                          <h5 class="card-title">Mark your attendance</h5>
-                          <p class="card-text" id="attendance-text"><br></p>
+                          <!-- <h5 class="card-title">Mark your attendance</h5> -->
                           <button type="button" class="btn btn-success checkin" id="checkin" >Checkin</button>
                           <button type="button" class="btn btn-danger checkout" id="checkout" >Checkout</button>
                           <br>
                           <div class="p-3 mb-2 bg-light text-white">
-                            <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Work From Home">WFH</button>
+                              <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Work From Home">WFH</button>
                               <button type="button" class="btn btn-outline-warning" id = "attendance_" value="On Duty">On Duty</button>
                               <button type="button" class="btn btn-outline-danger" id = "attendance_" value="Absent">Absent</button>
-                          </div>
+                            </div>
+                            <p class="card-text" id="attendance-text"><br></p>
                           <!-- <a href="#" class="btn btn-success checkin">Checkin</a>
                           <a href="#" class="btn btn-danger checkout">Checkout</a> -->
                         </div>
@@ -272,7 +189,34 @@
                             <div id="MyClockDisplay" class="clock" ></div>
                         </div>
                     </div>
-                    <!-- attendance buttons ends-->
+                    <!-- attendance buttons ends--> 
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-8 col-xs-12">
+                         <!-- leave report -->
+                    <div class="card text-center ">
+                        <div class="card-header">
+                            Attendance Report
+                          </div>
+                          <div class="card-body report-container">
+
+                          </div>
+                          <div class="card-footer text-muted">
+                          Updated 2 days ago
+                          </div>
+                    </div>
+                    <!-- leave report ends-->
+                    </div>
+                  </div>
+                   
+
+                  </div>
+            </div>
+        </div>
+        <!-- Attendance Ends -->        
+        <!-- Report Section -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container">
+                <div class="card-deck">
                     <!-- Leave Balance -->
                     <div class="card text-center">
                         <div class="card-header">
@@ -304,10 +248,21 @@
                         </div> -->
                     </div>
                       <!-- Holidays for Month End-->
-                  </div>
+                    <div class="card text-center ">
+                        <div class="card-header">
+                            Attendance
+                          </div>
+                          <div class="card-body report-container">
+
+                          </div>
+                          <div class="card-footer text-muted">
+                          Updated 2 days ago
+                          </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- Attendance Ends -->
+        <!-- Report Section Ends -->
         <!-- section 3 -->
         <div class="section-2">
             <div class="frappe-card chart-column-container heatmap-container">
@@ -330,28 +285,17 @@
                         <div class="card-header">
                           Pending Actions
                         </div>
-                        <div class="card-body approvals holiday">
+                        <div class="card-body  ">
 
                           <h5 class="card-title">Leave Approvals</h5>
-                          <p class="card-text">
-                            <!-- <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Docuemnt</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>Leave</td>
-                                    <td>LEAVE-001</td>
-                                  </tr>
-                                  <tr>
-                                    <td>Expense</td>
-                                    <td>EXP-001</td>
-                                  </tr>
-                                </tbody>
-                            </table> -->
+                          <p class="card-text approvals">
+                            <div class="row card-body">
+                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                    {%if approvals %}
+                                   
+                                    {% endif %}
+                                </div>
+                            </div>
                           </p>
                         </div>
                         <div class="card-footer text-muted">
@@ -376,36 +320,7 @@
             </div>
         </div>
         <!-- section 3 ends -->
-        <!-- Report Section -->
-        <div class="section-2">
-            <div class="frappe-card chart-column-container heatmap-container">
-                <div class="card-deck">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            Attendance
-                          </div>
-                          <div class="card-body report-container">
 
-                          </div>
-                          <div class="card-footer text-muted">
-                          Updated 2 days ago
-                          </div>
-                    </div>
-                    <div class="card text-center ">
-                        <div class="card-header">
-                            Attendance
-                          </div>
-                          <div class="card-body report-container">
-
-                          </div>
-                          <div class="card-footer text-muted">
-                          Updated 2 days ago
-                          </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Report Section Ends -->
 	</div>
 </div>
 </div>

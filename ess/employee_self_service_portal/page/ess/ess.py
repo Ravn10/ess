@@ -8,10 +8,18 @@ def get_employee_details(employee):
         emp_details = frappe.db.sql('''select * from `tabEmployee` where name =%s ''',employee,as_dict=True)[0]
         # get employee leave balances
         # get holidays for this month
-
+        emp_details.connections = get_connections(employee)
+        emp_details.approvals = get_approval_doc()
         return emp_details
     else:
         return []
+
+def get_connections(employee):
+    connections = []
+    _connections = frappe.db.get_all('Global Search DocType',filters={'parent':'ESS Portal Setting'},fields=['document_type'])
+    if _connections:
+        connections = [list(x.values())[0] for x in _connections]
+    return connections
 
 @frappe.whitelist()
 def checkin(employee,log_type):
@@ -153,3 +161,10 @@ def on_login():
     # else:
     #     frappe.msgprint("Couldn't Get your name")
 
+@frappe.whitelist()
+def get_approval_doc():
+    approvals = []
+    leave_applications = len(frappe.db.get_all("Leave Application",filters={'leave_approver':frappe.session.user,'status':'Open'}))
+    todo = len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
+    claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
+    return {"Leave Application":leave_applications,"ToDo":todo,"Expense Clain":claim}

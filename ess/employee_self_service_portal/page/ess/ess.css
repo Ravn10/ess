@@ -1,4 +1,9 @@
 /* css for profile card */
+b, strong {
+    font-weight: bolder;
+    color: crimson;
+}
+
 body {
     color: #797979;
     background: #f1f2f7;
@@ -17,7 +22,7 @@ body {
 }
 
 .profile-nav .user-heading {
-    background: rgb(238, 77, 77);
+    /* background: rgb(238, 77, 77); */
     color: #fff;
     box-shadow: white;
     border-radius: 4px 4px 0 0;
