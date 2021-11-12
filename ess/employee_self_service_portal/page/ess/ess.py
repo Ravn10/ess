@@ -8,6 +8,9 @@ def get_employee_details(employee):
         emp_details = frappe.db.sql('''select * from `tabEmployee` where name =%s ''',employee,as_dict=True)[0]
         # get employee leave balances
         # get holidays for this month
+        emp_details.is_hr = frappe.db.get_value("Designation",emp_details.designation,'hr')
+        if emp_details.is_hr:
+            emp_details.admin_section = get_hr_admin_data()
         emp_details.connections = get_connections(employee)
         emp_details.approvals = get_approval_doc()
         return emp_details
@@ -168,3 +171,20 @@ def get_approval_doc():
     todo = len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
     claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
     return {"Leave Application":leave_applications,"ToDo":todo,"Expense Claim":claim}
+
+@frappe.whitelist()
+def get_hr_admin_data():
+    head_count = frappe.db.count('Employee',{"status":"Active"})
+    new_joiners =frappe.db.count('Job Applicant',{"status":"Accepted"})
+    exits = frappe.db.sql('''select count(*) as count from `tabEmployee Separation` where boarding_status in ("Pending","In Process")''',as_dict=True)[0]['count'] #frappe.db.count('Employee Separation',{"status":["in",["Pending","In Process"]]})
+    present = frappe.db.count('Attendance',{"status":"Present","attendance_date":frappe.utils.get_datetime().date()})
+    on_leave = frappe.db.count('Attendance',{"status":"On Leave","attendance_date":frappe.utils.get_datetime().date()})
+    on_duty = frappe.db.count('Attendance',{"status":"Work From Home","attendance_date":frappe.utils.get_datetime().date()})
+    return {
+                "head_count" : head_count,
+                "new_joiners" : new_joiners,
+                "exits" : exits,
+                "present" : present,
+                "on_leave" : on_leave,
+                "on_duty" : on_duty
+            }

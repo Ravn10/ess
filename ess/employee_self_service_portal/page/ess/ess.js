@@ -263,7 +263,7 @@ ESS = Class.extend({
                 args:{"employee":frappe.boot.employee,"log_type":"IN"}
             }).then(r => {
                 console.log(r)
-                let find = document.querySelector('#attendance-text');
+                let find = document.querySelector('#in-attendance-text');
                 let html = r.message;
                 let div = document.createElement('div');
                 div.innerHTML = html;
@@ -281,7 +281,7 @@ ESS = Class.extend({
                 args:{"employee":frappe.boot.employee,"log_type":"OUT"}
             }).then(r => {
                 console.log(r)
-                let find = document.querySelector('#attendance-text');
+                let find = document.querySelector('#out-attendance-text');
                 let html = r.message;
                 let div = document.createElement('div');
                 div.innerHTML = html;
@@ -302,8 +302,8 @@ ESS = Class.extend({
                 console.log('checkin')
                 console.log(r.message['checkin'])
                 if (r.message['checkin']){
-                    let find = document.querySelector('#attendance-text');
-                    let html = '<b>Checkin</b>'
+                    let find = document.querySelector('#in-attendance-text');
+                    let html = ''//'<b>Checkin</b>'
                     r.message['checkin'].forEach(element => {
                         html+="<br>"+element['name']
                     });
@@ -314,8 +314,8 @@ ESS = Class.extend({
                     // document.getElementById("checkin").disabled = true;
                 }
                 if(r.message['checkout']){
-                    let find = document.querySelector('#attendance-text');
-                    let html = '<b>Checkout</b>'
+                    let find = document.querySelector('#out-attendance-text');
+                    let html = ''//'<b>Checkout</b>'
                     r.message['checkout'].forEach(element => {
                         html+="<br>"+element['name']
                     });
@@ -397,8 +397,8 @@ ESS = Class.extend({
         //         for (const [key, value] of Object.entries(r.message)) {
         //         console.log(key, value);
         //         html + =  frappe.render_template(template,({%= key %}, {%= value %}))
-               
-        //         } 
+
+        //         }
         //         let div = document.createElement('div');
         //         div.innerHTML = html;
         //         div.onclick = function(){

@@ -1,4 +1,258 @@
+/* slant profile */
+.name{
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+.profile-header{
+    position: relative;
+    height: 220px;
+    background-size: cover;
+    background-position: top;
+  }
+  .profile-header:after{
+    content:'';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgb(5,85,134), rgba(181,181,181, 0.1));
+  }
+
+  .card-header-bar{
+    position: absolute;
+    top:0;
+    width: 100%;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .sr-only{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip: rect(0,0,0,0);
+    border: none;
+    overflow: hidden;
+  }
+  .btn-message{
+    display: inline-block;
+    background: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077483/profile-card/images/message.svg) no-repeat;
+    width: 19.37px;
+    height: 16.99px;
+    margin-right:10px;
+    margin-top:10px;
+    float: right;
+  }
+  .btn-menu{
+    display: inline-block;
+    background: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077483/profile-card/images/menu.svg) no-repeat;
+    width: 19px;
+    height: 12.16px;
+    margin-left:10px;
+    margin-top:10px;
+    float: left;
+  }
+
+  svg .polygon{
+    fill: #fff;
+  }
+  .card-header-slanted-edge{
+    position: absolute;
+    bottom: -3px;
+    z-index: 1;
+    width: 100%;
+    right:0;
+    left:0;
+  }
+
+  .btn-follow{
+    position: absolute;
+    top: -15px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(to left, #2D77C1, #68FAC2);
+    border-radius:100%;
+    box-shadow: 0 10px 15px rgba(110,221,235, .53);
+  }
+
+  .btn-follow:after{
+    content: '';
+    position:absolute;
+    background: url(https://res.cloudinary.com/dj14cmwoz/image/upload/v1491077480/profile-card/images/add.svg) no-repeat;
+    width:17px;
+    height: 17px;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .card-body{
+    text-align:center;
+    /* padding-left: 10px; */
+  }
+
+  .name{
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0 auto;
+  }
+
+  .job-title{
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 5px;
+    color: #919191;
+  }
+
+  .bio{
+    font-size: 14px;
+    color: #7B7B7B;
+    font-weight: 300;
+    margin: 10px auto;
+    line-height: 20px;
+  }
+
+
+  .profile-card-footer{
+    /*position:fixed; /* Full card width/height */
+    position: absolute; /* Fixed card width/height */
+
+    left: 0;
+    width: 100%;
+    bottom: 20px;
+  }
+  .stat{
+    box-sizing: border-box;
+    width: calc(100% / 3);
+    float: left;
+    text-align: center;
+    border-left: 1px solid #EBEBEB;
+  }
+  .stat .label{
+    display: block;
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #95989A;
+  }
+
+  .stat .value{
+    display: block;
+    font-weight: 700;
+    font-size:20px;
+    margin-top: 5px;
+  }
+
+/* slant profile end */
+/* profile card */
+
+
+  .our-team {
+    padding: 30px 0 0px;
+    margin-bottom: 30px;
+    /* background-color: #f7f5ec; */
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .our-team .picture {
+    display: inline-block;
+    /* height: 130px;
+    width: 130px; */
+    margin-bottom: 30px;
+    z-index: 1;
+    position: relative;
+  }
+
+  .our-team .picture::before {
+    content: "";
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: 135%;
+    right: 0;
+    left: 0;
+    opacity: 0.9;
+    transform: scale(3);
+    transition: all 0.3s linear 0s;
+  }
+
+  /* .our-team:hover .picture::before {
+    height: 100%;
+  } */
+
+  /* .our-team .picture::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1369ce;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  } */
+
+  .our-team .picture img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+  }
+
+  .our-team:hover .picture img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+  }
+
+  .our-team .title {
+    display: block;
+    font-size: 15px;
+    color: #4e5052;
+    text-transform: capitalize;
+  }
+
+  .our-team .social {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #1369ce;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+  }
+
+  .our-team:hover .social {
+    bottom: 0;
+  }
+
+  .our-team .social li {
+    display: inline-block;
+  }
+
+  .our-team .social li a {
+    display: block;
+    padding: 10px;
+    font-size: 17px;
+    color: white;
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+  }
+
+  .our-team .social li a:hover {
+    color: #1369ce;
+    background-color: #f7f5ec;
+  }
+
 /* css for profile card */
+
 b, strong {
     font-weight: bolder;
     color: crimson;
