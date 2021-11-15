@@ -1,3 +1,6 @@
+.report-summary .summary-item{
+    margin:0  !important;
+}
 /* slant profile */
 .name{
     justify-content: space-evenly;
