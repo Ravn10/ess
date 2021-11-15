@@ -1,6 +1,7 @@
 import frappe
 from frappe.utils import get_link_to_form, now_datetime, nowdate, get_first_day, get_last_day
 from frappe import _
+from erpnext.hr.doctype.upload_attendance.upload_attendance import get_active_employees
 
 @frappe.whitelist()
 def get_employee_details(employee):
@@ -144,7 +145,12 @@ def get_employee_on_leave_this_month():
         data['from'] = data['from_date'].day
         data['to'] = data['to_date'].day
     list(map(get_day,leave_info))
-    return leave_info
+    absent_today = frappe.db.get_all("Attendance",filters={'status':"Absent",'attendance_date':frappe.utils.get_datetime().date()},fields=['employee_name'])
+    employee = get_active_employees()
+    for emp in employee:
+        if frappe.db.count('Attendance',filters={'employee':emp.name,'attendance_date':frappe.utils.get_datetime().date()}) == 0:
+            absent_today.append({'employee_name':emp.employee_name,})
+    return leave_info, absent_today
 
 def on_login():
     # frappe.msgprint(_(frappe.session.user))

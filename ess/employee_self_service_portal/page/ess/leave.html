@@ -1,15 +1,15 @@
 <p class="card-text ">
-    {% if not jQuery.isEmptyObject(data) %}
+    {% if not jQuery.isEmptyObject(leave_data) %}
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Employee</th>
+                <th scope="col">Employee on Leave This Month</th>
                 <th scope="col">Leave From</th>
                 <th scope="col">To</th>
             </tr>
         </thead>
         <tbody>
-            {% for(const [key, value] of Object.entries(data)) { %}
+            {% for(const [key, value] of Object.entries(leave_data)) { %}
             <tr>
                 <td class="text-centre"> {%= value["employee_name"] %} </td>
                 <td class="text-centre"> {%= value["from"] %} </td>
@@ -21,4 +21,21 @@
     {% else %}
      No Leaves this month.
     {% endif %}
-</p>
+    {% if not jQuery.isEmptyObject(absent_data) %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Absent Employee Today</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for(const [key, value] of Object.entries(absent_data)) { %}
+            <tr>
+                <td class="text-centre"> {%= value["employee_name"] %} </td>
+            </tr>
+            {% } %}
+        </tbody>
+    </table>
+    {% else %}
+     No Leaves this month.
+    {% endif %}

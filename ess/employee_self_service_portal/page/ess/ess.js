@@ -374,8 +374,10 @@ ESS = Class.extend({
         frappe.call({
             method:"ess.employee_self_service_portal.page.ess.ess.get_employee_on_leave_this_month"
         }).then(r => {
+            console.log("Leave Section")
+            console.log(r.message)
             let find = document.querySelector('.onleave');
-            let html = frappe.render_template('leave',{'data':r.message});
+            let html = frappe.render_template('leave',{'leave_data':r.message[0],'absent_data':r.message[1]});
             let div = document.createElement('div');
             div.innerHTML = html;
             find.appendChild(div);
