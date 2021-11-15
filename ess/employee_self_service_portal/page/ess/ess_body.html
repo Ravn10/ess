@@ -7,109 +7,109 @@
 	<div class="col-md-12">
         <div class="section-2">
             <div class="frappe-card border-dark card-deck">
-                <div class="card-deck ">
+                <div class="border-dark ">
                     <!-- Image Card -->
                     <!--  -->
-                    <div class="card border-dark col-12 col-md-4 col-sm-6">
-                        <div class="container">
-                            <div class="col-md-4px-0">
-                                <img class="card-img-top" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="card-body">
-                          <h5 class="card-title">
-                            <a class="btn btn-outline-info " href="/app/employee/{{frappe.boot.employee}}">
-                            <h3 class=" border-dark text-center name" style="padding: 10px; ">{{ employee_name}}</h3></a>
-                          </h5>
-                        </div>
-                        <!-- <div class="card-footer">Last updated 3 mins ago</div> -->
-                      </div>
-                    <!--  -->
-                    <div class=" hidden card border-info col-12 col-md-4 col-sm-6" >
+                    <div class="card border-dark">
+                        <div class="row gutters-sm">
+                            <!-- image card  -->
+                            <div class="col-md-2 mb-3">
+                                <div class="">
+                                    <div class="card-body" style="max-height:fit-content !important">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            {% if image%}
+                                            <img class="rounded-circle" src="{{image}}" alt="{{ employee_name }}" width="150" />
+                                            {% else %}
+                                            <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="{{ employee_name }}" width="150" />
+                                            {% endif %}
+                                            <div class="mt-3">
+                                                <div class="row">
+                                                    <span class="btn-label">
+                                                        <a href="/app/employee/{{frappe.boot.employee}}"> <i class="fa fa-edit fa-2x"></i></a>
+                                                    </span>
+                                                    <h3>{{ employee_name }}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="card-title">
-                            <h3 class="card border-dark text-center name" style="padding: 10px; margin-top: revert;">{{ employee_name}}</h3>
-                        </div>
-                        <!-- <div class="ess_avatar standard-image"> -->
-                            {% if image%}
-                            <img class="img-fluid card-img-top" src="{{image}}">
-                            {% else %}
-                            <img class="img-fluid card-img-top" src="https://bootdey.com/img/Content/avatar/avatar7.png">
-                            {% endif %}
-                        <!-- </div> -->
-                        <div class="card-footer">
-                            <!-- <h4 class="card-title">{{ employee_name}}</h4> -->
-                            <a class="btn btn-outline-info " href="/app/employee/{{frappe.boot.employee}}">Edit Profile</a>
+                            </div>
+                            <!-- image card ends -->
+                            <!-- personal info card -->
+                            <div class="col-md-10">
+                                <div class=" " style="max-width: auto; max-height: fit-content;" >
+                                    <div class="card-body" style=" overflow-y: overlay;">
+                                        <h4 class="card-title">Personal Information</h4>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="box">
+                                                <p><span><b>Employee Id </b></span>{{ name }}
+                                                    </p>
+                                            </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="box">
+                                                <p><span><b>Email </b>
+                                                    {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}
+                                                    </span>
+                                                </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="box">
+                                                <p><span><b>Designation </b></span>
+                                                    {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="box">
+                                                <p><span><b>Phone </b></span>
+                                                    {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="box">
+                                                <p><span><b>Department </b></span>
+                                                    {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="box">
+                                                <p><span><b>Birthday </b></span>
+                                                    {% if date_of_birth %}{{ date_of_birth }}{% else %}"No Date of Birt set"{% endif %}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-4">
+                                                <div class="box">
+                                                    <p><span><b>Date of Joining </b></span>
+                                                    {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12 col-sm-4">
+                                                <div class="box">
+                                                    <p><span><b>Reporting To </b></span>
+                                                    {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- personal info card ends-->
                         </div>
                     </div>
+                    <!--  -->
                     <!-- Image Card Ends -->
                     <!-- info and connect card -->
                     <span class="col-12 col-md-8">
-                        <div class=" card border-danger" style="max-width: auto; max-height: fit-content;" >
-                            <div class="card-body" style=" overflow-y: overlay;">
-                                <h4 class="card-title">Personal Information</h4>
-                                <!-- <div class="container"> -->
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-4">
-                                        <div class="box">
-                                            <p><span><b>Employee Id </b></span>{{ name }}
-                                                </p>
-                                        </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-4">
-                                        <div class="box">
-                                            <p><span><b>Email </b>
-                                                {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}
-                                                </span>
-                                            </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
-                                        <div class="box">
-                                            <p><span><b>Designation </b></span>
-                                                {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-4">
-                                        <div class="box">
-                                            <p><span><b>Phone </b></span>
-                                                {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-4">
-                                        <div class="box">
-                                            <p><span><b>Department </b></span>
-                                                {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-sm-4">
-                                        <div class="box">
-                                            <p><span><b>Birthday </b></span>
-                                                {% if date_of_birth %}{{ date_of_birth }}{% else %}"No Date of Birt set"{% endif %}</p>
-                                            </div>
-                                        </div>
-
-                                        </div>
-                                        <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
-                                                <p><span><b>Date of Joining </b></span>
-                                                {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
-                                            </div>
-                                        </div>
-
-                                        </div>
-                                        <!-- <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
-                                                <p><span><b>Reporting To </b></span>
-                                                {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
-                                            </div>
-                                        </div> -->
-
-                        </div>
                     <div class="profile-info card border-danger" style="max-height: auto; max-width: auto;" >
                         <div class="card-body">
                             <h4 class="card-title">Modules</h4>
@@ -182,67 +182,32 @@
                         HR Section
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col stats">
-                                <div class="counting" style="font-size: large; color:cadetblue"> <u>{{ admin_section.head_count }}</u></div>
-                                <h5>Head Count</h5>
+                        <div class="report-summary" >
+                            <div class="summary-item">
+                                <span class="summary-label">Present</span>
+                                <div class="summary-value green">{{ admin_section.present }}</div>
                             </div>
-                            <div class="col stats">
-                                <div class="counting" style="font-size: large; color:cadetblue"> <u>{{ admin_section.new_joiners }}</u></div>
-                                <h5>New Joinee</h5>
+                            <div class="summary-item">
+                                <span class="summary-label">On Duty</span>
+                                <div class="summary-value green">{{ admin_section.on_duty }}</div>
                             </div>
-                            <div class="col stats">
-                                <div class="counting" style="font-size: large; color:cadetblue"> <u>{{ admin_section.exits }}</u></div>
-                                <h5>Exits</h5>
+                            <div class="summary-item">
+                                <span class="summary-label">on_leave</span>
+                                <div class="summary-value red">{{ admin_section.on_leave }}</div>
                             </div>
-                            <div class="col stats">
-                                <div class="counting" style="font-size: large; color:cadetblue"> <u>{{ admin_section.present }}</u></div>
-                                <h5>Present</h5>
+                            <div class="summary-item">
+                                <span class="summary-label">Total Head Count</span>
+                                <div class="summary-value ">{{ admin_section.head_count }}</div>
                             </div>
-                            <div class="col stats">
-                                <div class="counting" style="font-size: large; color:cadetblue"> <u>{{ admin_section.on_leave }}</u></div>
-                                <h5>On Leave</h5>
+                            <div class="summary-item">
+                                <span class="summary-label">New Joiners</span>
+                                <div class="summary-value blue">{{ admin_section.new_joiners }}</div>
                             </div>
-                            <div class="col stats">
-                                <div class="counting" style="font-size: large; color:cadetblue"> <u>{{ admin_section.on_duty }}</u></div>
-                                <h5>On Duty</h5>
+                            <div class="summary-item">
+                                <span class="summary-label">Exits</span>
+                                <div class="summary-value red">{{ admin_section.exits }}</div>
                             </div>
-                            <!-- <div class="col">
-                                <div>
-                                    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
-                                        <a class="btn btn-danger">New Joinee <span class="badge badge-light">  <u>{{ admin_section.now_joiners }}</u></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
-                                        <a class="btn btn-danger">Exits <span class="badge badge-light"> {{ admin_section.exits }}</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
-                                        <a class="btn btn-danger">Present <span class="badge badge-light"> {{ admin_section.present }}</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
-                                        <a class="btn btn-danger">On Leave <span class="badge badge-light"> {{ admin_section.on_leave }}</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div>
-                                    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
-                                        <a class="btn btn-danger">On Duty <span class="badge badge-light"> {{ admin_section.on_duty }}</span></a>
-                                    </div>
-                                </div>
-                            </div> -->
-                          </div>
+                        </div>
                     </div>
                     <div class="card-footer text-muted">
 
