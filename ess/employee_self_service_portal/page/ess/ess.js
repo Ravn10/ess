@@ -193,13 +193,16 @@ ESS = Class.extend({
                 this.get_checkin()
                 this.loadReport()
                 this.loadLeaveAnalyticsReport()
-                this.checkin()
-                this.checkout()
+                this.custom_checkin()
+                this.custom_checkout()
+                // this.checkin()
+                // this.checkout()
                 setInterval(() => {
                     this.showTime()
                     frappe.datetime.refresh_when();
                 }, 1000);
                 // this.get_approvals_list()
+                this.get_modules_and_reoports_list()
                 this.get_balance_leaves()
                 this.bind_events()
                 this.get_holiday_list()
@@ -212,6 +215,32 @@ ESS = Class.extend({
         })
     },
 
+    // Get Modules and reports
+    get_modules_and_reoports_list: function(){
+        frappe.call({
+            method: "ess.employee_self_service_portal.page.ess.ess.get_connections",
+            async: false,
+            args: {
+                employee:frappe.boot.employee
+            },
+            callback: function(r) {
+                console.log(r.message)
+                var doctypes = []
+                if(r.message[0]){
+                    r.message[0].forEach(dt => {
+                        if(frappe.model.can_read(dt)){
+                            doctypes.push(dt)
+                        }
+                    })
+                }
+                let find = document.querySelector('.modules-reports');
+                let html = frappe.render_template('ess_modules_reports',{'doctypes':doctypes,'reports':r.message[1]});
+                let div = document.createElement('div');
+                div.innerHTML = html;
+                find.appendChild(div);
+            }
+        });
+    },
     // Get Holiday List
     get_holiday_list: function(){
         frappe.call({
@@ -272,7 +301,56 @@ ESS = Class.extend({
             })
           });
     },
+    custom_checkin: function(){
+        document.querySelector('.checkin').addEventListener("click", function() {
+            let dialog = new frappe.ui.Dialog({
+                title: __("CheckIn From"),
+                fields: [
+                    {
+                        fieldname: 'office',
+                        label: __('From Office'),
+                        fieldtype: 'Check',
+                    },
+                    {
+                        fieldtype: "Column Break",
+                        fieldname: "cb",
+                    },
+                    {
+                        label: __("From Home"),
+                        fieldtype: "Check",
+                        fieldname: "home",
+                    },
+                    {
+                        label: __("My Location"),
+                        fieldtype: "Geolocation",
+                        fieldname: "location",
+                    },
 
+                ],
+                primary_action(data)  {
+                    console.log('dttt '+dialog.fields_dict.office + ' ho '+dialog.fields_dict.home);
+                    frappe.call({
+                        method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
+                        args: {
+                            data: data
+                        },
+                        callback: function(r) {
+                            if (r.message === 1) {
+                                frappe.show_alert({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
+                                cur_dialog.hide();
+                            }
+                        }
+                    });
+                    dialog.hide();
+                    list_view.refresh();
+                },
+                primary_action_label: __('CheckIn')
+
+            });
+            dialog.show();
+
+        })
+    },
     checkout: function(){
         document.querySelector('.checkout').addEventListener("click", function() {
             console.log("Check Out")
@@ -288,6 +366,49 @@ ESS = Class.extend({
                 find.appendChild(div);
                 document.getElementById("checkout").disabled = true;
             })
+          });
+    },
+    custom_checkout: function(){
+        document.querySelector('.checkout').addEventListener("click", function() {
+            console.log("Check Out")
+            let dialog = new frappe.ui.Dialog({
+				title: __("CheckOut From"),
+				fields: [
+					{
+						fieldname: 'office',
+						label: __('From Office'),
+						fieldtype: 'Check',
+					},
+					{
+						fieldtype: "Column Break",
+						fieldname: "cb",
+					},
+					{
+						label: __("From Home"),
+						fieldtype: "Check",
+						fieldname: "home",
+					},
+				],
+				primary_action(data)  {
+					frappe.call({
+						method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
+						args: {
+							data: data
+						},
+						callback: function(r) {
+							if (r.message === 1) {
+								frappe.show_alert({message: __("Thank You!!!"), indicator: 'blue'});
+								cur_dialog.hide();
+							}
+						}
+					});
+					dialog.hide();
+					list_view.refresh();
+				},
+				primary_action_label: __('CheckOut')
+
+			});
+			dialog.show();
           });
     },
 

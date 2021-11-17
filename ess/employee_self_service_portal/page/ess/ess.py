@@ -12,18 +12,23 @@ def get_employee_details(employee):
         emp_details.is_hr = frappe.db.get_value("Designation",emp_details.designation,'hr')
         if emp_details.is_hr:
             emp_details.admin_section = get_hr_admin_data()
-        emp_details.connections = get_connections(employee)
+        emp_details.connections, emp_details.reports = get_connections(employee)
         emp_details.approvals = get_approval_doc()
         return emp_details
     else:
         return []
 
+@frappe.whitelist()
 def get_connections(employee):
     connections = []
+    reports = []
     _connections = frappe.db.get_all('Global Search DocType',filters={'parent':'ESS Portal Setting'},fields=['document_type'])
+    _reports = frappe.db.get_all('Report Link',filters={'parent':'ESS Portal Setting'},fields=['report'])
     if _connections:
         connections = [list(x.values())[0] for x in _connections]
-    return connections
+    if _reports:
+        reports = [list(x.values())[0] for x in _reports]
+    return connections, reports
 
 @frappe.whitelist()
 def checkin(employee,log_type):

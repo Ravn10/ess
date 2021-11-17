@@ -1,6 +1,10 @@
 .report-summary .summary-item{
     margin:0  !important;
 }
+.custom-header{
+    background-color: transparent !important;
+    border-bottom: white !important;
+}
 /* slant profile */
 .name{
     justify-content: space-evenly;

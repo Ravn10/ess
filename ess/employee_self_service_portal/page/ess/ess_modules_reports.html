@@ -1,0 +1,16 @@
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    {%if doctypes %}
+        {% for c in doctypes %}
+    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
+        <a class="btn btn-warning" href="/app/List/{{c}}">{{ c }}</a>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {%if reports %}
+        {% for report in reports %}
+    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
+        <a class="btn btn-danger" href="/app/query-report/{{report}}">{{ report }}</a>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>

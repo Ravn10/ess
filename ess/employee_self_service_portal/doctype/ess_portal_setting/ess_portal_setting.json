@@ -7,7 +7,8 @@
  "engine": "InnoDB",
  "field_order": [
   "enable",
-  "doctype_link"
+  "doctype_link",
+  "report_link"
  ],
  "fields": [
   {
@@ -21,12 +22,18 @@
    "fieldtype": "Table",
    "label": "DocType Link",
    "options": "Global Search DocType"
+  },
+  {
+   "fieldname": "report_link",
+   "fieldtype": "Table",
+   "label": "Report Link",
+   "options": "Report Link"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2021-11-05 15:09:26.602422",
+ "modified": "2021-11-17 08:53:55.991864",
  "modified_by": "Administrator",
  "module": "Employee Self Service Portal",
  "name": "ESS Portal Setting",

@@ -39,18 +39,21 @@
                             <!-- personal info card -->
                             <div class="col-md-10">
                                 <div class=" " style="max-width: auto; max-height: fit-content;" >
+                                    <div class="card-header custom-header text-center">
+                                        <h4 class="card-title btn border border-primary font-weight-bold">Personal Information</h4>
+
+                                    </div>
                                     <div class="card-body" style=" overflow-y: overlay;">
-                                        <h4 class="card-title">Personal Information</h4>
-                                        <div class="row">
+                                        <div class="row text-justify" style="padding: inherit;">
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
+                                            <div class="box align-self-start">
                                                 <p><span><b>Employee Id </b></span>{{ name }}
                                                     </p>
                                             </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
+                                            <div class="box align-self-start">
                                                 <p><span><b>Email </b>
                                                     {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}
                                                     </span>
@@ -58,42 +61,42 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
+                                            <div class="box align-self-start">
                                                 <p><span><b>Designation </b></span>
                                                     {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
+                                            <div class="box align-self-start">
                                                 <p><span><b>Phone </b></span>
                                                     {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
+                                            <div class="box align-self-start">
                                                 <p><span><b>Department </b></span>
                                                     {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box">
+                                            <div class="box align-self-start">
                                                 <p><span><b>Birthday </b></span>
                                                     {% if date_of_birth %}{{ date_of_birth }}{% else %}"No Date of Birt set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                                <div class="box">
+                                                <div class="box align-self-start">
                                                     <p><span><b>Date of Joining </b></span>
                                                     {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                                <div class="box">
+                                                <div class="box align-self-start">
                                                     <p><span><b>Reporting To </b></span>
                                                     {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
                                                 </div>
@@ -111,19 +114,15 @@
                     <!-- info and connect card -->
                     <span class="col-12 col-md-8">
                     <div class="profile-info card border-danger" style="max-height: auto; max-width: auto;" >
+                        <div class="card-header custom-header text-center">
+                            <h4 class="card-title btn border border-primary font-weight-bold">Modules and Reports</h4>
+
+                        </div>
                         <div class="card-body">
-                            <h4 class="card-title">Modules</h4>
+                            <!-- <h4 class="card-title btn border border-primary">Modules and Reports</h4> -->
                             <!-- info -->
-                            <div class="row card-body">
-                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                    {%if connections %}
-                                        {% for c in connections %}
-                                    <div class="btn-group  card-title mr-2" role="group" aria-label="First group">
-                                        <a class="btn btn-info" href="/app/List/{{c}}">{{ c }}</a>
-                                    </div>
-                                    {% endfor %}
-                                    {% endif %}
-                                </div>
+                            <div class="row card-body modules-reports">
+                                <!-- rendered from template -->
                             </div>
                             <!-- info ends -->
                         </div>
@@ -178,8 +177,11 @@
                 </div> -->
                 <!-- end -->
                 <div class="card border-secondary text-center">
-                    <div class="card-header">
-                        HR Section
+                    <div class="card-header custom-header">
+                        <div class="btn border border-primary font-weight-bold">
+
+                            HR Section
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="report-summary" >
@@ -276,8 +278,11 @@
                     <div class="col-6 col-md-4 col-xs-12">
                         <!-- attendance buttons -->
                     <div class="card border-secondary text-center ">
-                        <div class="card-header">
-                          Attendance
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Attendance
+                            </div>
                         </div>
                         <div class="card-body" id="attendance">
                             <!--  -->
@@ -312,8 +317,11 @@
                     <div class="col-12 col-sm-6 col-md-8 col-xs-12">
                          <!-- leave report -->
                     <div class="card border-secondary text-center ">
-                        <div class="card-header">
-                            Leave Report
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Leave Report
+                            </div>
                           </div>
                           <div class="card-body report-container">
 
@@ -337,8 +345,11 @@
                 <div class="card-deck">
                     <!-- Leave Balance -->
                     <div class="card border-secondary text-center">
-                        <div class="card-header">
-                            Leave Balance
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Leave Balance
+                            </div>
                         </div>
                         <div class="card-body">
                           <!-- <h5 class="card-title">Mark your attendance</h5> -->
@@ -353,8 +364,11 @@
                     <!-- Leave Balance ends-->
                     <!-- Attendance report  -->
                     <div class="card border-secondary text-center ">
-                        <div class="card-header">
-                            Leave Report
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Leave Report
+                            </div>
                           </div>
                           <div class="card-body leave-report-container">
 
@@ -366,8 +380,11 @@
                     <!-- Attendance report ends -->
                     <!-- Holidays for Month -->
                     <div class="card border-secondary text-center">
-                        <div class="card-header">
-                          Team Members On Leave
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Team Members On Leave
+                            </div>
                         </div>
                         <div class="card-body onleave">
 
@@ -387,8 +404,11 @@
                 <div class="card-deck">
                     <!-- attendance buttons -->
                     <div class="card border-secondary text-center">
-                        <div class="card-header">
-                          Birthday For the Month
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Birthday For the Month
+                            </div>
                         </div>
                         <div class="card-body birthday">
 
@@ -400,8 +420,11 @@
                     <!-- attendance buttons ends-->
                     <!-- Holidays for Month -->
                     <div class="card border-secondary text-center">
-                        <div class="card-header">
-                          Holidays For the Month
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Holidays For the Month
+                            </div>
                         </div>
                         <div class="card-body holiday">
                           <h4 class="card-title">October</h4>
@@ -415,8 +438,11 @@
                       <!-- Holidays for Month End-->
                     <!-- Leave Balance -->
                     <div class="card text-center border-secondary">
-                        <div class="card-header ">
-                          Pending Actions
+                        <div class="card-header custom-header ">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Pending Actions
+                            </div>
                         </div>
                         <div class="card-body  ">
 
