@@ -9,7 +9,7 @@ month_list = ['January','February','March','April','May','June','July','August',
 def get_employee_details(employee):
     if frappe.db.exists("Employee",employee):
         emp_details = frappe.db.sql('''select * from `tabEmployee` where name =%s ''',employee,as_dict=True)[0]
-        emp_details['current_month'] = month_list[frappe.utils.get_datetime().month]
+        emp_details['current_month'] = month_list[frappe.utils.get_datetime().month -1]
     # format dates
         if emp_details['date_of_birth']:
             emp_details['date_of_birth'] = frappe.format(emp_details['date_of_birth'])
