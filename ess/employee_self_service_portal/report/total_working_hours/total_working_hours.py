@@ -42,13 +42,13 @@ def get_columns(filters=None):
 		},
 		{
 			"label": _("Punch In"),
-			"fieldtype": "Float",
+			"fieldtype": "Time",
 			"fieldname": "in_time",
 			"width": 100
 		},
 		{
 			"label": _("Punch Out"),
-			"fieldtype": "Float",
+			"fieldtype": "Time",
 			"fieldname": "out_time",
 			"width": 100
 		},
