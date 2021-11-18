@@ -190,7 +190,7 @@ def get_approval_doc():
     todo = len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
     claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
     travel_request = len(frappe.db.get_all("Travel Request",filters={'approver':frappe.session.user,'workflow_state':'Draft'}))
-    return {"Leave Application":leave_applications,"ToDo":todo,"Expense Claim":claim}
+    return {"Leave Application":leave_applications,"ToDo":todo,"Expense Claim":claim, "Travel Request":travel_request}
 
 @frappe.whitelist()
 def get_hr_admin_data():
