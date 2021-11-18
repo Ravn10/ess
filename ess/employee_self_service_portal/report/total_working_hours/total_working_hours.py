@@ -97,7 +97,15 @@ def get_data(filters=None):
 def update_shift_details(attendance_dict):
     shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
     shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
-    attendance_dict['working_hours'] = time_diff_in_hours(attendance_dict['check_in_date_time'],attendance_dict['check_out_datetime'])
+    if attendance_dict['check_in_date_time']:
+        checkin_time = attendance_dict['check_in_date_time']
+    else:
+        checkin_time = frappe.utils.now_datetime()
+    if attendance_dict['check_out_datetime']:
+        checkout_time = attendance_dict['check_out_datetime']
+    else:
+        checkout_time = frappe.utils.now_datetime()
+    attendance_dict['working_hours'] = time_diff_in_hours(checkin_time,checkout_time)
     if shift_start_time and shift_end_time:
         shift_time_in_hours = time_diff_in_hours(shift_start_time,shift_end_time)
         attendance_dict['shift_time_in_hours'] = shift_time_in_hours
