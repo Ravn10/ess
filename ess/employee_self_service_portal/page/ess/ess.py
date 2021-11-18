@@ -22,11 +22,13 @@ def get_employee_details(employee):
 def get_connections(employee):
     connections = []
     reports = []
-    _connections = frappe.db.get_all('Global Search DocType',filters={'parent':'ESS Portal Setting'},fields=['document_type'])
-    _reports = frappe.db.get_all('Report Link',filters={'parent':'ESS Portal Setting'},fields=['report'])
+    _connections = frappe.db.get_all('Global Search DocType',filters={'parent':'ESS Portal Setting'},fields=['document_type','idx'])
+    _reports = frappe.db.get_all('Report Link',filters={'parent':'ESS Portal Setting'},fields=['report','idx'])
     if _connections:
-        connections = [list(x.values())[0] for x in _connections]
+        sortes_connections = sorted(_connections, key=lambda d: d['idx'])
+        connections = [list(x.values())[0] for x in sortes_connections]
     if _reports:
+        sortes_reports = sorted(_reports, key=lambda d: d['idx'])
         reports = [list(x.values())[0] for x in _reports]
     return connections, reports
 
