@@ -52,18 +52,18 @@ def get_columns(filters=None):
 			"fieldname": "out_time",
 			"width": 100
 		},
-		{
-			"label": _("Overtime/Deficit"),
-			"fieldtype": "Float",
-			"fieldname": "overtime",
-			"width": 140
-		},
-		{
-			"label": _("Deficit Time"),
-			"fieldtype": "Float",
-			"fieldname": "undertime",
-			"width": 140
-		},
+		# {
+		# 	"label": _("Overtime/Deficit"),
+		# 	"fieldtype": "Float",
+		# 	"fieldname": "overtime",
+		# 	"width": 140
+		# },
+		# {
+		# 	"label": _("Deficit Time"),
+		# 	"fieldtype": "Float",
+		# 	"fieldname": "undertime",
+		# 	"width": 140
+		# },
 		{
 			"label": _("Late Entry"),
 			"fieldtype": "Float",

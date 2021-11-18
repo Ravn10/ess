@@ -69,6 +69,7 @@ def holiday_for_month(employee):
               from `tabHoliday`
               where holiday_date >= %(from)s and holiday_date <= %(to)s
               and parent = %(holiday_list)s
+              and weekly_off =0
               order by holiday_date asc
               ''',{
                   "from":month_first_date,
@@ -137,7 +138,7 @@ def get_employee_with_birthday_this_month():
     birthday_persons = frappe.db.sql("""select name, employee_name, date_of_birth
                                      from tabEmployee
                                      where status = 'Active' %s
-                                     order by date_of_birth asc""" % conditions, as_dict=1)
+                                     order by date_of_birth DESC""" % conditions, as_dict=1)
     def get_day(data):
         print(data)
         data['day'] = data['date_of_birth'].day
