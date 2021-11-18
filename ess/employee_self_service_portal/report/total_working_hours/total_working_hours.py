@@ -90,7 +90,18 @@ def time_diff_in_hours(start, end):
 
 def get_data(filters=None):
     conditions = get_conditions(filters)
-    attendance = frappe.db.sql('''select attendance_date, shift,employee, check_in_date_time, check_out_datetime, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
+    attendance = frappe.db.sql('''select
+                                        attendance_date,
+                                        shift,
+                                        employee,
+                                        check_in_date_time,
+                                        check_out_datetime,
+                                        late_entry,
+                                        early_exit,
+                                        date_format(check_in_date_time, '%H:%i:%s') as 'in_time',
+                                        date_format(check_out_datetime, '%H:%i:%s') as 'out_time',
+                                        from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
+    # attendance = frappe.db.sql('''select attendance_date, shift,employee, check_in_date_time, check_out_datetime, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
     list(map(update_shift_details, attendance))
     return attendance
 
@@ -98,12 +109,12 @@ def update_shift_details(attendance_dict):
     shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
     shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
     if attendance_dict['check_in_date_time']:
-        attendance_dict['in_time'] = attendance_dict['check_in_date_time'].time()
+        # attendance_dict['in_time'] = attendance_dict['check_in_date_time'].time()
         checkin_time = attendance_dict['check_in_date_time']
     else:
         checkin_time = frappe.utils.now_datetime()
     if attendance_dict['check_out_datetime']:
-        attendance_dict['out_time'] = attendance_dict['check_out_datetime'].time()
+        # attendance_dict['out_time'] = attendance_dict['check_out_datetime'].time()
         checkout_time = attendance_dict['check_out_datetime']
     else:
         checkout_time = frappe.utils.now_datetime()
