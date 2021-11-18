@@ -90,13 +90,14 @@ def time_diff_in_hours(start, end):
 
 def get_data(filters=None):
     conditions = get_conditions(filters)
-    attendance = frappe.db.sql('''select attendance_date, shift,employee, working_hours, in_time, out_time, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
+    attendance = frappe.db.sql('''select attendance_date, shift,employee, check_in_date_time, check_out_datetime, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
     list(map(update_shift_details, attendance))
     return attendance
 
 def update_shift_details(attendance_dict):
     shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
     shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
+    attendance_dict['working_hours'] = time_diff_in_hours(attendance_dict['check_in_date_time'],attendance_dict['check_out_datetime'])
     if shift_start_time and shift_end_time:
         shift_time_in_hours = time_diff_in_hours(shift_start_time,shift_end_time)
         attendance_dict['shift_time_in_hours'] = shift_time_in_hours

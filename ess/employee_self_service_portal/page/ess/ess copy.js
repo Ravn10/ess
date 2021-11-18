@@ -194,7 +194,7 @@ ESS = Class.extend({
                 this.loadReport()
                 this.loadLeaveAnalyticsReport()
                 this.custom_checkin()
-                // this.custom_checkout()
+                this.custom_checkout()
                 // this.checkin()
                 // this.checkout()
                 setInterval(() => {
@@ -302,145 +302,116 @@ ESS = Class.extend({
           });
     },
     custom_checkin: function(){
-        var now     = new Date();
-        var year    = now.getFullYear();
-        var month   = now.getMonth()+1;
-        var day     = now.getDate();
-        var hour    = ('0'+now.getHours()).slice(-2); //get hours with padding zero
-        var minute  = ('0'+now.getMinutes()).slice(-2); // get minutes in padding zero
-        var second  = ('0'+now.getSeconds()).slice(-2); // get sec in padding zero
-        console.log('sec '+second);
-        var result = now.toISOString().split('T')[0]; // date with padding zero
-
-        console.log(result);
-
-        var dateTime = result+' '+hour+':'+minute+':'+second;
-        var tdy = result+ ' 09:10:00';
-        var ext = result+ ' 18:00:00';
-        var ext_out = '6:0 PM';
-        console.log('ext out '+ext_out);
-        var ty = result;
-        var dt = new Date();
-        console.log('DT '+ty);
-        var h =  dt.getHours(), m = dt.getMinutes();
-        var _time = (h > 12) ? (h-12 + ':' + m +' PM') : (h + ':' + m +' AM');
-        console.log('_time '+_time);
-        console.log('TIME '+dateTime);
-        console.log('ADD '+tdy);
-        console.log('ext '+ext);
-        // bind event to checkin button
         document.querySelector('.checkin').addEventListener("click", function() {
-            if (dateTime > tdy){
-                    console.log('test');
-                    let dialog = new frappe.ui.Dialog({
-                        title: __("Enter Reason For Late Entry"),
-                        fields: [
-                            {
-                                fieldname: 'reason_late',
-                                label: __('Reason For Late Entry'),
-                                fieldtype: 'Small Text',
-                            },
-                        ],
-                        primary_action(data)  {
-                            console.log('nivedha '+data.reason_late);
-                            if(!data.reason_late){console.log('reason'); frappe.throw('Reason For Late Entry is Mandatory.')}
-                            frappe.call({
-                                method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
-                                args: {
-                                    data: data
-                                },
-                                callback: function(r) {
-                                    console.log(r);
-                                //	if (r.message === 1) {
-                                        frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
-                                        cur_dialog.hide();
-                                //	}
-                                }
-                            });
-                            dialog.hide();
-                                },
-                        primary_action_label: __('CheckIn')
-                    });
-                    dialog.show();
-                }
-                else if (dateTime < tdy) {
-                    console.log('else if');
+            let dialog = new frappe.ui.Dialog({
+                title: __("CheckIn From"),
+                fields: [
+                    {
+                        fieldname: 'office',
+                        label: __('From Office'),
+                        fieldtype: 'Check',
+                    },
+                    {
+                        fieldtype: "Column Break",
+                        fieldname: "cb",
+                    },
+                    {
+                        label: __("From Home"),
+                        fieldtype: "Check",
+                        fieldname: "home",
+                    },
+                    {
+                        label: __("My Location"),
+                        fieldtype: "Geolocation",
+                        fieldname: "location",
+                    },
+
+                ],
+                primary_action(data)  {
+                    console.log('dttt '+dialog.fields_dict.office + ' ho '+dialog.fields_dict.home);
                     frappe.call({
                         method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
                         args: {
                             data: data
                         },
                         callback: function(r) {
-                            console.log(r);
-                            //if (r.message === 1) {
-                                frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
+                            if (r.message === 1) {
+                                frappe.show_alert({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
                                 cur_dialog.hide();
-                            //}
+                            }
                         }
                     });
                     dialog.hide();
-                }
-
-        })
-        //bind event to checkout
-        document.querySelector('.checkout').addEventListener("click", function() {
-            console.log("Check Out")
-            if (_time < ext_out){
-                console.log('test');
-                let dialog = new frappe.ui.Dialog({
-                title: __("Enter Reason For Early Exit"),
-                fields: [
-                    {
-                        fieldname: 'reason_exit',
-                        label: __('Reason For Early Exit'),
-                        fieldtype: 'Small Text',
-                    },
-                ],
-
-                primary_action(data)  {
-                    if(!data.reason_exit){console.log('reason'); frappe.throw('Reason For Early Exit is Mandatory.')}
-                        frappe.call({
-                            method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
-                            args: {
-                                data: data
-                            },
-                            callback: function(r) {
-                                //if (r.message === 1) {
-                                    frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
-                                    cur_dialog.hide();
-                                //}
-                            }
-                        });
-                        dialog.hide();
+                    list_view.refresh();
                 },
-                primary_action_label: __('CheckOut')
+                primary_action_label: __('CheckIn')
+
             });
             dialog.show();
-        }
-        else if (_time >= ext_out) {
-            console.log('else if');
-            frappe.call({
-                method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
-                args: {
-                    data: data
-                },
-                callback: function(r) {
-                    //if (r.message === 1) {
-                        frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
-                        cur_dialog.hide();
-                    //}
-                }
-            });
-            dialog.hide();
-        }
-          });
+
+        })
     },
     checkout: function(){
         document.querySelector('.checkout').addEventListener("click", function() {
             console.log("Check Out")
-
+            frappe.call({
+                method:"ess.employee_self_service_portal.page.ess.ess.checkin",
+                args:{"employee":frappe.boot.employee,"log_type":"OUT"}
+            }).then(r => {
+                console.log(r)
+                let find = document.querySelector('#out-attendance-text');
+                let html = r.message;
+                let div = document.createElement('div');
+                div.innerHTML = html;
+                find.appendChild(div);
+                document.getElementById("checkout").disabled = true;
+            })
           });
     },
+    custom_checkout: function(){
+        document.querySelector('.checkout').addEventListener("click", function() {
+            console.log("Check Out")
+            let dialog = new frappe.ui.Dialog({
+				title: __("CheckOut From"),
+				fields: [
+					{
+						fieldname: 'office',
+						label: __('From Office'),
+						fieldtype: 'Check',
+					},
+					{
+						fieldtype: "Column Break",
+						fieldname: "cb",
+					},
+					{
+						label: __("From Home"),
+						fieldtype: "Check",
+						fieldname: "home",
+					},
+				],
+				primary_action(data)  {
+					frappe.call({
+						method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
+						args: {
+							data: data
+						},
+						callback: function(r) {
+							if (r.message === 1) {
+								frappe.show_alert({message: __("Thank You!!!"), indicator: 'blue'});
+								cur_dialog.hide();
+							}
+						}
+					});
+					dialog.hide();
+					list_view.refresh();
+				},
+				primary_action_label: __('CheckOut')
+
+			});
+			dialog.show();
+          });
+    },
+
     // get checkin and checkout
     get_checkin: function(){
         frappe.call({
