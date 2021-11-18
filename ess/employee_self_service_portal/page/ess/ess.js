@@ -43,7 +43,7 @@ ESS = Class.extend({
         let secondary_btns = document.querySelectorAll('#attendance_');
         for (i of secondary_btns) {
             i.addEventListener('click', function() {
-                alert(this.value)
+                // alert(this.value)
                 frappe.model.with_doctype('Attendance', () => {
                     // route to  Attendance
                     let attendance = frappe.model.get_new_doc('Attendance');
