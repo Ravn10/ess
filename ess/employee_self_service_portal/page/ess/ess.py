@@ -7,6 +7,11 @@ from erpnext.hr.doctype.upload_attendance.upload_attendance import get_active_em
 def get_employee_details(employee):
     if frappe.db.exists("Employee",employee):
         emp_details = frappe.db.sql('''select * from `tabEmployee` where name =%s ''',employee,as_dict=True)[0]
+    # format dates
+        if emp_details['date_of_birth']:
+            emp_details['date_of_birth'] = frappe.format(emp_details['date_of_birth'])
+        if emp_details['date_of_joining']:
+            emp_details['date_of_joining'] = frappe.format(emp_details['date_of_joining'])
         # get employee leave balances
         # get holidays for this month
         emp_details.is_hr = frappe.db.get_value("Designation",emp_details.designation,'hr')
@@ -17,6 +22,7 @@ def get_employee_details(employee):
         return emp_details
     else:
         return []
+
 
 @frappe.whitelist()
 def get_connections(employee):
@@ -183,6 +189,7 @@ def get_approval_doc():
     leave_applications = len(frappe.db.get_all("Leave Application",filters={'leave_approver':frappe.session.user,'status':'Open'}))
     todo = len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
     claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
+    travel_request = len(frappe.db.get_all("Travel Request",filters={'approver':frappe.session.user,'status':'Draft'}))
     return {"Leave Application":leave_applications,"ToDo":todo,"Expense Claim":claim}
 
 @frappe.whitelist()
