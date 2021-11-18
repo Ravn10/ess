@@ -3,10 +3,13 @@ from frappe.utils import get_link_to_form, now_datetime, nowdate, get_first_day,
 from frappe import _
 from erpnext.hr.doctype.upload_attendance.upload_attendance import get_active_employees
 
+month_list = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
 @frappe.whitelist()
 def get_employee_details(employee):
     if frappe.db.exists("Employee",employee):
         emp_details = frappe.db.sql('''select * from `tabEmployee` where name =%s ''',employee,as_dict=True)[0]
+        emp_details['current_month'] = month_list[frappe.utils.get_datetime().month]
     # format dates
         if emp_details['date_of_birth']:
             emp_details['date_of_birth'] = frappe.format(emp_details['date_of_birth'])
