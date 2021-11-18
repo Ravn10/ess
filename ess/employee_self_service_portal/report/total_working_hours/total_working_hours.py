@@ -99,7 +99,7 @@ def get_data(filters=None):
                                         late_entry,
                                         early_exit,
                                         date_format(check_in_date_time, '%H:%i:%s') as 'in_time',
-                                        date_format(check_out_datetime, '%H:%i:%s') as 'out_time',
+                                        date_format(check_out_datetime, '%H:%i:%s') as 'out_time'
                                         from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
     # attendance = frappe.db.sql('''select attendance_date, shift,employee, check_in_date_time, check_out_datetime, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
     list(map(update_shift_details, attendance))
