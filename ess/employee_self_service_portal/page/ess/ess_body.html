@@ -45,14 +45,14 @@
                                     <div class="card-body" style=" overflow-y: overlay;">
                                         <div class="row text-justify" style="padding: inherit;">
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box align-self-start">
+                                            <div class="box align-self-start row">
                                                 <b class="col">Employee Id -</b><p class="col">{{ name }}
                                                     </p>
                                             </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box align-self-start">
+                                            <div class="box align-self-start row">
                                                 <b class="col">Email -</b>
                                                 <p class="col">
                                                     {% if company_email %}<a href="mailto:{{ company_email }}">{{ company_email }}</a>{% else %}"No Email ID set"{% endif %}
@@ -60,28 +60,28 @@
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box align-self-start">
+                                            <div class="box align-self-start row">
                                                 <b class="col">Designation -</b><p class="col">
                                                     {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box align-self-start">
+                                            <div class="box align-self-start row">
                                                 <b class="col">Phone -</b><p class="col">
                                                     {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box align-self-start">
+                                            <div class="box align-self-start row">
                                                 <b class="col">Department -</b><p class="col">
                                                     {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                            <div class="box align-self-start">
+                                            <div class="box align-self-start row">
                                                 <b class="col">Birthday -</b><p class="col">
                                                     {% if date_of_birth %}
                                                     {{ date_of_birth }}
@@ -90,14 +90,14 @@
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                                <div class="box align-self-start">
+                                                <div class="box align-self-start row">
                                                     <b class="col">Date of Joining -</b><p class="col">
                                                     {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
                                                 </div>
                                             </div>
 
                                             <div class="col-xs-12 col-sm-4">
-                                                <div class="box align-self-start">
+                                                <div class="box align-self-start row">
                                                     <b class="col">Reporting To -</b><p class="col">
                                                     {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
                                                 </div>
