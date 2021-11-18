@@ -43,13 +43,13 @@ def get_columns(filters=None):
 		{
 			"label": _("Punch In"),
 			"fieldtype": "Float",
-			"fieldname": "in_time",
+			"fieldname": "check_in_date_time",
 			"width": 100
 		},
 		{
 			"label": _("Punch Out"),
 			"fieldtype": "Float",
-			"fieldname": "out_time",
+			"fieldname": "check_out_datetime",
 			"width": 100
 		},
 		{
