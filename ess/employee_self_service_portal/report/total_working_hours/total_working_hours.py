@@ -43,13 +43,13 @@ def get_columns(filters=None):
 		{
 			"label": _("Punch In"),
 			"fieldtype": "Float",
-			"fieldname": "check_in_date_time",
+			"fieldname": "in_time",
 			"width": 100
 		},
 		{
 			"label": _("Punch Out"),
 			"fieldtype": "Float",
-			"fieldname": "check_out_datetime",
+			"fieldname": "out_time",
 			"width": 100
 		},
 		{
@@ -98,10 +98,12 @@ def update_shift_details(attendance_dict):
     shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
     shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
     if attendance_dict['check_in_date_time']:
+        attendance_dict['in_time'] = attendance_dict['check_in_date_time'].time()
         checkin_time = attendance_dict['check_in_date_time']
     else:
         checkin_time = frappe.utils.now_datetime()
     if attendance_dict['check_out_datetime']:
+        attendance_dict['out_time'] = attendance_dict['check_out_datetime'].time()
         checkout_time = attendance_dict['check_out_datetime']
     else:
         checkout_time = frappe.utils.now_datetime()
