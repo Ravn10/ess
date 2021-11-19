@@ -389,6 +389,12 @@ ESS = Class.extend({
             if(r.message['checkin_count']>0 || r.message['checkout_count']>0 ){
                 console.log('checkin')
                 console.log(r.message['checkin'])
+                if (r.message['checkin'].length > 0){
+                    document.getElementById("checkin").disabled = true;
+                }
+                if (r.message['checkout'].length > 0){
+                    document.getElementById("checkout").disabled = true;
+                }
                 if (r.message['checkin']){
                     let find = document.querySelector('#in-attendance-text');
                     let html = ''//'<b>Checkin</b>'
@@ -399,7 +405,6 @@ ESS = Class.extend({
                     div.innerHTML = html;
                     div.style="color:green"
                     find.appendChild(div);
-                    document.getElementById("checkin").disabled = true;
                 }
                 if(r.message['checkout']){
                     let find = document.querySelector('#out-attendance-text');
@@ -411,7 +416,6 @@ ESS = Class.extend({
                     div.innerHTML = html;
                     div.style="color:red"
                     find.appendChild(div);
-                    document.getElementById("checkout").disabled = true;
                 }
                 console.log('checkout')
                 console.log(r.message['checkout'])
