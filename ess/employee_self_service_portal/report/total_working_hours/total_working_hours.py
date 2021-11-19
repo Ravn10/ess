@@ -35,6 +35,12 @@ def get_columns(filters=None):
 			"width": 100
 		},
 		{
+			"label": _("expected_Working Hours"),
+			"fieldtype": "Float",
+			"fieldname": "expected_working_hours",
+			"width": 100
+		},
+		{
 			"label": _("Working Hours"),
 			"fieldtype": "Float",
 			"fieldname": "working_hours",
@@ -52,29 +58,29 @@ def get_columns(filters=None):
 			"fieldname": "out_time",
 			"width": 100
 		},
-		# {
-		# 	"label": _("Overtime/Deficit"),
-		# 	"fieldtype": "Float",
-		# 	"fieldname": "overtime",
-		# 	"width": 140
-		# },
-		# {
-		# 	"label": _("Deficit Time"),
-		# 	"fieldtype": "Float",
-		# 	"fieldname": "undertime",
-		# 	"width": 140
-		# },
 		{
-			"label": _("Late Entry"),
+			"label": _("Overtime/Deficit"),
 			"fieldtype": "Float",
-			"fieldname": "late_entry",
+			"fieldname": "overtime",
 			"width": 140
 		},
 		{
-			"label": _("Early Exit"),
+			"label": _("Deficit Time"),
 			"fieldtype": "Float",
-			"fieldname": "early_exit",
+			"fieldname": "deficit",
 			"width": 140
+		},
+		{
+			"label": _("Late Entry"),
+			"fieldtype": "Check",
+			"fieldname": "late_entry",
+			"width": 90
+		},
+		{
+			"label": _("Early Exit"),
+			"fieldtype": "Check",
+			"fieldname": "early_exit",
+			"width": 90
 		}
 	]
 
@@ -106,6 +112,7 @@ def get_data(filters=None):
     return attendance
 
 def update_shift_details(attendance_dict):
+    shift_time_in_hours = 0.0
     shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
     shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
     if attendance_dict['check_in_date_time']:
@@ -119,8 +126,14 @@ def update_shift_details(attendance_dict):
     else:
         checkout_time = frappe.utils.now_datetime()
     attendance_dict['working_hours'] = time_diff_in_hours(checkin_time,checkout_time)
+
     if shift_start_time and shift_end_time:
         shift_time_in_hours = time_diff_in_hours(shift_start_time,shift_end_time)
+        attendance_dict['expected_working_hours'] = shift_time_in_hours
         attendance_dict['shift_time_in_hours'] = shift_time_in_hours
-        if 'woring_hours' in attendance_dict and shift_time_in_hours:
-            attendance_dict['overtime'] = float(attendance_dict['woring_hours']-shift_time_in_hours)
+        if shift_time_in_hours > 0:
+            work_hour_deviation =attendance_dict['working_hours']-shift_time_in_hours
+            if work_hour_deviation >0:
+                attendance_dict['overtime'] = work_hour_deviation
+            else:
+                attendance_dict['deficit'] = work_hour_deviation
