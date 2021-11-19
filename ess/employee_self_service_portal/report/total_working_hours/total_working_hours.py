@@ -3,7 +3,7 @@
 
 import frappe
 from frappe import _
-from frappe.utils import cint, get_datetime
+from frappe.utils import cint, get_datetime, flt
 
 def execute(filters=None):
     columns, data = [], []
@@ -35,13 +35,13 @@ def get_columns(filters=None):
 			"width": 100
 		},
 		{
-			"label": _("expected_Working Hours"),
+			"label": _("Shift Length"),
 			"fieldtype": "Float",
 			"fieldname": "expected_working_hours",
 			"width": 100
 		},
 		{
-			"label": _("Working Hours"),
+			"label": _("Worked Hours"),
 			"fieldtype": "Float",
 			"fieldname": "working_hours",
 			"width": 100
@@ -113,27 +113,29 @@ def get_data(filters=None):
 
 def update_shift_details(attendance_dict):
     shift_time_in_hours = 0.0
+    # get shift start and end time
     shift_start_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'start_time')
     shift_end_time = frappe.db.get_value("Shift Type",attendance_dict['shift'],'end_time')
-    if attendance_dict['check_in_date_time']:
-        # attendance_dict['in_time'] = attendance_dict['check_in_date_time'].time()
-        checkin_time = attendance_dict['check_in_date_time']
-    else:
-        checkin_time = frappe.utils.now_datetime()
-    if attendance_dict['check_out_datetime']:
-        # attendance_dict['out_time'] = attendance_dict['check_out_datetime'].time()
-        checkout_time = attendance_dict['check_out_datetime']
-    else:
-        checkout_time = frappe.utils.now_datetime()
-    attendance_dict['working_hours'] = time_diff_in_hours(checkin_time,checkout_time)
-
+    # calculate shift length if shift start and end time exists
     if shift_start_time and shift_end_time:
         shift_time_in_hours = time_diff_in_hours(shift_start_time,shift_end_time)
         attendance_dict['expected_working_hours'] = shift_time_in_hours
-        attendance_dict['shift_time_in_hours'] = shift_time_in_hours
-        if shift_time_in_hours > 0:
-            work_hour_deviation =attendance_dict['working_hours']-shift_time_in_hours
-            if work_hour_deviation >0:
-                attendance_dict['overtime'] = work_hour_deviation
-            else:
-                attendance_dict['deficit'] = work_hour_deviation
+    else:
+        attendance_dict['expected_working_hours'] = 0.0
+        # attendance_dict['shift_time_in_hours'] = shift_time_in_hours
+    # get pun in and punch out time
+    checkin_time = attendance_dict.get('check_in_date_time')
+    checkout_time = attendance_dict.get('check_out_datetime')
+    # if checkin out both exists calculate worked hours
+    if checkin_time and checkout_time:
+        attendance_dict['working_hours'] = time_diff_in_hours(checkin_time,checkout_time)
+    else:
+        attendance_dict['working_hours'] = 0.0
+
+    # get working hour deviation
+    working_hour_deviation = flt(attendance_dict['expected_working_hours']- attendance_dict['working_hours'],2)
+    # update overtime / deficit
+    if working_hour_deviation >0:
+        attendance_dict['overtime'] = working_hour_deviation
+    else:
+        attendance_dict['deficit'] = working_hour_deviation
