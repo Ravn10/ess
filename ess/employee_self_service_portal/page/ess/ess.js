@@ -39,7 +39,21 @@ ESS = Class.extend({
     },
     // bind event to all buttons on page
     bind_events: function() {
+        // leave application links
 		let btns = document.querySelectorAll('#leave_application');
+        for (i of btns) {
+            i.addEventListener('click', function() {
+                // alert(this.value)
+                frappe.model.with_doctype('Leave Application', () => {
+                    // route to  Attendance
+                    let leave_application = frappe.model.get_new_doc('Leave Application');
+                    leave_application.leave_type = this.value
+                    leave_application.employee = frappe.boot.employee
+                    frappe.set_route('Form','Leave Application', leave_application.name);
+                });
+            })
+        }
+        // attendance
         let secondary_btns = document.querySelectorAll('#attendance_');
         for (i of secondary_btns) {
             i.addEventListener('click', function() {
@@ -52,78 +66,6 @@ ESS = Class.extend({
                     frappe.set_route('Form','Attendance', attendance.name);
                 });
             })
-        }
-        for (i of btns) {
-        i.addEventListener('click', function(me) {
-            console.log(this.value);
-            console.log(me);
-            // leave application dialog
-
-		let edit_profile_dialog = new frappe.ui.Dialog({
-			title: __('Leave Application'),
-			fields: [
-                {
-					fieldtype: 'Link',
-					fieldname: 'employee',
-					label: 'Employee',
-                    options: 'Employee',
-                    default:this.employee
-				},
-                {
-                    fieldtype: 'Date',
-                    fieldname: 'from_date',
-                    label: 'From Date'
-                },
-				{
-                    fieldtype: 'Column Break'
-				},
-                {
-                    fieldtype: 'Link',
-                    fieldname: 'leave_type',
-                    label: 'Leave Type',
-                    options: 'Leave Type',
-                    default: this.value
-                },
-				{
-					fieldtype: 'Date',
-					fieldname: 'to_date',
-					label: 'To Date',
-				},
-				{
-					fieldtype: 'Section Break',
-					fieldname: 'Approver',
-				},
-                {
-					fieldtype: 'Link',
-					fieldname: 'approver',
-					label: 'Approver',
-                    options: 'Employee'
-				},
-                {
-					fieldtype: 'Small Text',
-					fieldname: 'description',
-					label: 'Reason'
-				},
-
-			],
-			primary_action: values => {
-				edit_profile_dialog.disable_primary_action();
-				frappe.xcall('ess.employee_self_service_portal.page.ess.ess.create_leave_application', {
-					info: values
-				}).then(r => {
-					console.log(r.message)
-				}).finally(() => {
-					edit_profile_dialog.hide();
-				});
-			},
-			primary_action_label: __('Save')
-		});
-
-		edit_profile_dialog.set_values({
-			employee: frappe.boot.employee,
-		});
-		edit_profile_dialog.show();
-        });
         }
 	},
 
@@ -354,6 +296,7 @@ ESS = Class.extend({
                                 //	if (r.message === 1) {
                                         frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
                                         cur_dialog.hide();
+                                        document.getElementById("checkin").disabled = true;
                                 //	}
                                 }
                             });
@@ -375,9 +318,10 @@ ESS = Class.extend({
                             //if (r.message === 1) {
                                 frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
                                 cur_dialog.hide();
-                            //}
+                                document.getElementById("checkin").disabled = true;
                         }
-                    });
+                        }
+                    );
                     dialog.hide();
                 }
 
@@ -408,6 +352,7 @@ ESS = Class.extend({
                                 //if (r.message === 1) {
                                     frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
                                     cur_dialog.hide();
+                                    document.getElementById("checkout").disabled = true;
                                 //}
                             }
                         });
@@ -428,18 +373,19 @@ ESS = Class.extend({
                     //if (r.message === 1) {
                         frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
                         cur_dialog.hide();
+                        document.getElementById("checkout").disabled = true;
                     //}
                 }
             });
             dialog.hide();
         }
-          });
+    });
     },
     checkout: function(){
         document.querySelector('.checkout').addEventListener("click", function() {
             console.log("Check Out")
 
-          });
+    });
     },
     // get checkin and checkout
     get_checkin: function(){
@@ -461,7 +407,7 @@ ESS = Class.extend({
                     div.innerHTML = html;
                     div.style="color:green"
                     find.appendChild(div);
-                    // document.getElementById("checkin").disabled = true;
+                    document.getElementById("checkin").disabled = true;
                 }
                 if(r.message['checkout']){
                     let find = document.querySelector('#out-attendance-text');
@@ -473,8 +419,8 @@ ESS = Class.extend({
                     div.innerHTML = html;
                     div.style="color:red"
                     find.appendChild(div);
-                    // document.getElementById("checkout").disabled = true;
-                    // document.getElementById("checkin").disabled = false;
+                    document.getElementById("checkout").disabled = true;
+                    document.getElementById("checkin").disabled = false;
 
                 }
                 console.log('checkout')
@@ -614,17 +560,7 @@ ESS = Class.extend({
             };
             datatable = new frappe.DataTable('.report-container',
             datatable_options
-            // {
-            //     columns: [
-            //         {id: "attendance_date",name: "Date"},
-            //         {id: "position",name: "Position"},
-            //         {id: "salary",name: "Salary"},
-            //      ],
-            //     data: [
-            //       {"attendance_date":'Faris',"position": 'Software Developer',"salary": '$1200'},
-            //       {"attendance_date":'Manas', "position":'Software Engineer', "salary":'$1400'},
-            //     ]
-            //   }
+
             );
 
         })
@@ -671,19 +607,84 @@ ESS = Class.extend({
             };
             datatable = new frappe.DataTable('.leave-report-container',
             datatable_options
-            // {
-            //     columns: [
-            //         {id: "attendance_date",name: "Date"},
-            //         {id: "position",name: "Position"},
-            //         {id: "salary",name: "Salary"},
-            //      ],
-            //     data: [
-            //       {"attendance_date":'Faris',"position": 'Software Developer',"salary": '$1200'},
-            //       {"attendance_date":'Manas', "position":'Software Engineer', "salary":'$1400'},
-            //     ]
-            //   }
             );
 
         })
     }
 })
+
+
+
+// pop up form depricated
+        // for (i of btns) {
+        // i.addEventListener('click', function(me) {
+        //     console.log(this.value);
+        //     console.log(me);
+        //     // leave application dialog
+
+		// let edit_profile_dialog = new frappe.ui.Dialog({
+		// 	title: __('Leave Application'),
+		// 	fields: [
+        //         {
+		// 			fieldtype: 'Link',
+		// 			fieldname: 'employee',
+		// 			label: 'Employee',
+        //             options: 'Employee',
+        //             default:this.employee
+		// 		},
+        //         {
+        //             fieldtype: 'Date',
+        //             fieldname: 'from_date',
+        //             label: 'From Date'
+        //         },
+		// 		{
+        //             fieldtype: 'Column Break'
+		// 		},
+        //         {
+        //             fieldtype: 'Link',
+        //             fieldname: 'leave_type',
+        //             label: 'Leave Type',
+        //             options: 'Leave Type',
+        //             default: this.value
+        //         },
+		// 		{
+		// 			fieldtype: 'Date',
+		// 			fieldname: 'to_date',
+		// 			label: 'To Date',
+		// 		},
+		// 		{
+		// 			fieldtype: 'Section Break',
+		// 			fieldname: 'Approver',
+		// 		},
+        //         {
+		// 			fieldtype: 'Link',
+		// 			fieldname: 'approver',
+		// 			label: 'Approver',
+        //             options: 'Employee'
+		// 		},
+        //         {
+		// 			fieldtype: 'Small Text',
+		// 			fieldname: 'description',
+		// 			label: 'Reason'
+		// 		},
+
+		// 	],
+		// 	primary_action: values => {
+		// 		edit_profile_dialog.disable_primary_action();
+		// 		frappe.xcall('ess.employee_self_service_portal.page.ess.ess.create_leave_application', {
+		// 			info: values
+		// 		}).then(r => {
+		// 			console.log(r.message)
+		// 		}).finally(() => {
+		// 			edit_profile_dialog.hide();
+		// 		});
+		// 	},
+		// 	primary_action_label: __('Save')
+		// });
+
+		// edit_profile_dialog.set_values({
+		// 	employee: frappe.boot.employee,
+		// });
+		// edit_profile_dialog.show();
+        // });
+        // }
