@@ -379,12 +379,6 @@ ESS = Class.extend({
         }
     });
     },
-    checkout: function(){
-        document.querySelector('.checkout').addEventListener("click", function() {
-            console.log("Check Out")
-
-    });
-    },
     // get checkin and checkout
     get_checkin: function(){
         frappe.call({
@@ -418,35 +412,34 @@ ESS = Class.extend({
                     div.style="color:red"
                     find.appendChild(div);
                     document.getElementById("checkout").disabled = true;
-                    document.getElementById("checkin").disabled = false;
-
                 }
                 console.log('checkout')
                 console.log(r.message['checkout'])
             }
             else{
+                frappe.msgprint("You Have not Checked In Yet.")
                 // alert("Not Checked In Yet!!!")
-                frappe.confirm(
-                    'You have not yet checked in??',this.custom_checkin()
-                    // function(){
-                    //     frappe.call({
-                    //         method:"ess.employee_self_service_portal.page.ess.ess.checkin",
-                    //         args:{"employee":frappe.boot.employee,"log_type":"IN"}
-                    //     }).then(r => {
-                    //         console.log(r)
-                    //         let find = document.querySelector('#attendance-text');
-                    //         let html = r.message;
-                    //         let div = document.createElement('div');
-                    //         div.innerHTML = html;
-                    //         find.appendChild(div);
-                    //         document.getElementById("checkin").disabled = true;
-                    //     })
-                    //     window.close();
-                    // },
-                    // function(){
-                    //     show_alert('Welcome' + frappe.session.user + ' to ESS Portal!')
-                    // }
-                )
+                // frappe.confirm(
+                //     'You have not yet checked ',
+                //     function(){
+                //         frappe.call({
+                //             method:"ess.employee_self_service_portal.page.ess.ess.checkin",
+                //             args:{"employee":frappe.boot.employee,"log_type":"IN"}
+                //         }).then(r => {
+                //             console.log(r)
+                //             let find = document.querySelector('#attendance-text');
+                //             let html = r.message;
+                //             let div = document.createElement('div');
+                //             div.innerHTML = html;
+                //             find.appendChild(div);
+                //             document.getElementById("checkin").disabled = true;
+                //         })
+                //         window.close();
+                //     },
+                //     function(){
+                //         show_alert('Welcome' + frappe.session.user + ' to ESS Portal!')
+                //     }
+                // )
             }
 
         })
