@@ -296,7 +296,6 @@ ESS = Class.extend({
                                 //	if (r.message === 1) {
                                         frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
                                         cur_dialog.hide();
-                                        document.getElementById("checkin").disabled = true;
                                 //	}
                                 }
                             });
@@ -318,11 +317,11 @@ ESS = Class.extend({
                             //if (r.message === 1) {
                                 frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
                                 cur_dialog.hide();
-                                document.getElementById("checkin").disabled = true;
                         }
                         }
                     );
                     dialog.hide();
+                    document.getElementById("checkin").disabled = true;
                 }
 
         })
@@ -352,7 +351,6 @@ ESS = Class.extend({
                                 //if (r.message === 1) {
                                     frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
                                     cur_dialog.hide();
-                                    document.getElementById("checkout").disabled = true;
                                 //}
                             }
                         });
@@ -373,11 +371,11 @@ ESS = Class.extend({
                     //if (r.message === 1) {
                         frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
                         cur_dialog.hide();
-                        document.getElementById("checkout").disabled = true;
                     //}
                 }
             });
             dialog.hide();
+            document.getElementById("checkout").disabled = true;
         }
     });
     },
@@ -429,25 +427,25 @@ ESS = Class.extend({
             else{
                 // alert("Not Checked In Yet!!!")
                 frappe.confirm(
-                    'Do You want to Checked In Now??',
-                    function(){
-                        frappe.call({
-                            method:"ess.employee_self_service_portal.page.ess.ess.checkin",
-                            args:{"employee":frappe.boot.employee,"log_type":"IN"}
-                        }).then(r => {
-                            console.log(r)
-                            let find = document.querySelector('#attendance-text');
-                            let html = r.message;
-                            let div = document.createElement('div');
-                            div.innerHTML = html;
-                            find.appendChild(div);
-                            document.getElementById("checkin").disabled = true;
-                        })
-                        window.close();
-                    },
-                    function(){
-                        show_alert('Welcome' + frappe.session.user + ' to ESS Portal!')
-                    }
+                    'You have not yet checked in??',this.custom_checkin()
+                    // function(){
+                    //     frappe.call({
+                    //         method:"ess.employee_self_service_portal.page.ess.ess.checkin",
+                    //         args:{"employee":frappe.boot.employee,"log_type":"IN"}
+                    //     }).then(r => {
+                    //         console.log(r)
+                    //         let find = document.querySelector('#attendance-text');
+                    //         let html = r.message;
+                    //         let div = document.createElement('div');
+                    //         div.innerHTML = html;
+                    //         find.appendChild(div);
+                    //         document.getElementById("checkin").disabled = true;
+                    //     })
+                    //     window.close();
+                    // },
+                    // function(){
+                    //     show_alert('Welcome' + frappe.session.user + ' to ESS Portal!')
+                    // }
                 )
             }
 
