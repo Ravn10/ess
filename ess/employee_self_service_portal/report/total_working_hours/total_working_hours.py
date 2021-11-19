@@ -62,13 +62,8 @@ def get_columns(filters=None):
 			"label": _("Overtime/Deficit"),
 			"fieldtype": "Float",
 			"fieldname": "overtime",
-			"width": 140
-		},
-		{
-			"label": _("Deficit Time"),
-			"fieldtype": "Float",
-			"fieldname": "deficit",
-			"width": 140
+            "precision":2,
+			"width": 90
 		},
 		{
 			"label": _("Late Entry"),
@@ -133,9 +128,5 @@ def update_shift_details(attendance_dict):
         attendance_dict['working_hours'] = 0.0
 
     # get working hour deviation
-    working_hour_deviation = flt(attendance_dict['expected_working_hours']- attendance_dict['working_hours'],2)
+    attendance_dict['overtime'] = attendance_dict['working_hours'] -attendance_dict['expected_working_hours']
     # update overtime / deficit
-    if working_hour_deviation >0:
-        attendance_dict['overtime'] = working_hour_deviation
-    else:
-        attendance_dict['deficit'] = working_hour_deviation
