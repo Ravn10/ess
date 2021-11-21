@@ -145,38 +145,6 @@
         <div class="section-2">
 
             <div class="frappe-card border-dark ">
-                <!-- start -->
-                <!-- <div id="projectFacts" class="sectionClass">
-                    <div class="fullWidth eight columns">
-                        <div class="projectFactsWrap ">
-                            <div class="item wow fadeInUpBig animated animated" data-number="12" style="visibility: visible;">
-                                <i class="fa fa-briefcase"></i>
-                                <p id="number1" class="number">12</p>
-                                <span></span>
-                                <p>Projects done</p>
-                            </div>
-                            <div class="item wow fadeInUpBig animated animated" data-number="55" style="visibility: visible;">
-                                <i class="fa fa-smile-o"></i>
-                                <p id="number2" class="number">55</p>
-                                <span></span>
-                                <p>Happy clients</p>
-                            </div>
-                            <div class="item wow fadeInUpBig animated animated" data-number="359" style="visibility: visible;">
-                                <i class="fa fa-coffee"></i>
-                                <p id="number3" class="number">359</p>
-                                <span></span>
-                                <p>Cups of coffee</p>
-                            </div>
-                            <div class="item wow fadeInUpBig animated animated" data-number="246" style="visibility: visible;">
-                                <i class="fa fa-camera"></i>
-                                <p id="number4" class="number">246</p>
-                                <span></span>
-                                <p>Photos taken</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- end -->
                 <div class="card border-secondary text-center">
                     <div class="card-header custom-header">
                         <div class="btn border border-primary font-weight-bold">
@@ -288,9 +256,11 @@
                         <div class="card-body" id="attendance">
                             <!--  -->
                             <div class="p-3 mb-2  text-white">
+                                <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Absent">Absent</button>
+                                <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Present">Present</button>
                                 <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Work From Home">WFH</button>
                                 <button type="button" class="btn btn-outline-warning" id = "attendance_" value="On Duty (OD)">On Duty</button>
-                                <button type="button" class="btn btn-outline-danger" id = "attendance_" value="Absent">Absent</button>
+                                <button type="button" class="btn btn-outline-danger" id = "attendance_" value="Absent">On Leave</button>
                             </div>
                             <table class="table small table-responsive" >
                                 <thead>
@@ -475,6 +445,26 @@
                     </div>
                     <!-- Leave Balance ends-->
                   </div>
+            </div>
+        </div>
+        <!-- section 3 ends -->
+        <!-- section 3 -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container">
+                <div class="profile-info card border-dark" style="max-height: auto; max-width: auto;" >
+                    <div class="card-header custom-header text-center">
+                        <h4 class="card-title btn border border-primary font-weight-bold">Modules and Reports</h4>
+
+                    </div>
+                    <div class="card-body">
+                        <!-- <h4 class="card-title btn border border-primary">Modules and Reports</h4> -->
+                        <!-- info -->
+                        <div class="row card-body modules-reports">
+                            <!-- rendered from template -->
+                        </div>
+                        <!-- info ends -->
+                    </div>
+                </div>
             </div>
         </div>
         <!-- section 3 ends -->
