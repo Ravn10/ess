@@ -78,7 +78,8 @@ def holiday_for_month(employee):
                   },as_dict=True)
     def get_day(data):
         print(data)
-        data['day'] = data['holiday_date'].day
+        data['day'] = data['holiday_date'].strftime('%d-%m')
+        # data['day'] = data['holiday_date'].day
     list(map(get_day,months_holidays))
     return months_holidays
 
@@ -195,7 +196,16 @@ def get_approval_doc():
     claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
     travel_request = len(frappe.db.get_all("Travel Request",filters={'approver':frappe.session.user,'workflow_state':'Draft'}))
     attendance = len(frappe.db.get_all("Attendance",filters={'attendance_approver':frappe.session.user,'workflow_state':'Draft'}))
-    return {"Leave Application":leave_applications,"ToDo":todo,"Expense Claim":claim, "Travel Request":travel_request, 'Attendance':attendance}
+    appraisal = len(frappe.db.get_all("Appraisal",filters={'appraiser_approver':frappe.session.user,'workflow_state':'Pending Self Review'}))
+    appraisal_confirmation = len(frappe.db.get_all("Appraisal",filters={'appraiser_approver':frappe.session.user,'workflow_state':'Pending Self Review'}))
+    return {
+            "Leave Application":leave_applications,
+            "ToDo":todo,
+            "Expense Claim":claim,
+            "Travel Request":travel_request,
+            'Attendance':attendance,
+            "Appraisal":appraisal
+            }
 
 @frappe.whitelist()
 def get_hr_admin_data():
@@ -213,3 +223,15 @@ def get_hr_admin_data():
                 "on_leave" : on_leave,
                 "on_duty" : on_duty
             }
+
+
+@frappe.whitelist()
+def get_presenty():
+    members_present_toady = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':['in',['Present','Work From Home']]},fields=['employee_name'])
+    x, members_absent_today = get_employee_on_leave_this_month()
+    members_on_duty = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':'On Duty (OD)'},fields=['employee_name'])
+    return {
+        "members_present_toady":members_present_toady,
+        "members_absent_today":members_absent_today,
+        "members_on_duty":members_on_duty,
+        }

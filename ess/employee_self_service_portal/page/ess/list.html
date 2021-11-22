@@ -1,0 +1,9 @@
+{% if not jQuery.isEmptyObject(data) %}
+<ul>
+    {% for(const [key, value] of Object.entries(data)) { %}
+        <li class=""> {%= value["employee_name"] %} </li>
+    {% } %}
+</ul>
+{% else %}
+ No Leaves this month.
+{% endif %}

@@ -240,8 +240,8 @@
                         <div class="card-body" id="attendance">
                             <!--  -->
                             <div class="p-3 mb-2  text-white">
-                                <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Absent">Absent</button>
-                                <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Present">Present</button>
+                                <!-- <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Absent">Absent</button>
+                                <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Present">Present</button> -->
                                 <button type="button" class="btn btn-outline-primary" id = "attendance_" value="Work From Home">WFH</button>
                                 <button type="button" class="btn btn-outline-warning" id = "attendance_" value="On Duty (OD)">On Duty</button>
                                 <button type="button" class="btn btn-outline-danger" id = "attendance_" value="Absent">On Leave</button>
@@ -333,8 +333,8 @@
                           </div>
                     </div>
                     <!-- Attendance report ends -->
-                    <!-- Holidays for Month -->
-                    <div class="card border-secondary text-center">
+                     <!-- Holidays for Month -->
+                     <div class="card border-secondary text-center">
                         <div class="card-header custom-header">
                             <div class="btn border border-primary font-weight-bold">
 
@@ -353,6 +353,65 @@
             </div>
         </div>
         <!-- Report Section Ends -->
+        <!-- Present Absent On leave Section -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container">
+                <div class="card-deck">
+                    <!-- Leave Balance -->
+                    <div class="card border-secondary text-center">
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Members Present Today
+                            </div>
+                        </div>
+                        <div class="card-body">
+                          <!-- <h5 class="card-title">Mark your attendance</h5> -->
+                          <p class="card-text present-members">
+
+                          </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Updated now
+                        </div>
+                    </div>
+                    <!-- Leave Balance ends-->
+                    <!-- Attendance report  -->
+                    <div class="card border-secondary text-center ">
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Members Absent Today
+                            </div>
+                          </div>
+                          <div class="card-body absent-members">
+
+                          </div>
+                          <div class="card-footer text-muted">
+                          Updated now
+                          </div>
+                    </div>
+                    <!-- Attendance report ends -->
+                    <!-- Holidays for Month -->
+                    <div class="card border-secondary text-center">
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Team Members On Duty
+                            </div>
+                        </div>
+                        <div class="card-body onduty-members">
+
+                        </div>
+                        <div class="card-footer text-muted">
+                        Updated now
+                        </div>
+                    </div>
+                      <!-- Holidays for Month End-->
+                </div>
+            </div>
+        </div>
+        <!-- Present Absent On leave Section Ends -->
         <!-- section 3 -->
         <div class="section-2">
             <div class="frappe-card chart-column-container heatmap-container">

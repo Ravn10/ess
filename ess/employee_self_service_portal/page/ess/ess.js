@@ -150,13 +150,44 @@ ESS = Class.extend({
                 this.get_holiday_list()
                 this.get_employee_with_birthday_this_month()
                 this.get_employee_on_leave_this_month()
+                this.get_members_status_for_the_day()
                 console.log("printing me")
                 console.log(me)
                 console.log(me.curr_month)
 
         })
     },
-
+    // get members present absent on duty today
+    get_members_status_for_the_day: function(){
+        frappe.call({
+            method: "ess.employee_self_service_portal.page.ess.ess.get_presenty",
+            async: false,
+            callback: function(r) {
+                console.log(r.message)
+                if(r.message['members_present_toady']){
+                    let find_present = document.querySelector('.present-members');
+                    let html = frappe.render_template('list',{'data':r.message['members_present_toady']});
+                    let div = document.createElement('div');
+                    div.innerHTML = html;
+                    find_present.appendChild(div);
+                }
+                if(r.message['members_absent_today']){
+                    let find_absent = document.querySelector('.absent-members');
+                    let html = frappe.render_template('list',{'data':r.message['members_absent_today']});
+                    let div = document.createElement('div');
+                    div.innerHTML = html;
+                    find_absent.appendChild(div);
+                }
+                if(r.message['members_on_duty']){
+                    let find_onduty = document.querySelector('.onduty-members');
+                    let html = frappe.render_template('list',{'data':r.message['members_on_duty']});
+                    let div = document.createElement('div');
+                    div.innerHTML = html;
+                    find_onduty.appendChild(div);
+                }
+            }
+        });
+    },
     // Get Modules and reports
     get_modules_and_reoports_list: function(){
         frappe.call({
@@ -307,20 +338,44 @@ ESS = Class.extend({
                 }
                 else if (dateTime < tdy) {
                     console.log('else if');
-                    frappe.call({
-                        method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
-                        args: {
-                            data: data
-                        },
-                        callback: function(r) {
-                            console.log(r);
-                            //if (r.message === 1) {
-                                frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
-                                cur_dialog.hide();
+                    let d = new frappe.ui.Dialog({
+                        title: 'Enter details',
+                        fields: [
+                            {
+                                label: 'Work From Home',
+                                fieldname: 'home',
+                                fieldtype: 'Check'
+                            },
+                            {
+                                fieldtype: 'Column Break'
+                            },
+                            {
+                                label: 'Office',
+                                fieldname: 'office',
+                                fieldtype: 'Check'
+                            }
+                        ],
+                        primary_action_label: 'Submit',
+                        primary_action(data) {
+                            console.log(data);
+                            frappe.call({
+                                method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
+                                args: {
+                                    data: data
+                                },
+                                callback: function(r) {
+                                    console.log(r);
+                                    //if (r.message === 1) {
+                                        frappe.msgprint({message: __("Good Morning, Have a Good Day!!!"), indicator: 'blue'});
+                                        document.getElementById("checkin").disabled = true;
+                                        cur_dialog.hide();
+                                }
+                                }
+                            );
+                            d.hide();
                         }
-                        }
-                    );
-                    dialog.hide();
+                    });
+                    d.show();
                     document.getElementById("checkin").disabled = true;
                 }
 
@@ -362,19 +417,42 @@ ESS = Class.extend({
         }
         else if (_time >= ext_out) {
             console.log('else if');
-            frappe.call({
-                method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
-                args: {
-                    data: data
-                },
-                callback: function(r) {
-                    //if (r.message === 1) {
-                        frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
-                        cur_dialog.hide();
-                    //}
+            let d = new frappe.ui.Dialog({
+                title: 'Enter details',
+                fields: [
+                    {
+                        label: 'Work From Home',
+                        fieldname: 'home',
+                        fieldtype: 'Check'
+                    },
+                    {
+                        fieldtype: 'Column Break'
+                    },
+                    {
+                        label: 'Office',
+                        fieldname: 'office',
+                        fieldtype: 'Check'
+                    }
+                ],
+                primary_action_label: 'Submit',
+                primary_action(data) {
+                    console.log(data);
+                    frappe.call({
+                        method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
+                        args: {
+                            data: data
+                        },
+                        callback: function(r) {
+                            //if (r.message === 1) {
+                                frappe.msgprint({message: __("Thank You!!!"), indicator: 'blue'});
+                                document.getElementById("checkout").disabled = true;
+                                cur_dialog.hide();
+                            //}
+                        }
+                    });
+                    d.hide();
                 }
             });
-            dialog.hide();
             document.getElementById("checkout").disabled = true;
         }
     });

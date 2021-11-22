@@ -8,6 +8,7 @@
         "employee_self_service_portal/page/ess/ess/ess_list.html",
         "employee_self_service_portal/page/ess/ess/birthday.html",
         "employee_self_service_portal/page/ess/ess/leave.html",
+        "employee_self_service_portal/page/ess/ess/list.html",
         "employee_self_service_portal/page/ess/ess/ess_modules_reports.html"
 	],
     "js/ess-template.min.js": [
