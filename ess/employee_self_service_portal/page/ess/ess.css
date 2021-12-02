@@ -693,9 +693,12 @@ a:not([href]):hover{
     max-height: 200px;
     overflow-y: auto;
 }
+
 .sidebar {
     position:fixed;
     z-index: 1;
+    max-width: 13%;
+    height: 100vh;
 }
 
 .scroll {

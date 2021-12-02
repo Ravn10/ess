@@ -25,12 +25,34 @@ ESS = Class.extend({
                             fieldname: 'employee',
                             options: 'Employee',
                             label: __('Employee'),
-                        }
+                            
+                        },
+                        // {
+                        //     fieldtype: 'Link',
+                        //     fieldname: 'department',
+                        //     options: 'Department',
+                        //     label: __('Department')
+                        // }
                     ],
                     primary_action_label: __('Go'),
-                    primary_action: ({ employee }) => {
+                    primary_action: (values) => {
+                        console.log(values)
+                        frappe.call({
+                            'method': 'frappe.client.get_value',
+                            args: {
+                                'doctype': 'Employee',
+                                'filters': {
+                                    'name': values.employee
+                                },
+                                'fieldname': ['department']
+                            }
+                        }).then(r => {
+                            console.log(r.message)
+                            frappe.boot.department = r.message['department']
+                        });
                         dialog.hide();
-                        frappe.boot.employee = employee
+                        frappe.boot.employee = values.employee
+                        // frappe.boot.department = values.department
                         this.make_sidebar()
                     }
                 });
@@ -157,10 +179,13 @@ ESS = Class.extend({
 
         })
     },
-    // get members present absent on duty today
+    // get members present aant on duty today
     get_members_status_for_the_day: function(){
         frappe.call({
             method: "ess.employee_self_service_portal.page.ess.ess.get_presenty",
+            args:{
+                "department":frappe.boot.department
+            },
             async: false,
             callback: function(r) {
                 console.log(r.message)
@@ -540,8 +565,10 @@ ESS = Class.extend({
     },
     // get_employee_on_leave_this_month
     get_employee_on_leave_this_month: function(){
+        console.log("in here .....")
         frappe.call({
-            method:"ess.employee_self_service_portal.page.ess.ess.get_employee_on_leave_this_month"
+            method:"ess.employee_self_service_portal.page.ess.ess.get_employee_on_leave_this_month",
+            args:{'department':frappe.boot.department},
         }).then(r => {
             console.log("Leave Section")
             console.log(r.message)
@@ -629,7 +656,8 @@ ESS = Class.extend({
             const datatable_options = {
                 columns: columns,
                 data: r.message.result,
-                layout:'fixed'
+                layout:'fluid',
+                noDataMessage: "no data available"
             };
             datatable = new frappe.DataTable('.report-container',
             datatable_options
@@ -676,7 +704,8 @@ ESS = Class.extend({
             const datatable_options = {
                 columns: columns,
                 data: r.message.result,
-                layout:'fixed'
+                layout:'fixed',
+                noDataMessage: 'no data available'
             };
             datatable = new frappe.DataTable('.leave-report-container',
             datatable_options

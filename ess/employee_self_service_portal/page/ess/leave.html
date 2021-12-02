@@ -1,11 +1,11 @@
 <p class="card-text ">
     {% if not jQuery.isEmptyObject(leave_data) %}
-    <table class="table">
+    <table class="table ">
         <thead>
             <tr>
                 <th scope="col">Employee on Leave This Month</th>
                 <th scope="col">Leave From</th>
-                <th scope="col">To</th>
+                <th scope="col">To&nbsp&nbsp&nbsp</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,9 @@
         </tbody>
     </table>
     {% else %}
-     No Leaves this month.
+     No Data Available.
     {% endif %}
+    <!--
     {% if not jQuery.isEmptyObject(absent_data) %}
     <table class="table">
         <thead>
@@ -39,3 +40,4 @@
     {% else %}
      No Leaves this month.
     {% endif %}
+-->

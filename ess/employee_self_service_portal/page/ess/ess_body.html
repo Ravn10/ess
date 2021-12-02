@@ -24,9 +24,9 @@
                                             <div class="mt-3">
                                                 <div class="row">
                                                     <span class="btn-label">
-                                                        <a href="/app/employee/{{frappe.boot.employee}}"> <i class="fa fa-edit fa-2x"></i></a>
+                                                        <a href="/app/employee/{{frappe.boot.employee}}"> <i class="fa fa-edit fa-2x " style="font-size: 18px;"></i>&nbsp<b style="font-size: 18px; color: black;">{{ employee_name }}</b></a>
                                                     </span>
-                                                    <h3>{{ employee_name }}</h3>
+                                                   <!-- <h3 style="font-size: 15px;">{{ employee_name }}</h3> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -44,14 +44,14 @@
                                     </div>
                                     <div class="card-body" style=" overflow-y: overlay;">
                                         <div class="row text-justify" style="padding: inherit;">
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                             <div class="box align-self-start row">
                                                 <b class="col">Employee Id -</b><p class="col">{{ name }}
                                                     </p>
                                             </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                             <div class="box align-self-start row">
                                                 <b class="col">Email -</b>
                                                 <p class="col">
@@ -59,28 +59,28 @@
                                                 </p>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                             <div class="box align-self-start row">
                                                 <b class="col">Designation -</b><p class="col">
                                                     {% if designation %}{{ designation }}{% else %}"No Designation set"{% endif %}</p>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                             <div class="box align-self-start row">
                                                 <b class="col">Phone -</b><p class="col">
                                                     {% if cell_number %}{{ cell_number }}{% else %}"No Phone Number set"{% endif %}</p>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                             <div class="box align-self-start row">
                                                 <b class="col">Department -</b><p class="col">
                                                     {% if department %}{{ department }}{% else %}"No department set"{% endif %}</p>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                             <div class="box align-self-start row">
                                                 <b class="col">Birthday -</b><p class="col">
                                                     {% if date_of_birth %}
@@ -89,14 +89,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                                 <div class="box align-self-start row">
                                                     <b class="col">Date of Joining -</b><p class="col">
                                                     {% if date_of_joining %}{{ date_of_joining }}{% else %}"No Date of Joining set"{% endif %}</p>
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12 col-sm-4">
+                                            <div class="col-xs-12 col-sm-6">
                                                 <div class="box align-self-start row">
                                                     <b class="col">Reporting To -</b><p class="col">
                                                     {% if reports_to %}{{ reports_to }}{% else %}"No Reporting set"{% endif %}</p>
@@ -113,7 +113,7 @@
                     <!--  -->
                     <!-- Image Card Ends -->
                     <!-- info and connect card -->
-
+                    
                 <!-- info and connect card -->
                 </div>
             </div>
@@ -123,56 +123,7 @@
 </div>
 <!-- sample card ends -->
 <!-- hr admin section -->
-{% if is_hr %}
-<div class="row" style="display: flex">
-	<div class="col-md-12">
-        <div class="section-2">
 
-            <div class="frappe-card border-dark ">
-                <div class="card border-secondary text-center">
-                    <div class="card-header custom-header">
-                        <div class="btn border border-primary font-weight-bold">
-
-                            HR Section
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="report-summary" >
-                            <div class="summary-item">
-                                <span class="summary-label">Present</span>
-                                <div class="summary-value green">{{ admin_section.present }}</div>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">On Duty</span>
-                                <div class="summary-value green">{{ admin_section.on_duty }}</div>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">On Leave</span>
-                                <div class="summary-value red">{{ admin_section.on_leave }}</div>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Total Head Count</span>
-                                <div class="summary-value ">{{ admin_section.head_count }}</div>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">New Joiners</span>
-                                <div class="summary-value blue">{{ admin_section.new_joiners }}</div>
-                            </div>
-                            <div class="summary-item">
-                                <span class="summary-label">Exits</span>
-                                <div class="summary-value red">{{ admin_section.exits }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-muted">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
 <!-- hr admin section ends-->
 
 <div class="row " style="display: flex">
@@ -223,6 +174,26 @@
             </div>
         </div>
         <!--  User Detials Section Ends -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container ">
+                <div class="profile-info card border-dark" style="max-height: auto; max-width: auto;" >
+                    <div class="card-header custom-header text-center">
+                        <h4 class="card-title btn border border-primary font-weight-bold " data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Modules and Reports</h4>
+
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                    <div class="card-body">
+                        <!-- <h4 class="card-title btn border border-primary">Modules and Reports</h4> -->
+                        <!-- info -->
+                        <div class="row card-body modules-reports">
+                            <!-- rendered from template -->
+                        </div>
+                        <!-- info ends -->
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Attendance -->
         <div class="section-2">
             <div class="frappe-card chart-column-container heatmap-container">
@@ -246,11 +217,11 @@
                                 <button type="button" class="btn btn-outline-warning" id = "attendance_" value="On Duty (OD)">On Duty</button>
                                 <button type="button" class="btn btn-outline-danger" id = "attendance_" value="Absent">On Leave</button>
                             </div>
-                            <table class="table small table-responsive" >
-                                <thead>
+                            <table class="table" >
+                                <thead >
                                     <tr>
-                                    <th><button type="button" class="btn btn-success checkin" id="checkin" >Checkin</button></th>
-                                    <th><button type="button" class="btn btn-danger checkout" id="checkout" >Checkout</button></th>
+                                    <th ><button type="button" class="btn btn-success checkin" id="checkin" >Checkin</button></th>
+                                    <th ><button type="button" class="btn btn-danger checkout" id="checkout" >Checkout</button></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -279,10 +250,10 @@
                             </div>
                           </div>
                           <div class="card-body report-container">
-
+                              
                           </div>
                           <div class="card-footer text-muted">
-                          Updated now
+                          <!--Updated now-->
                           </div>
                     </div>
                     <!-- leave report ends-->
@@ -294,67 +265,8 @@
             </div>
         </div>
         <!-- Attendance Ends -->
-        <!-- Report Section -->
-        <div class="section-2">
-            <div class="frappe-card chart-column-container heatmap-container">
-                <div class="card-deck">
-                    <!-- Leave Balance -->
-                    <div class="card border-secondary text-center">
-                        <div class="card-header custom-header">
-                            <div class="btn border border-primary font-weight-bold">
-
-                                Leave Balance
-                            </div>
-                        </div>
-                        <div class="card-body">
-                          <!-- <h5 class="card-title">Mark your attendance</h5> -->
-                          <p class="card-text leaves">
-
-                          </p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            Updated now
-                        </div>
-                    </div>
-                    <!-- Leave Balance ends-->
-                    <!-- Attendance report  -->
-                    <div class="card  border-secondary text-center ">
-                        <div class="card-header custom-header">
-                            <div class="btn border border-primary font-weight-bold">
-
-                                Leave Report
-                            </div>
-                          </div>
-                          <div class="card-body leave-report-container">
-
-                          </div>
-                          <div class="card-footer text-muted">
-                          Updated now
-                          </div>
-                    </div>
-                    <!-- Attendance report ends -->
-                     <!-- Holidays for Month -->
-                     <div class="card border-secondary text-center">
-                        <div class="card-header custom-header">
-                            <div class="btn border border-primary font-weight-bold">
-
-                                Team Members On Leave
-                            </div>
-                        </div>
-                        <div class="card-body onleave">
-
-                        </div>
-                        <div class="card-footer text-muted">
-                        Updated now
-                        </div>
-                    </div>
-                      <!-- Holidays for Month End-->
-                </div>
-            </div>
-        </div>
-        <!-- Report Section Ends -->
-        <!-- Present Absent On leave Section -->
-        <div class="section-2">
+         <!-- Present Absent On leave Section -->
+         <div class="section-2">
             <div class="frappe-card chart-column-container heatmap-container">
                 <div class="card-deck">
                     <!-- Leave Balance -->
@@ -372,23 +284,23 @@
                           </p>
                         </div>
                         <div class="card-footer text-muted">
-                            Updated now
+                            <!--Updated now-->
                         </div>
                     </div>
                     <!-- Leave Balance ends-->
                     <!-- Attendance report  -->
-                    <div class="card border-secondary text-center ">
+                    <div class="card  border-secondary text-center ">
                         <div class="card-header custom-header">
                             <div class="btn border border-primary font-weight-bold">
 
                                 Members Absent Today
                             </div>
                           </div>
-                          <div class="card-body absent-members">
+                          <div class="card-body absent-members" >
 
                           </div>
                           <div class="card-footer text-muted">
-                          Updated now
+                          <!--Updated now-->
                           </div>
                     </div>
                     <!-- Attendance report ends -->
@@ -404,7 +316,7 @@
 
                         </div>
                         <div class="card-footer text-muted">
-                        Updated now
+                        <!--Updated now-->
                         </div>
                     </div>
                       <!-- Holidays for Month End-->
@@ -412,6 +324,67 @@
             </div>
         </div>
         <!-- Present Absent On leave Section Ends -->
+        <!-- Report Section -->
+        <div class="section-2">
+            <div class="frappe-card chart-column-container heatmap-container">
+                <div class="card-deck">
+                    
+                      <!-- Holidays for Month -->
+                      <div class="card border-secondary text-center">
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Team Members On Leave
+                            </div>
+                        </div>
+                        <div class="card-body onleave">
+
+                        </div>
+                        <div class="card-footer text-muted">
+<!--Updated now-->
+                        </div>
+                    </div>
+                      <!-- Holidays for Month End-->
+                    <!-- Attendance report  -->
+                    <div class="card border-secondary text-center ">
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Leave Report
+                            </div>
+                          </div>
+                          <div class="card-body leave-report-container">
+
+                          </div>
+                          <div class="card-footer text-muted">
+                          <!--Updated now-->
+                          </div>
+                    </div>
+                    <!-- Attendance report ends -->
+                    <!-- Leave Balance -->
+                    <div class="card border-secondary text-center">
+                        <div class="card-header custom-header">
+                            <div class="btn border border-primary font-weight-bold">
+
+                                Leave Balance
+                            </div>
+                        </div>
+                        <div class="card-body">
+                          <!-- <h5 class="card-title">Mark your attendance</h5> -->
+                          <p class="card-text leaves">
+
+                          </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <!--Updated now-->
+                        </div>
+                    </div>
+                    <!-- Leave Balance ends-->
+                </div>
+            </div>
+        </div>
+        <!-- Report Section Ends -->
+       
         <!-- section 3 -->
         <div class="section-2">
             <div class="frappe-card chart-column-container heatmap-container">
@@ -428,7 +401,7 @@
 
                         </div>
                         <div class="card-footer text-muted">
-                        Updated now
+                        <!--Updated now-->
                         </div>
                     </div>
                     <!-- attendance buttons ends-->
@@ -445,9 +418,9 @@
 
                           <!-- <a href="#" class="btn btn-primary">Total : 3</a> -->
                         </div>
-                        <!-- <div class="card-footer text-muted">
-                        Updated now
-                        </div> -->
+                         <div class="card-footer text-muted">
+                        <!--Updated now-->
+                        </div>
                     </div>
                       <!-- Holidays for Month End-->
                     <!-- Leave Balance -->
@@ -483,7 +456,7 @@
                           </p>
                         </div>
                         <div class="card-footer text-muted">
-                        Updated now
+                       <!-- Updated now-->
                         </div>
                     </div>
                     <!-- Leave Balance ends-->
@@ -492,24 +465,7 @@
         </div>
         <!-- section 3 ends -->
         <!-- section 3 -->
-        <div class="section-2">
-            <div class="frappe-card chart-column-container heatmap-container">
-                <div class="profile-info card border-dark" style="max-height: auto; max-width: auto;" >
-                    <div class="card-header custom-header text-center">
-                        <h4 class="card-title btn border border-primary font-weight-bold">Modules and Reports</h4>
-
-                    </div>
-                    <div class="card-body">
-                        <!-- <h4 class="card-title btn border border-primary">Modules and Reports</h4> -->
-                        <!-- info -->
-                        <div class="row card-body modules-reports">
-                            <!-- rendered from template -->
-                        </div>
-                        <!-- info ends -->
-                    </div>
-                </div>
-            </div>
-        </div>
+      
         <!-- section 3 ends -->
 
 	</div>

@@ -139,15 +139,15 @@ def get_employee_with_birthday_this_month():
     birthday_persons = frappe.db.sql("""select name, employee_name, date_of_birth
                                      from tabEmployee
                                      where status = 'Active' %s
-                                     order by date_of_birth DESC""" % conditions, as_dict=1)
+                                     order by date_of_birth DESC""" % conditions, as_dict=True)
     def get_day(data):
         print(data)
-        data['day'] = data['date_of_birth'].day
+        data['day'] = data['date_of_birth'].strftime('%d-%m')
     list(map(get_day,birthday_persons))
     return birthday_persons
 
 @frappe.whitelist()
-def get_employee_on_leave_this_month():
+def get_employee_on_leave_this_month(department):
     month_first_date = get_first_day(nowdate())
     leave_info = frappe.db.sql('''select employee_name, from_date, to_date, half_day
                   from `tabLeave Application`
@@ -160,13 +160,13 @@ def get_employee_on_leave_this_month():
                   as_dict=1
                   )
     def get_day(data):
-        data['from'] = data['from_date'].day
-        data['to'] = data['to_date'].day
+        data['from'] = data['from_date'].strftime('%d-%m')
+        data['to'] = data['to_date'].strftime('%d-%m')
     list(map(get_day,leave_info))
-    absent_today = frappe.db.get_all("Attendance",filters={'status':"Absent",'attendance_date':frappe.utils.get_datetime().date()},fields=['employee_name'])
+    absent_today = frappe.db.get_all("Attendance",filters={'department' : department,'status':"Absent",'attendance_date':frappe.utils.get_datetime().date()},fields=['employee_name'])
     employee = get_active_employees()
     for emp in employee:
-        if frappe.db.count('Attendance',filters={'employee':emp.name,'attendance_date':frappe.utils.get_datetime().date()}) == 0:
+        if frappe.db.count('Attendance',filters={'department' : department,'employee':emp.name,'attendance_date':frappe.utils.get_datetime().date()}) == 0:
             absent_today.append({'employee_name':emp.employee_name,})
     return leave_info, absent_today
 
@@ -226,10 +226,10 @@ def get_hr_admin_data():
 
 
 @frappe.whitelist()
-def get_presenty():
-    members_present_toady = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':['in',['Present','Work From Home']]},fields=['employee_name'])
-    x, members_absent_today = get_employee_on_leave_this_month()
-    members_on_duty = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':'On Duty (OD)'},fields=['employee_name'])
+def get_presenty(department):
+    members_present_toady = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':['in',['Present','Work From Home']],'department': department},fields=['employee_name'])
+    x, members_absent_today = get_employee_on_leave_this_month(department)
+    members_on_duty = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':'On Duty (OD)','department' :department},fields=['employee_name'])
     return {
         "members_present_toady":members_present_toady,
         "members_absent_today":members_absent_today,

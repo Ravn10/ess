@@ -11,3 +11,4 @@ def boot_session(bootinfo):
             emp = frappe.get_doc('Employee', employee_docname[0][0])
             frappe.msgprint(_(emp.employee))
             bootinfo.employee = emp.employee
+            bootinfo.department = emp.department
