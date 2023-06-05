@@ -14,7 +14,7 @@
                     <br>
                     {{ employee.data[0].name }}
                     {{ getCheckins.data.checkin_count }}
-                    <div class="row" v-if="getCheckins.data.checkin_count==0 && getCheckins.data.checkout_count==0">
+                    <div class="row" >
                         <div class="col-6">
                             <ul v-if="getCheckins.data.checkin_count !== 0">
                                 <li v-for="checkinLog in getCheckins.data.checkin" :key="checkinLog">
@@ -38,14 +38,11 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="row" v-else>
-                        Not Checked In Yet
-                    </div>
+
                     <br>
                     <div class="flex flex-row space-y-2 items-center justify-between">
-                        <Button v-if="getCheckins.data.checkin_count < getCheckins.data.checkout_count" @click="addActionDialogShown = true" appearance="danger">Check OUT</Button>
-                        <Button v-if="getCheckins.data.checkin_count >= getCheckins.data.checkout_count" @click="addActionDialogShown = true" appearance="success">Check IN</Button>
-                        <Button @click="addActionDialogShown = true" icon-left="plus">New Action</Button>
+                        <Button v-if="getCheckins.data.checkin_count >= getCheckins.data.checkout_count" @click="addActionDialogShown = true" appearance="danger">Check OUT</Button>
+                        <Button v-if="getCheckins.data.checkin_count <= getCheckins.data.checkout_count" @click="addActionDialogShown = true" appearance="success">Check IN</Button>
                     {{ addActionDialogShown }}
                     </div>
                     <Dialog :options="{
@@ -55,6 +52,8 @@
                                         label: 'Add Action',
                                         appearance: 'primary',
                                         handler: ({ close }) => {
+                                            createCehckIn()
+                                            getCheckins.fetch()
                                             close() // closes dialog
                                         },
                                     },
