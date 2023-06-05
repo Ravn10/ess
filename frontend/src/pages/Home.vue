@@ -10,29 +10,27 @@
         <ul>
             <li v-for="d in employee.data" :key="d">
                 <Card :title="d.employee">
-                    {{ d.time }}
-                    <br>
-                    {{ employee.data[0].name }}
-                    {{ getCheckins.data.checkin_count }}
-                    <div class="row" >
-                        <div class="col-6">
+                    <div class="grid grid-cols-3" >
+                        <div class="col-span-1 space-y-2">
                             <ul v-if="getCheckins.data.checkin_count !== 0">
-                                <li v-for="checkinLog in getCheckins.data.checkin" :key="checkinLog">
+                                <li v-for="(checkinLog, idx) in getCheckins.data.checkin" :key="checkinLog">
                                     <span>
-                                        <Badge color="green">{{ checkinLog.name }}</Badge>
+                                        {{ idx+1 }} -
+                                        <Button appearance="success">{{ checkinLog.name }}</Button>
                                         <br>
-                                        <Badge color="yellow">{{ checkinLog.time }}</Badge>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Badge color="yellow">{{ checkinLog.time }}</Badge>
                                     </span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-6">
+                        <div class="col-span-1">
                             <ul v-if="getCheckins.data.checkout_count !== 0">
-                                <li v-for="checkoutLog in getCheckins.data.checkout" :key="checkoutLog">
+                                <li v-for="(checkoutLog, idx) in getCheckins.data.checkout" :key="checkoutLog">
                                     <span>
-                                        <Badge color="red">{{ checkoutLog.name }}</Badge>
+                                        {{ idx + 1 }} -
+                                        <Button appearance="danger">{{ checkoutLog.name }}</Button>
                                         <br>
-                                        <Badge color="yellow">{{ checkoutLog.time }}</Badge>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Badge color="yellow" >{{ checkoutLog.time }}</Badge>
                                     </span>
                                 </li>
                             </ul>
@@ -40,13 +38,15 @@
                     </div>
 
                     <br>
-                    <div class="flex flex-row space-y-2 items-center justify-between">
-                        <Button v-if="getCheckins.data.checkin_count >= getCheckins.data.checkout_count" @click="addActionDialogShown = true" appearance="danger">Check OUT</Button>
-                        <Button v-if="getCheckins.data.checkin_count <= getCheckins.data.checkout_count" @click="addActionDialogShown = true" appearance="success">Check IN</Button>
-                    {{ addActionDialogShown }}
+                    <!-- checkin checkout buttons -->
+                    {{ checkinData }}
+                    {{ checkOutData }}
+                    <div class="grid grid-cols-3 gap-4">
+                        <Button v-if="getCheckins.data.checkin_count <= getCheckins.data.checkout_count" @click="addCheckINDialogShown = true" appearance="success">Check IN</Button>
+                        <Button v-if="getCheckins.data.checkin_count >= getCheckins.data.checkout_count" @click="addCheckOUTDialogShown = true" appearance="danger">Check OUT</Button>
                     </div>
                     <Dialog :options="{
-                                title: 'Add New Action',
+                                title: 'Add New Check In',
                                 actions: [
                                     {
                                         label: 'Add Action',
@@ -59,7 +59,28 @@
                                     },
                                     { label: 'Cancel' },
                                 ],
-                            }" v-model="addActionDialogShown">
+                            }" v-model="addCheckINDialogShown">
+                            <template #body-content>
+                                <div class="space-y-2">
+                                Hello
+                                </div>
+                            </template>
+                    </Dialog>
+                    <Dialog :options="{
+                                title: 'Add New Check Out',
+                                actions: [
+                                    {
+                                        label: 'Add Action',
+                                        appearance: 'primary',
+                                        handler: ({ close }) => {
+                                            createCehckOUT()
+                                            getCheckins.fetch()
+                                            close() // closes dialog
+                                        },
+                                    },
+                                    { label: 'Cancel' },
+                                ],
+                            }" v-model="addCheckOUTDialogShown">
                             <template #body-content>
                                 <div class="space-y-2">
                                 Hello
@@ -98,10 +119,14 @@ const employee = createListResource({
 employee.reload()
 
 //checkin dialog
-const addActionDialogShown = ref(false); //refence
+const addCheckINDialogShown = ref(false); //refence
+const addCheckOUTDialogShown = ref(false); //refence
 
 const checkinData = reactive({
     log_type: 'IN',
+})
+const checkOutData = reactive({
+    log_type: 'OUT ',
 })
 
 //function to create checkin
@@ -115,6 +140,11 @@ checkin_doc.reload()
 const createCehckIn = () => {
     console.log(employee.data[0].name)
     checkin_doc.insert.submit(checkinData)
+}
+
+const createCehckOUT = () => {
+    console.log(employee.data[0].name)
+    checkin_doc.insert.submit(checkOutData)
 }
 
 //funtion to fetch checkin list for the day
