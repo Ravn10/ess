@@ -137,7 +137,7 @@ ESS = Class.extend({
 
     get_balance_leaves: function(){
         frappe.call({
-            method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
+            method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
                 employee:frappe.boot.employee ,
@@ -263,7 +263,7 @@ ESS = Class.extend({
     // Get Leave Balances
     get_balance_leaves: function(){
         frappe.call({
-            method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
+            method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
                 employee:frappe.boot.employee ,
@@ -330,7 +330,7 @@ ESS = Class.extend({
                 primary_action(data)  {
                     console.log('dttt '+dialog.fields_dict.office + ' ho '+dialog.fields_dict.home);
                     frappe.call({
-                        method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
+                        method: "ess.custom_methods.checkin_attendance_creation",
                         args: {
                             data: data
                         },
@@ -391,7 +391,7 @@ ESS = Class.extend({
 				],
 				primary_action(data)  {
 					frappe.call({
-						method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
+						method: "hrms.hr.doctype.attendance.attendance.checkout_attendance_updation",
 						args: {
 							data: data
 						},

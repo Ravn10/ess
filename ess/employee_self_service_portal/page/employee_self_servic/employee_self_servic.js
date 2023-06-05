@@ -28,7 +28,7 @@ ESS = Class.extend({
     },
     get_balance_leaves: function(){
         frappe.call({
-            method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
+            method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
                 employee:frappe.get_route()[1] ,

@@ -8,7 +8,7 @@ def boot_session(bootinfo):
             {'doctype': 'Employee', 'user_id': frappe.session.user})
         if employee_docname:
             # frappe.db.exists returns a tuple of a tuple
-            emp = frappe.get_doc('Employee', employee_docname[0][0])
+            emp = frappe.get_doc('Employee', employee_docname)
             frappe.msgprint(_(emp.employee))
             bootinfo.employee = emp.employee
             bootinfo.department = emp.department

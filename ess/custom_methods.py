@@ -3,22 +3,12 @@
 
 from __future__ import unicode_literals
 from calendar import month
-from erpnext.hr.doctype.employee.employee import deactivate_sales_person
 import frappe
-from frappe.utils import getdate, nowdate
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import cint, cstr, date_diff, flt, formatdate, getdate, get_link_to_form, \
-	comma_or, get_fullname, add_days, nowdate, get_datetime_str
-from frappe.utils import cstr, get_datetime, formatdate
-from erpnext.hr.doctype.employee.employee import is_holiday
-from datetime import timedelta, date
-from datetime import datetime, timedelta
-from datetime import date, time, datetime, timedelta
-from frappe.utils import now
-from frappe.utils import flt, now_datetime
-from frappe.utils import cint, cstr, date_diff, flt, formatdate, getdate, get_link_to_form, \
-	comma_or, get_fullname, add_days, nowdate, get_datetime_str
+from erpnext.setup.doctype.employee.employee import is_holiday
+from datetime import date, timedelta
+from frappe.utils import *
 
 class Attendance(Document):
 	def validate(self):

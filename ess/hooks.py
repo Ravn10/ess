@@ -10,7 +10,7 @@ app_email = "support@firsterp.in"
 app_license = "MIT"
 
 
-on_session_creation = ["ess.employee_self_service_portal.page.ess.ess.on_login"]
+# on_session_creation = ["ess.employee_self_service_portal.page.ess.ess.on_login"]
 extend_bootinfo = "ess.boot.boot_session"
 
 # Includes in <head>
@@ -61,10 +61,9 @@ app_include_js = ["/assets/ess/js/ess-template.min.js"]
 # ----------
 
 # add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "ess.utils.jinja_methods",
-# 	"filters": "ess.utils.jinja_filters"
-# }
+jinja = {
+	"methods": "ess.utils.jinja_methods",
+}
 
 # Installation
 # ------------
@@ -186,3 +185,5 @@ app_include_js = ["/assets/ess/js/ess-template.min.js"]
 # 	"ess.auth.validate"
 # ]
 
+
+website_route_rules = [{'from_route': '/frontend/<path:app_path>', 'to_route': 'frontend'},]

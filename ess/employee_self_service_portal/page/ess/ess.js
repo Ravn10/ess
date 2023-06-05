@@ -25,7 +25,7 @@ ESS = Class.extend({
                             fieldname: 'employee',
                             options: 'Employee',
                             label: __('Employee'),
-                            
+
                         },
                         // {
                         //     fieldtype: 'Link',
@@ -101,7 +101,7 @@ ESS = Class.extend({
 
     get_balance_leaves: function(){
         frappe.call({
-            method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
+            method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
                 employee:frappe.boot.employee ,
@@ -155,6 +155,8 @@ ESS = Class.extend({
                     this.page.set_indicator('Unknown', 'gray')
                 }
                 this.get_checkin()
+                alert("fetching location")
+                this.get_location()
                 this.loadReport()
                 this.loadLeaveAnalyticsReport()
                 this.custom_checkin()
@@ -261,7 +263,7 @@ ESS = Class.extend({
     // Get Leave Balances
     get_balance_leaves: function(){
         frappe.call({
-            method: "erpnext.hr.doctype.leave_application.leave_application.get_leave_details",
+            method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
             async: false,
             args: {
                 employee:frappe.boot.employee ,
@@ -287,7 +289,11 @@ ESS = Class.extend({
             console.log("Checkin")
             frappe.call({
                 method:"ess.employee_self_service_portal.page.ess.ess.checkin",
-                args:{"employee":frappe.boot.employee,"log_type":"IN"}
+                args:{
+                        "employee":frappe.boot.employee,
+                        "log_type":"IN",
+                        "location_data":localStorage.getItem('locationData')
+                    }
             }).then(r => {
                 console.log(r)
                 let find = document.querySelector('#in-attendance-text');
@@ -343,7 +349,7 @@ ESS = Class.extend({
                             console.log('nivedha '+data.reason_late);
                             if(!data.reason_late){console.log('reason'); frappe.throw('Reason For Late Entry is Mandatory.')}
                             frappe.call({
-                                method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
+                                method: "ess.custom_methods.checkin_attendance_creation",
                                 args: {
                                     data: data
                                 },
@@ -384,7 +390,7 @@ ESS = Class.extend({
                         primary_action(data) {
                             console.log(data);
                             frappe.call({
-                                method: "erpnext.hr.doctype.attendance.attendance.checkin_attendance_creation",
+                                method: "ess.custom_methods.checkin_attendance_creation",
                                 args: {
                                     data: data
                                 },
@@ -423,7 +429,7 @@ ESS = Class.extend({
                 primary_action(data)  {
                     if(!data.reason_exit){console.log('reason'); frappe.throw('Reason For Early Exit is Mandatory.')}
                         frappe.call({
-                            method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
+                            method: "ess.custom_methods.checkout_attendance_updation",
                             args: {
                                 data: data
                             },
@@ -463,7 +469,7 @@ ESS = Class.extend({
                 primary_action(data) {
                     console.log(data);
                     frappe.call({
-                        method: "erpnext.hr.doctype.attendance.attendance.checkout_attendance_updation",
+                        method: "ess.custom_methods.checkout_attendance_updation",
                         args: {
                             data: data
                         },
@@ -481,6 +487,45 @@ ESS = Class.extend({
             document.getElementById("checkout").disabled = true;
         }
     });
+    },
+    onPositionRecieved:function(position){
+        alert(position.coords.longitude)
+        var longitude = position.coords.longitude;
+        var latitude = position.coords.latitude;
+        let locationData = {}
+        localStorage.setItem('longitude', longitude);
+        localStorage.setItem('latitude', latitude);
+        console.log(longitude);
+        console.log(latitude);
+        fetch('https://api.opencagedata.com/geocode/v1/json?q=' + latitude + '+' + longitude + '&key=de1bf3be66b546b89645e500ec3a3a28')
+            .then(response => response.json())
+            .then(data => {
+                locationData = data['results'][0].components
+                var city = data['results'][0].components.city;
+                var state = data['results'][0].components.state;
+                var area = data['results'][0].components.residential;
+                localStorage.setItem('city', city);
+                localStorage.setItem('state', state);
+                localStorage.setItem('area', area);
+                localStorage.setItem('components', data['results'][0].components);
+                console.log(data);
+                document.getElementById('locationFrame').src
+            })
+            locationData = localStorage.getItem("components")
+            localStorage.setItem('locationData', locationData);
+            locationData.longitude = longitude
+            locationData.latitude = latitude
+            .catch(err => console.log(err));
+            document.getElementById('locationFrame').src = 'https://maps.google.com/maps?q=' + latitude + ',' + longitude + '&t=&z=17&ie=UTF8&iwloc=&output=embed'
+    },
+
+    locationNotRecieved:function(positionError) {
+        console.log(positionError);
+    },
+    get_location:function(){
+        console.log("fetching location")
+        navigator.geolocation.getCurrentPosition(this.onPositionRecieved,this.locationNotRecieved,{ enableHighAccuracy: true});
+        console.log("fetching location Done..")
     },
     // get checkin and checkout
     get_checkin: function(){

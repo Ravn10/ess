@@ -1,7 +1,7 @@
 import frappe
 from frappe.utils import get_link_to_form, now_datetime, nowdate, get_first_day, get_last_day
 from frappe import _
-from erpnext.hr.doctype.upload_attendance.upload_attendance import get_active_employees
+from hrms.hr.doctype.upload_attendance.upload_attendance import get_active_employees
 
 month_list = ['January','February','March','April','May','June','July','August','September','October','November','December']
 
@@ -42,11 +42,22 @@ def get_connections(employee):
     return connections, reports
 
 @frappe.whitelist()
-def checkin(employee,log_type):
+def checkin(employee,log_type,location_data=None):
     checkin_doc = frappe.new_doc("Employee Checkin")
     checkin_doc.employee = employee
     checkin_doc.log_type = log_type
     checkin_doc.time = now_datetime()
+    checkin_meta = frappe.get_meta("Employee Checkin")
+    if checkin_meta.get_field("longitude"):
+        checkin_doc.longitude = location_data.get("longitude")
+    if checkin_meta.get_field("latitude"):
+        checkin_doc.latitude = location_data.get("latitude")
+    if checkin_meta.get_field("city"):
+        checkin_doc.city = location_data.get("city")
+    if checkin_meta.get_field("state"):
+        checkin_doc.state = location_data.get("state")
+    if checkin_meta.get_field("area"):
+        checkin_doc.area = location_data.get("area")
     try:
         checkin_doc.insert()
         checkin_link = get_link_to_form("Employee Checkin",checkin_doc.name)
@@ -108,7 +119,9 @@ def create_leave_application(info):
         return error_log_link
 
 @frappe.whitelist()
-def get_checkin(employee):
+def get_checkin(employee=None):
+    if not employee:
+        employee = frappe.db.get_list("Employee",{"user_id":frappe.session.user},pluck='employee')
     today = nowdate()
     checkin_for_the_day = frappe.db.sql("""
                                         SELECT name, time , log_type
@@ -191,13 +204,13 @@ def on_login():
 @frappe.whitelist()
 def get_approval_doc():
     approvals = []
-    leave_applications = len(frappe.db.get_all("Leave Application",filters={'leave_approver':frappe.session.user,'status':'Open'}))
-    todo = len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
-    claim = len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
-    travel_request = len(frappe.db.get_all("Travel Request",filters={'approver':frappe.session.user,'workflow_state':'Draft'}))
-    attendance = len(frappe.db.get_all("Attendance",filters={'attendance_approver':frappe.session.user,'workflow_state':'Draft'}))
-    appraisal = len(frappe.db.get_all("Appraisal",filters={'appraiser_approver':frappe.session.user,'workflow_state':'Pending Self Review'}))
-    appraisal_confirmation = len(frappe.db.get_all("Appraisal",filters={'appraiser_approver':frappe.session.user,'workflow_state':'Pending Self Review'}))
+    leave_applications = []# len(frappe.db.get_all("Leave Application",filters={'leave_approver':frappe.session.user,'status':'Open'}))
+    todo = []# len(frappe.db.get_all("ToDo",filters={'owner':frappe.session.user,'status':'Open'}))
+    claim = []# len(frappe.db.get_all("Expense Claim",filters={'expense_approver':frappe.session.user,'status':'Draft'}))
+    travel_request = []# len(frappe.db.get_all("Travel Request",filters={'approver':frappe.session.user,'workflow_state':'Draft'}))
+    attendance = []# len(frappe.db.get_all("Attendance",filters={'attendance_approver':frappe.session.user,'workflow_state':'Draft'}))
+    appraisal = []# len(frappe.db.get_all("Appraisal",filters={'appraiser_approver':frappe.session.user,'workflow_state':'Pending Self Review'}))
+    appraisal_confirmation = []# len(frappe.db.get_all("Appraisal",filters={'appraiser_approver':frappe.session.user,'workflow_state':'Pending Self Review'}))
     return {
             "Leave Application":leave_applications,
             "ToDo":todo,
@@ -227,9 +240,9 @@ def get_hr_admin_data():
 
 @frappe.whitelist()
 def get_presenty(department):
-    members_present_toady = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':['in',['Present','Work From Home']],'department': department},fields=['employee_name'])
+    members_present_toady = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'status':['in',['Present','Work From Home']],'department': department},fields=['employee_name'])
     x, members_absent_today = get_employee_on_leave_this_month(department)
-    members_on_duty = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'workflow_state':'Approved','status':'On Duty (OD)','department' :department},fields=['employee_name'])
+    members_on_duty = frappe.get_all('Attendance',filters={'attendance_date':nowdate(),'status':'On Duty (OD)','department' :department},fields=['employee_name'])
     return {
         "members_present_toady":members_present_toady,
         "members_absent_today":members_absent_today,
