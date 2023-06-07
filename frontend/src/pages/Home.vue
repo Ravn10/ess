@@ -1,21 +1,55 @@
 <template>
     <div>
-        <div class="flex justify-self">
-            <h2 class="flex flex-row items-center justify-between font-bold text-lg text-gray-600 mb-4">
-                Welcome {{ session.user }}!
-            </h2>
-            <h4>{{ loggesInUser.data }}</h4>
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Employee Self Service Portal</h2>
+            <p class="text-gray-700">{{ employee.data[0].employee_name }}</p>
         </div>
-        <Button @click="session.logout.submit()" appearance="danger">Logout</Button>
-        <ul>
-            <li v-for="d in employee.data" :key="d">
-                <Card :title="d.employee">
-                    <div class="grid grid-cols-3" >
+
+        <div class="grid grid-cols-1 gap-4">
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-gray-200 p-4">
+                    Welcome {{ session.user }}!
+
+                    <h4>{{ loggesInUser.data }}</h4>
+                </div>
+                <div class="bg-gray-200 p-4">
+                    <Button @click="session.logout.submit()" appearance="danger">Logout</Button>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex items-center justify-center">
+                        <Avatar imageURL="https://placekitten.com/200" label="Felix" size="lg" />
+                        <Avatar imageURL="" label="Felix" size="lg" />
+                    </div>
+                    <div class="text-center mt-4">
+                        <h2 class="text-xl font-bold">{{ employee.data[0].employee_name }}</h2>
+                        <p class="text-gray-600">{{ employee.data[0].designation  }}</p>
+                    </div>
+                    <div class="mt-6">
+                        <ul class="flex justify-center space-x-4">
+                            <li>
+                                <a href="#" class="text-blue-500 hover:text-blue-700">Twitter</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-blue-500 hover:text-blue-700">LinkedIn</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-blue-500 hover:text-blue-700">GitHub</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4" v-for="d in employee.data" :key="d">
+            <div class="p-4">
+                <Card title="Attendance" subtitle="Employee Checkin">
+                    <div class="grid grid-cols-2">
                         <div class="col-span-1 space-y-2">
                             <ul v-if="getCheckins.data.checkin_count !== 0">
                                 <li v-for="(checkinLog, idx) in getCheckins.data.checkin" :key="checkinLog">
                                     <span>
-                                        {{ idx+1 }} -
+                                        <Button appearance="primary">{{ idx + 1 }} </Button>&nbsp;
                                         <Button appearance="success">{{ checkinLog.name }}</Button>
                                         <br>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Badge color="yellow">{{ checkinLog.time }}</Badge>
@@ -27,10 +61,10 @@
                             <ul v-if="getCheckins.data.checkout_count !== 0">
                                 <li v-for="(checkoutLog, idx) in getCheckins.data.checkout" :key="checkoutLog">
                                     <span>
-                                        {{ idx + 1 }} -
+                                        <Button appearance="primary">{{ idx + 1 }} </Button>&nbsp;
                                         <Button appearance="danger">{{ checkoutLog.name }}</Button>
                                         <br>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Badge color="yellow" >{{ checkoutLog.time }}</Badge>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Badge color="yellow">{{ checkoutLog.time }}</Badge>
                                     </span>
                                 </li>
                             </ul>
@@ -39,59 +73,60 @@
 
                     <br>
                     <!-- checkin checkout buttons -->
-                    {{ checkinData }}
-                    {{ checkOutData }}
                     <div class="grid grid-cols-3 gap-4">
-                        <Button v-if="getCheckins.data.checkin_count <= getCheckins.data.checkout_count" @click="addCheckINDialogShown = true" appearance="success">Check IN</Button>
-                        <Button v-if="getCheckins.data.checkin_count >= getCheckins.data.checkout_count" @click="addCheckOUTDialogShown = true" appearance="danger">Check OUT</Button>
+                        <Button v-if="getCheckins.data.checkin_count <= getCheckins.data.checkout_count"
+                            @click="addCheckINDialogShown = true" appearance="success">Check IN</Button>
+                        <Button v-if="getCheckins.data.checkin_count >= getCheckins.data.checkout_count"
+                            @click="addCheckOUTDialogShown = true" appearance="danger">Check OUT</Button>
                     </div>
                     <Dialog :options="{
-                                title: 'Add New Check In',
-                                actions: [
-                                    {
-                                        label: 'Add Action',
-                                        appearance: 'primary',
-                                        handler: ({ close }) => {
-                                            createCehckIn()
-                                            getCheckins.fetch()
-                                            close() // closes dialog
-                                        },
-                                    },
-                                    { label: 'Cancel' },
-                                ],
-                            }" v-model="addCheckINDialogShown">
-                            <template #body-content>
-                                <div class="space-y-2">
-                                Hello
-                                </div>
-                            </template>
+                        title: 'Add New Check IN',
+                        actions: [
+                            {
+                                label: 'Add Action',
+                                appearance: 'primary',
+                                handler: ({ close }) => {
+                                    createCehckIn()
+                                    close() // closes dialog
+                                },
+                            },
+                            { label: 'Cancel' },
+                        ],
+                    }" v-model="addCheckINDialogShown">
+                        <template #body-content>
+                            <div class="space-y-2">
+                                <Input label="Work From" type="select" :options="['Work From Home', 'In Field', 'Office']" />
+                            </div>
+                        </template>
                     </Dialog>
                     <Dialog :options="{
-                                title: 'Add New Check Out',
-                                actions: [
-                                    {
-                                        label: 'Add Action',
-                                        appearance: 'primary',
-                                        handler: ({ close }) => {
-                                            createCehckOUT()
-                                            getCheckins.fetch()
-                                            close() // closes dialog
-                                        },
-                                    },
-                                    { label: 'Cancel' },
-                                ],
-                            }" v-model="addCheckOUTDialogShown">
-                            <template #body-content>
-                                <div class="space-y-2">
-                                Hello
-                                </div>
-                            </template>
+                        title: 'Add New Check Out',
+                        actions: [
+                            {
+                                label: 'Add Action',
+                                appearance: 'primary',
+                                handler: ({ close }) => {
+                                    createCehckOUT()
+                                    close() // closes dialog
+                                },
+                            },
+                            { label: 'Cancel' },
+                        ],
+                    }" v-model="addCheckOUTDialogShown">
+                        <template #body-content>
+                            <div class="space-y-2">
+                                <Input label="Work From" type="select" :options="['Work From Home', 'In Field', 'Office']" />
+                            </div>
+                        </template>
                     </Dialog>
                 </Card>
-            </li>
-        </ul>
-
-
+            </div>
+            <div class="bg-gray-200 p-4">Item 2</div>
+            <div class="bg-gray-200 p-4">Item 3</div>
+            <div class="bg-gray-200 p-4">Item 4</div>
+            <div class="bg-gray-200 p-4">Item 5</div>
+            <div class="bg-gray-200 p-4">Item 6</div>
+        </div>
 
     </div>
 </template>
@@ -140,17 +175,21 @@ checkin_doc.reload()
 const createCehckIn = () => {
     console.log(employee.data[0].name)
     checkin_doc.insert.submit(checkinData)
+    getCheckins.fetch()
+    console.log("checkin fetched")
 }
 
 const createCehckOUT = () => {
     console.log(employee.data[0].name)
     checkin_doc.insert.submit(checkOutData)
+    getCheckins.fetch()
+    console.log(getCheckins.data)
 }
 
 //funtion to fetch checkin list for the day
 let getCheckins = createResource({
     url: '/api/method/ess.employee_self_service_portal.page.ess.ess.get_checkin',
-    cache: 'getCheckins',
+
 })
 getCheckins.fetch()
 
