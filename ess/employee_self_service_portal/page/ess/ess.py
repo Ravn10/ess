@@ -2,6 +2,8 @@ import frappe
 from frappe.utils import get_link_to_form, now_datetime, nowdate, get_first_day, get_last_day
 from frappe import _
 from hrms.hr.doctype.upload_attendance.upload_attendance import get_active_employees
+from frappe.desk.query_report import run
+from ess.employee_self_service_portal.report.total_working_hours.total_working_hours import get_data
 
 month_list = ['January','February','March','April','May','June','July','August','September','October','November','December']
 
@@ -28,7 +30,7 @@ def get_employee_details(employee):
 
 
 @frappe.whitelist()
-def get_connections(employee):
+def get_connections(employee=None):
     connections = []
     reports = []
     _connections = frappe.db.get_all('Global Search DocType',filters={'parent':'ESS Portal Setting'},fields=['document_type','idx'])
@@ -70,17 +72,44 @@ def checkin(employee,log_type,location_data=None):
         return error_log_link
 
 @frappe.whitelist()
-def holiday_for_month(employee):
+def holiday_for_month(employee=None):
+    if not employee:
+        employee = frappe.db.get_all("Employee",{'user_id':frappe.session.user},pluck='name')[0]
     holiday_list = frappe.db.get_value("Employee",employee,"holiday_list")
     month_first_date = get_first_day(nowdate())
     month_last_date = get_last_day(nowdate())
-    frappe.db.get_value("Employee",employee,"holiday_list")
     months_holidays = frappe.db.sql('''
               select holiday_date, description
               from `tabHoliday`
               where holiday_date >= %(from)s and holiday_date <= %(to)s
               and parent = %(holiday_list)s
               and weekly_off =0
+              order by holiday_date asc
+              ''',{
+                  "from":month_first_date,
+                  "to":month_last_date,
+                  "holiday_list":holiday_list
+                  },as_dict=True)
+    def get_day(data):
+        print(data)
+        data['day'] = data['holiday_date'].strftime('%d-%m')
+        # data['day'] = data['holiday_date'].day
+    list(map(get_day,months_holidays))
+    return months_holidays
+
+@frappe.whitelist()
+def week_off_for_month(employee=None):
+    if not employee:
+        employee = frappe.db.get_all("Employee",{'user_id':frappe.session.user},pluck='name')[0]
+    holiday_list = frappe.db.get_value("Employee",employee,"holiday_list")
+    month_first_date = get_first_day(nowdate())
+    month_last_date = get_last_day(nowdate())
+    months_holidays = frappe.db.sql('''
+              select holiday_date, description
+              from `tabHoliday`
+              where holiday_date >= %(from)s and holiday_date <= %(to)s
+              and parent = %(holiday_list)s
+              and weekly_off =1
               order by holiday_date asc
               ''',{
                   "from":month_first_date,
@@ -248,3 +277,12 @@ def get_presenty(department):
         "members_absent_today":members_absent_today,
         "members_on_duty":members_on_duty,
         }
+
+@frappe.whitelist()
+def get_monthly_attendance():
+    employee = frappe.db.get_list("Employee",{"user_id":frappe.session.user},pluck='employee')
+    data = run( report_name='Total Working Hours',
+               filters={'employee':employee}
+            )
+    # data = get_data({})
+    return data

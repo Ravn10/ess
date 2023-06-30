@@ -6,14 +6,14 @@ from frappe import _
 from frappe.utils import cint, get_datetime, flt
 
 def execute(filters=None):
+    if not filters:
+        filters = frappe._dict({})
     columns, data = [], []
-    columns = get_columns(filters)
+    columns = get_columns()
     data = get_data(filters)
-    print("Printing Data")
-    print(data)
     return columns, data
 
-def get_columns(filters=None):
+def get_columns():
 	return [
 		{
 			"label": _("Date"),
@@ -83,25 +83,44 @@ def get_conditions(filters):
 	conditions = ''
 	if filters.get('employee'):
 		conditions += "AND employee = %s" %frappe.db.escape(filters.employee)
-
 	return conditions
 
 def time_diff_in_hours(start, end):
     return round((end-start).total_seconds() / 3600, 1)
 
 def get_data(filters=None):
-    conditions = get_conditions(filters)
-    attendance = frappe.db.sql('''select
-                                        attendance_date,
-                                        shift,
-                                        employee,
-                                        check_in_date_time,
-                                        check_out_datetime,
-                                        late_entry,
-                                        early_exit,
-                                        date_format(check_in_date_time, '%H:%i:%s') as 'in_time',
-                                        date_format(check_out_datetime, '%H:%i:%s') as 'out_time'
-                                        from `tabAttendance` where docstatus =1 {0} order by attendance_date DESC'''.format(conditions),as_dict=True)
+    # if filters:
+    #     conditions = get_conditions(filters)
+    start = frappe.utils.format_date(frappe.utils.get_first_day(frappe.utils.nowdate()),'YYYY-MM-dd')
+    end = frappe.utils.format_date(frappe.utils.get_last_day(frappe.utils.nowdate()),'YYYY-MM-dd')
+    attendance = frappe.db.get_all("Attendance",filters=[
+                            ["attendance_date","between",[start,end]],
+                            ["docstatus","=",1],
+                            ],
+                      fields = [
+                            "attendance_date",
+                            "shift",
+                            "employee",
+                            "check_in_date_time",
+                            "check_out_datetime",
+                            "late_entry",
+                            "early_exit",
+                      ]
+                      )
+    # attendance = frappe.db.sql('''select
+    #                                     attendance_date,
+    #                                     shift,
+    #                                     employee,
+    #                                     check_in_date_time,
+    #                                     check_out_datetime,
+    #                                     late_entry,
+    #                                     early_exit,
+    #                                     date_format(check_in_date_time, '%H:%i:%s') as 'in_time',
+    #                                     date_format(check_out_datetime, '%H:%i:%s') as 'out_time'
+    #                                     from `tabAttendance` where docstatus =1
+    #                                     AND
+    #                                         `tabAttendance`.attendance_date between %(start)s and %(end)s)
+    #                                     {0} order by attendance_date DESC'''.format(conditions),{"start": start, "end": end},as_dict=True)
     # attendance = frappe.db.sql('''select attendance_date, shift,employee, check_in_date_time, check_out_datetime, late_entry, early_exit from `tabAttendance` where docstatus =1 {0}'''.format(conditions),as_dict=True)
     list(map(update_shift_details, attendance))
     return attendance
