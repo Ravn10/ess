@@ -9,11 +9,17 @@
     "copy-html-entry": "cp ../ess/public/frontend/index.html ../ess/www/frontend.html"
   },
   "dependencies": {
+    "data-table-vue-v3": "^1.0.16",
     "feather-icons": "^4.28.0",
-    "flowbite": "^1.6.5",
+    "flowbite": "^1.6.6",
+    "flowbite-vue": "0.0.14",
+    "frappe-datatable": "^1.17.2",
     "frappe-ui": "^0.0.107",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.12"
+    "vue-iframes": "0.0.20",
+    "vue-router": "^4.0.12",
+    "vue2-google-maps": "^0.10.7",
+    "vue3-easy-data-table": "^1.5.47"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

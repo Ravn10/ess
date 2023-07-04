@@ -368,14 +368,14 @@ def get_rows(
 			{"shift": "Total Worked Hours"}
 		)
 		attendance_for_employee[3].update(total_working_data)
-		print(attendance_for_employee)
+		# print(attendance_for_employee)
 		records.extend(attendance_for_employee)
 
 	return records
 
 # [{'shift': 'General', 1: 'H', 2: '', 3: 'P', 4: 'A', 5: '', 6: '', 7: 'P', 8: 'P', 9: 'A', 10: 'P', 11: 'P', 12: '', 13: '', 14: 'P', 15: 'P', 16: 'A', 17: 'P', 18: '', 19: '', 20: '', 21: '', 22: '', 23: '', 24: '', 25: '', 26: '', 27: '', 28: '', 29: '', 30: '', 31: '', 'employee': 'NV119', 'employee_name': 'Prakash Ravindranath Rane'}]
 def get_attendance_details(data,filters):
-	print("data in get_attendance_details")
+	# print("data in get_attendance_details")
 	intime_data = {}
 	outtime_data = {}
 	total_working_data = {}
@@ -383,7 +383,7 @@ def get_attendance_details(data,filters):
 		if isinstance(key,int):
 			# if data[0].get('row') in ['P','H']:
 			attendance_date = str(key)+"-"+filters.get('month')+"-"+filters.get("year")
-			print('''Attendance Date {0}'''.format(attendance_date))
+			# print('''Attendance Date {0}'''.format(attendance_date))
 			attendance_details = frappe.db.get_all("Attendance",filters={"employee":data[0].get("employee"),"shift":data[0].get("shift"),"attendance_date":attendance_date},fields=["in_time","out_time","working_hours"])
 			if attendance_details:
 				intime_data.setdefault(key,attendance_details[0]["in_time"])

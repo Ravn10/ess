@@ -1,451 +1,219 @@
-<template>
-    <div>
-        <!-- Navbar Starts -->
-        <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-        <div class="px-3 py-3 lg:px-5 lg:pl-3">
-            <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start">
-                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open sidebar</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-                    </svg>
-                </button>
-                <a href="https://flowbite.com" class="flex ml-2 md:mr-24">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
-                <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">{{ company }}</span>
-                </a>
-            </div>
-            <div class="flex items-center">
-                <div class="flex items-center ml-3">
-                    <div>
-                    <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                        <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
-                    </button>
-                    </div>
-                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
-                    <div class="px-4 py-3" role="none">
-                        <p class="text-sm text-gray-900 dark:text-white" role="none">
-                        Neil Sims
-                        </p>
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        neil.sims@flowbite.com
-                        </p>
-                    </div>
-                    <ul class="py-1" role="none">
-                        <li>
-                        <a href="/CheckinHome.vue" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
-                        </li>
-                        <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                        </li>
-                        <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                        </li>
-                        <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-        </nav>
-        <!-- Navbar Ends -->
-        <!-- Sidebar Starts -->
-        <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-            <ul class="space-y-2 font-medium">
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
-                    <span class="ml-3">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Kanban</span>
-                    <span class="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path><path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path></svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Inbox</span>
-                    <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Products</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Sign In</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        </aside>
-        <!-- Sidebar Ends -->
-        <!-- Body Starts -->
-
-
-        <div class="p-4 sm:ml-64 m-9">
-            <!-- employee info starts -->
-            <div class="py-4">
-                <Card title="Employee Info" subtitle="">
-                    <div class="grid grid-col-3 lg:grid-cols-3 gap-1 mb-6">
-                        <div class="col-span-1 w-3/12">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="A">
-                        </div>
-                    <div class="grid grid-cols-3 lg:grid-cols-2 col-span-2 gap-1 mb-6 justify-start">
-                        <div v-for="(value, key) in employee_doc.data" :key="key">
-                            <div class="flow-root " v-if="value !== null">
-                                <p class="text-sm  float-left text-green-600 m-2">
-                                    {{ key }}
-                                </p>
-                                <p class="text-sm  float-left text-green-800 m-2">
-                                    {{ value }}
-                                </p>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    </div>
-                </Card>
-
-            </div>
-            <!-- employee info ends -->
-            <!-- section 2 starts -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <!-- attendance Card starts -->
-                <div class="flex flex-col justify-between">
-                    <Card title="Attendance" subtitle="Mark Your Checkin">
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                        <Button appearance="warning" @click="employee_checkins.insert.submit(checkinWFH)" :loading="employee_checkins.loading">WFH</Button>
-                        <Button appearance="primary" @click="getLocation" :loading="employee_checkins.loading">In Field</Button>
-                        <Button appearance="success" @click="employee_checkins.insert.submit(checkinOffice)" :loading="employee_checkins.loading">Office</Button>
-                        <Button appearance="danger" @click="employee_checkins.insert.submit(checkOutWFH)" :loading="employee_checkins.loading">WFH OUT</Button>
-                        <Button appearance="danger" @click="employee_checkins.insert.submit(checkOutField)" :loading="employee_checkins.loading">Field OUT</Button>
-                        <Button appearance="danger" @click="employee_checkins.insert.submit(checkOutOffice)" :loading="employee_checkins.loading">Office OUT</Button>
-                    </div>
-
-                        <div class="relative overflow-x-auto h-60 overflow-y-visible  shadow-md sm:rounded-lg ">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Checkin From
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Type
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Time
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="h-10 overflow-y-visible">
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "  v-for="employee_checkin in employee_checkins.data" :key="employee_checkin.name">
-                                        <th scope="row" class="px-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ employee_checkin.work_from }}
-                                        </th>
-                                        <td class="px-6 ">
-                                            {{ employee_checkin.log_type }}
-                                        </td>
-                                        <td class="px-6 ">
-                                            {{ employee_checkin.time }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </Card>
-                </div>
-                <!-- attendance Card ends -->
-                <!-- In Office Members Card starts -->
-                <div class="flex flex-col justify-between">
-                    <Card title="In Office Members" subtitle="Today">
-                        <div class="relative overflow-x-auto h-60 overflow-y-visible  shadow-md sm:rounded-lg ">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Employee Name
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Work From
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody class="h-10 overflow-y-visible">
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "  v-for="present_employee in present_employees.data" :key="present_employee.name">
-                                        <th scope="row" class="px-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ present_employee.employee_name }}
-                                        </th>
-                                        <td class="px-6 ">
-                                            {{ present_employee.work_from }}
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </Card>
-                </div>
-                <!-- In Office Members Card ends -->
-            </div>
-             <!-- section 2 ends -->
-             <!-- section 3 starts -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <!-- attendance Card starts -->
-                <div class="flex flex-col justify-between">
-                    <Card title="Birthday" subtitle="This Month">
-                        <div class="relative overflow-x-auto h-80 overflow-y-visible  shadow-md sm:rounded-lg ">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Employee
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Birth Day
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="h-10 overflow-y-visible">
-
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "  v-for="birthday in birthdays.data" :key="birthday.name">
-                                        <th scope="row" class="px-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ birthday.employee_name }}
-                                        </th>
-                                        <td class="px-6 ">
-                                            {{ birthday.day }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </Card>
-                </div>
-                <!-- attendance Card ends -->
-                <!-- In Office Members Card starts -->
-                <div class="flex flex-col justify-between">
-                    <Card title="Holiday's" subtitle="This Month">
-                        <div class="relative overflow-x-auto h-80 overflow-y-visible  shadow-md sm:rounded-lg ">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Date
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Holiday
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody class="h-10 overflow-y-visible">
-                                    <div v-if="holiday_for_month.data">
-                                        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "  v-for="holiday in holiday_for_month.data" :key="holiday.day">
-                                            <th scope="row" class="px-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ holiday.day }}
-                                            </th>
-                                            <td class="px-6 ">
-                                                {{ holiday.description }}
-                                            </td>
-
-                                        </tr>
-                                    </div>
-                                    <tr v-else>   No Holiday's This Month  </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </Card>
-                </div>
-                <!-- In Office Members Card ends -->
-                <!-- In Office Members Card starts -->
-                <div class="flex flex-col justify-between">
-                    <Card title="Week Off's" subtitle="This Month">
-                        <div class="relative overflow-x-auto h-80 overflow-y-visible  shadow-md sm:rounded-lg ">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">
-                                            Date
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Description
-                                        </th>
-
-                                    </tr>
-                                </thead>
-                                <tbody class="h-10 overflow-y-visible">
-                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 "  v-for="week_off in week_off_for_month.data" :key="week_off.day">
-                                        <th scope="row" class="px-6  font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ week_off.day }}
-                                        </th>
-                                        <td class="px-6 ">
-                                            {{ week_off.description }}
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </Card>
-                </div>
-                <!-- In Office Members Card ends -->
-            </div>
-            <!-- section 3 ends -->
-        </div>
-    </div>
-</template>
-
 <script setup>
-import {ref, computed , reactive } from "vue";
-import { Avatar, createListResource, createResource, Input ,Button, Card, FeatherIcon, createDocumentResource} from 'frappe-ui';
+import { ref, computed, reactive } from "vue";
+
+import {
+  Avatar,
+  createListResource,
+  createResource,
+  Input,
+  Button,
+  Card,
+  FeatherIcon,
+  createDocumentResource,
+} from "frappe-ui";
 import { session } from "../data/session";
 import { employeeResource } from "../data/employee";
+import { Drawer } from "flowbite";
+import { onMounted } from "vue";
+import { initFlowbite } from "flowbite";
 
+import NavbarComponent from "../components/Navbar.vue";
+import SidebarComponent from "../components/Sidebar.vue";
+
+// options with default values
+
+// initialize components based on data attribute selectors
+onMounted(() => {
+  initFlowbite();
+});
+
+const center = { lat: 45.508, lng: -73.587 };
+const location = reactive({
+  html: null,
+  loaded: false,
+});
 const checkinOffice = reactive({
-    log_type: 'IN',
-    work_from:"Office",
-    longitude:null,
-    latitude:null
-})
+  location_html: null,
+  log_type: "IN",
+  work_from: "Office",
+  longitude: null,
+  latitude: null,
+});
 const checkinWFH = reactive({
-    log_type: 'IN',
-    work_from:"Work From Home",
-    longitude:null,
-    latitude:null
-})
+  location_html: null,
+  log_type: "IN",
+  work_from: "Work From Home",
+  longitude: null,
+  latitude: null,
+});
 const checkinField = reactive({
-    log_type: 'IN',
-    work_from:"On Field",
-    longitude:null,
-    latitude:null
-})
+  location_html: null,
+  log_type: "IN",
+  work_from: "On Field",
+  longitude: null,
+  latitude: null,
+});
 const checkOutOffice = reactive({
-    log_type: 'OUT',
-    work_from:"Office",
-    longitude:null,
-    latitude:null
-})
+  location_html: null,
+  log_type: "OUT",
+  work_from: "Office",
+  longitude: null,
+  latitude: null,
+});
 const checkOutWFH = reactive({
-    log_type: 'OUT',
-    work_from:"Work From Home",
-    longitude:null,
-    latitude:null
-})
+  location_html: null,
+  log_type: "OUT",
+  work_from: "Work From Home",
+  longitude: null,
+  latitude: null,
+});
 const checkOutField = reactive({
-    log_type: 'OUT',
-    work_from:"On Field",
-    longitude:null,
-    latitude:null
-})
+  location_html: null,
+  log_type: "OUT",
+  work_from: "On Field",
+  longitude: null,
+  latitude: null,
+});
 const checkOutData = reactive({
-    log_type: 'OUT ',
-})
+  location_html: null,
+  log_type: "OUT ",
+});
 
 //Get logged in user
 let loggesInUser = createResource({
-    url: '/api/method/frappe.auth.get_logged_user'
-})
-loggesInUser.fetch()
+  url: "/api/method/frappe.auth.get_logged_user",
+});
+loggesInUser.fetch();
 
 //Get employee from user
 let employee_doc = createResource({
-    url: '/api/method/ess.api.employee.get_employee_from_user'
+  url: "/api/method/ess.api.employee.get_employee_from_user",
+});
+employee_doc.fetch();
 
-})
-employee_doc.fetch()
+let employee_in_office = createResource({
+  url: "/api/method/ess.api.employee.members_in_office_status",
+});
+employee_in_office.fetch();
 
 //Get employee birthdays from user
 let birthdays = createResource({
-    url: '/api/method/ess.employee_self_service_portal.page.ess.ess.get_employee_with_birthday_this_month'
-})
-birthdays.fetch()
+  url:
+    "/api/method/ess.employee_self_service_portal.page.ess.ess.get_employee_with_birthday_this_month",
+});
+birthdays.fetch();
 
 //Get employee holiday_for_month from user
 let holiday_for_month = createResource({
-    url: '/api/method/ess.employee_self_service_portal.page.ess.ess.holiday_for_month'
-})
-holiday_for_month.fetch()
+  url: "/api/method/ess.employee_self_service_portal.page.ess.ess.holiday_for_month",
+});
+holiday_for_month.fetch();
 
 //Get employee week off from user
 let week_off_for_month = createResource({
-    url: '/api/method/ess.employee_self_service_portal.page.ess.ess.week_off_for_month',
-    // params:{
-    //     'employee':employee.name
-    // }
-})
-week_off_for_month.fetch()
+  url: "/api/method/ess.employee_self_service_portal.page.ess.ess.week_off_for_month",
+  // params:{
+  //     'employee':employee.name
+  // }
+});
+week_off_for_month.fetch();
 
 //Get present employee from
 let present_employees = createResource({
-    url: '/api/method/ess.api.employee.get_presenty'
-})
-present_employees.fetch()
+  url: "/api/method/ess.api.employee.get_presenty",
+});
+present_employees.fetch();
+
+//Get present employee from
+let eom_report = createResource({
+  url: "/api/method/ess.api.employee.eom_report_data",
+});
+eom_report.fetch();
+
+//Get present employee from
+let leave_report = createResource({
+  url: "/api/method/ess.api.employee.leave_report_data",
+});
+leave_report.fetch();
+
+//Get leave details
+let leave_details = createResource({
+  url: "/api/method/ess.api.employee.leave_details",
+});
+leave_details.fetch();
+
+//Get total_working_hours_data
+let total_working_hours = createResource({
+  url: "/api/method/ess.api.employee.total_working_hours_data",
+});
+total_working_hours.fetch();
 
 //Get Employee from logged in User
 const employee = createListResource({
-    doctype: 'Employee',
-    fields: ["*"],
-    cache: 'employee',
-})
+  doctype: "Employee",
+  fields: ["*"],
+  cache: "employee",
+});
 
-employee.reload()
-
+employee.reload();
 
 //Get Employee Checkin from logged in User
 const employee_checkins = createListResource({
-    doctype: 'Employee Checkin',
-    filters:[["time","between",(new Date(),new Date())]],
-    fields: ["*"],
-    cache: 'employee_checkins',
-})
+  doctype: "Employee Checkin",
+  filters: [["time", "between", (new Date(), new Date())]],
+  fields: ["*"],
+  cache: "employee_checkins",
+});
 
-employee_checkins.reload()
+employee_checkins.reload();
+
+function checkin(work_from) {
+  employee_checkins.insert.submit({
+    log_type: "IN",
+    work_from: work_from,
+  });
+  employee_in_office.fetch();
+}
+function checkOut(work_from) {
+  employee_checkins.insert.submit({
+    location_html: null,
+    log_type: "OUT",
+    work_from: work_from,
+    longitude: null,
+    latitude: null,
+  });
+  employee_in_office.fetch();
+}
 
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      handleSuccess,
-      handleError
-    );
+    navigator.geolocation.getCurrentPosition(handleSuccess, handleError);
   } else {
     locationError = "Geolocation is not supported by this browser.";
   }
-};
+}
 function handleSuccess(position) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
   checkinField.latitude = position.coords.latitude;
   checkinField.longitude = position.coords.longitude;
-  employee_checkins.insert.submit(checkinField)
-};
+
+  location.loaded = true;
+  location.html =
+    `<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3769.669609454357!2d` +
+    position.coords.longitude +
+    `!3d` +
+    position.coords.latitude +
+    `4!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTnCsDA3JzE5LjciTiA3M8KwMDAnMzkuMyJF!5e0!3m2!1sen!2sin!4v1688387438794!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style="border: 1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>`;
+  checkin("On Field");
+}
 function handleError(error) {
   switch (error.code) {
     case error.PERMISSION_DENIED:
@@ -461,7 +229,673 @@ function handleError(error) {
       this.locationError = "An unknown error occurred.";
       break;
   }
-};
-
-
+}
 </script>
+<template>
+  <div class="antialiased bg-gray-50 dark:bg-gray-900">
+    <NavbarComponent :company='employee_doc.data["Company"]' />
+
+    <!-- Sidebar -->
+    <SidebarComponent />
+
+    <main class="p-4 md:ml-64 h-auto pt-20">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        <!-- profile picture card starts -->
+        <div
+          class="border-2 border-solid border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
+        >
+          <div class="flex flex-col items-center pt-10 pb-10">
+            <img
+              class="w-24 h-24 mb-3 rounded-full shadow-lg"
+              src="https://bootdey.com/img/Content/avatar/avatar7.png"
+              alt="Bonnie image"
+            />
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+              {{ employee_doc.data["Employee Name"] }}
+            </h5>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{
+              employee_doc.data["Name"]
+            }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{
+              employee_doc.data["Designation"]
+            }}</span>
+            <!-- <div class="flex mt-4 space-x-3 md:mt-6">
+              <a
+                href="#"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >Add friend</a
+              >
+              <a
+                href="#"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700"
+                >Message</a
+              >
+            </div> -->
+          </div>
+        </div>
+        <!-- profile picture card ends -->
+        <!-- Personal info card starts -->
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Personal Info
+            </h5>
+          </div>
+          <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="at-sign" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Personal Email"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Personal Email
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="phone" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Cell Number"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Personal Phone
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="home" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Permanent Address"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Address
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- </div> -->
+        </div>
+        <!-- Personal info card ends -->
+        <!-- Organisational info card starts -->
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Organisational Info
+            </h5>
+          </div>
+          <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="at-sign" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Company Email"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Org Email
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="phone" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Cell Number"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Org Phone
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="navigation" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Branch"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Branch
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Organisational info card ends -->
+        <!-- Reporting info card starts -->
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Reporting Info
+            </h5>
+          </div>
+          <div class="flow-root">
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="calendar" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Shift Request Approver"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Shift Request Approver
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="phone" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["credit-card"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Expense Approver
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="py-3 sm:py-4 pl-5">
+                <div class="flex items-center space-x-4">
+                  <div class="flex-shrink-0">
+                    <FeatherIcon name="check" class="h-6 w-6" />
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium truncate text-gray-900 dark:text-white">
+                      {{ employee_doc.data["Leave Approver"] || "Not Available" }}
+                    </p>
+                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                      Leave Approver
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Reporting info card ends -->
+      </div>
+      <!-- Checkin Starts -->
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="grid grid-cols-3 gap-4 mb-4 p-3">
+            <Button
+              appearance="warning"
+              @click="checkin('Work From Home')"
+              :loading="employee_checkins.loading"
+              >WFH</Button
+            >
+            <Button
+              appearance="primary"
+              @click="getLocation"
+              :loading="employee_checkins.loading"
+              >In Field</Button
+            >
+            <Button
+              appearance="success"
+              @click="checkin('Office')"
+              :loading="employee_checkins.loading"
+              >Office</Button
+            >
+            <Button
+              appearance="danger"
+              @click="checkOut('Work From Home')"
+              :loading="employee_checkins.loading"
+              >WFH OUT</Button
+            >
+            <Button
+              appearance="danger"
+              @click="checkOut('On Field')"
+              :loading="employee_checkins.loading"
+              >Field OUT</Button
+            >
+            <Button
+              appearance="danger"
+              @click="checkOut('Office')"
+              :loading="employee_checkins.loading"
+              >Office OUT</Button
+            >
+          </div>
+          <div class="relative overflow-x-auto h-32 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Checkin From</th>
+                  <th scope="col" class="px-6 py-3">Type</th>
+                  <th scope="col" class="px-6 py-3">Time</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <tr
+                  class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  v-for="employee_checkin in employee_checkins.data"
+                  :key="employee_checkin.name"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {{ employee_checkin.work_from }}
+                  </th>
+                  <td class="px-6">
+                    {{ employee_checkin.log_type }}
+                  </td>
+                  <td class="px-6">
+                    {{ employee_checkin.time }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Current Location
+            </h5>
+          </div>
+          <div class="border-2 border-solid">
+            <div v-if="location.loaded" v-html="location.html"></div>
+            <div v-else>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3769.669609454357!2d73.00872521490183!3d19.12214478706144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTnCsDA3JzE5LjciTiA3M8KwMDAnMzkuMyJF!5e0!3m2!1sen!2sin!4v1688387438794!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style="border: 1"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+        <!-- Members in office start -->
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Members In Office
+            </h5>
+          </div>
+          <div class="relative overflow-x-auto h-60 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Employee</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <tr
+                  class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  v-for="emp_in_office in employee_in_office.data.emp_in_office"
+                  :key="emp_in_office"
+                >
+                  <td class="px-6">
+                    {{ emp_in_office.employee_name }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Members in office end -->
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Members Out Of Office
+            </h5>
+          </div>
+          <div class="relative overflow-x-auto h-60 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Employee</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <tr
+                  class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  v-for="emp_out_of_office in employee_in_office.data.emp_out_of_office"
+                  :key="emp_out_of_office"
+                >
+                  <td class="px-6">
+                    {{ emp_out_of_office.employee_name }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Members Absent
+            </h5>
+          </div>
+          <div class="relative overflow-x-auto h-60 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Employee</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <tr
+                  class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  v-for="emp_absent in employee_in_office.data.emp_absent"
+                  :key="emp_absent"
+                >
+                  <td class="px-6">
+                    {{ emp_absent.employee_name }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Birthday's Of The Month
+            </h5>
+          </div>
+          <div class="relative overflow-x-auto h-60 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Employee</th>
+                  <th scope="col" class="px-6 py-3">Birth Day</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <tr
+                  class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  v-for="birthday in birthdays.data"
+                  :key="birthday.name"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {{ birthday.employee_name }}
+                  </th>
+                  <td class="px-6">
+                    {{ birthday.day }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Week Off's Of The Month
+            </h5>
+          </div>
+          <div class="relative overflow-x-auto h-60 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Date</th>
+                  <th scope="col" class="px-6 py-3">Description</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <tr
+                  class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                  v-for="week_off in week_off_for_month.data"
+                  :key="week_off.day"
+                >
+                  <th
+                    scope="row"
+                    class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {{ week_off.day }}
+                  </th>
+                  <td class="px-6">
+                    {{ week_off.description }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
+        >
+          <div class="flex items-center justify-center mb-2">
+            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+              Holiday's Of The Month
+            </h5>
+          </div>
+          <div class="relative overflow-x-auto h-60 overflow-y-visible">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Date</th>
+                  <th scope="col" class="px-6 py-3">Holiday</th>
+                </tr>
+              </thead>
+              <tbody class="h-10 overflow-y-visible">
+                <div v-if="holiday_for_month.data">
+                  <tr
+                    class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+                    v-for="holiday in holiday_for_month.data"
+                    :key="holiday.day"
+                  >
+                    <th
+                      scope="row"
+                      class="px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {{ holiday.day }}
+                    </th>
+                    <td class="px-6">
+                      {{ holiday.description }}
+                    </td>
+                  </tr>
+                </div>
+                <tr v-else>
+                  No Holiday's This Month
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Checkin Ends -->
+      <!--Attendance Report -->
+      <div
+        class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+            Attendance Report
+          </h5>
+        </div>
+        <div class="relative h-60">
+          <div class="relative overflow-x-auto h-72 text-xs">
+            <table class="relative w-full border">
+              <thead>
+                <tr>
+                  <th
+                    v-for="column in total_working_hours.data.columns"
+                    :key="column"
+                    class="sticky top-0 px-6 py-3 text-black-900 bg-gray-300"
+                  >
+                    {{ column.label }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y bg-gray-100">
+                <tr v-for="res in total_working_hours.data.result" :key="res">
+                  <td
+                    class="px-6 py-4 text-center"
+                    v-for="column in total_working_hours.data.columns"
+                    :key="column"
+                  >
+                    {{ res[column.fieldname] }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--Attendance Report -->
+      <!-- End of Month Report Starts -->
+      <div
+        class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+            End Of Month Report
+          </h5>
+        </div>
+        <div class="relative overflow-x-auto h-72 text-xs">
+          <table class="relative w-full border">
+            <thead>
+              <tr>
+                <th
+                  v-for="column in eom_report.data.columns"
+                  :key="column"
+                  class="sticky top-0 px-6 py-3 text-black-900 bg-gray-300"
+                >
+                  {{ column.label }}
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y bg-gray-100">
+              <tr v-for="res in eom_report.data.result" :key="res">
+                <td
+                  class="px-6 py-4 text-center"
+                  v-for="column in eom_report.data.columns"
+                  :key="column"
+                >
+                  {{ res[column.fieldname] }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- leave section -->
+      <div
+        class="border-2 border-solid rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
+      >
+        <div class="flex items-center justify-center mb-2">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4">
+            Leave Details
+          </h5>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div
+            v-for="(value, name, index) in leave_details.data.leave_allocation"
+            class="rounded-lg border-gray-300 dark:border-gray-600 h-38 md:h-64"
+          >
+            <div class="flex items-center justify-center mb-2">
+              <h5
+                class="text-xl font-bold leading-none text-gray-900 dark:text-white pt-4"
+              >
+                {{ name }}
+              </h5>
+            </div>
+            <div class="flow-root">
+              <ul
+                v-for="(v, n, i) in leave_details.data.leave_allocation[name]"
+                role="list"
+                class="divide-y divide-gray-200 dark:divide-gray-700"
+              >
+                <li class="py-3 sm:py-4 pl-5">
+                  <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                      {{ n }}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p
+                        class="text-sm font-medium truncate text-gray-900 dark:text-white"
+                      >
+                        {{ v }}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- End of Month Report Ends -->
+    </main>
+  </div>
+</template>
