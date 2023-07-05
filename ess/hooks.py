@@ -9,6 +9,9 @@ app_color = "grey"
 app_email = "support@firsterp.in"
 app_license = "MIT"
 
+website_route_rules = [
+    {"from_route": "/frontend/<path:app_path>", "to_route": "frontend"},
+]
 
 # on_session_creation = ["ess.employee_self_service_portal.page.ess.ess.on_login"]
 extend_bootinfo = "ess.boot.boot_session"
@@ -22,7 +25,7 @@ app_include_js = ["/assets/ess/js/ess-template.min.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/ess/css/ess.css"
-# web_include_js = "/assets/ess/js/ess.js"
+web_include_js = "/assets/ess/js/ess.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "ess/public/scss/website"

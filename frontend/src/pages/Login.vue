@@ -1,37 +1,88 @@
 <template>
-  <div class="m-3 flex flex-row items-center justify-center">
-    <Card title="Login to your FrappeUI App!" class="w-full max-w-md mt-4">
-      <form class="flex flex-col space-y-2 w-full" @submit.prevent="submit">
-        <Input
-          required
-          name="email"
-          type="text"
-          placeholder="faris@main.com"
-          label="User ID"
-        />
-        <Input
-          required
-          name="password"
-          type="password"
-          placeholder="••••••"
-          label="Password"
-        />
-        <Button :loading="session.login.loading" appearance="primary"
-          >Login</Button
-        >
-      </form>
-    </Card>
-  </div>
+  <LoginBox title="Log in to your account" :class="{ 'pointer-events-none': loading }">
+    <form class="flex flex-col" @submit.prevent="">
+      <Input
+        v-model="email"
+        class="mb-4"
+        label="Email"
+        placeholder="johndoe@mail.com"
+        name="email"
+        autocomplete="email"
+        :type="email !== 'Administrator' ? 'email' : 'text'"
+        required
+      />
+      <Input
+        v-model="password"
+        label="Password"
+        type="password"
+        placeholder="••••••••"
+        name="password"
+        autocomplete="current-password"
+        required
+      />
+      <ErrorMessage :message="errorMessage" class="mt-4" />
+      <Button
+        class="mt-4 focus:ring-0 focus:ring-offset-0"
+        :loading="loading"
+        appearance="primary"
+        @click="login"
+      >
+        Submit
+      </Button>
+      <div class="mt-10 text-center border-t">
+        <div class="transform -translate-y-1/2">
+          <span class="px-2 text-xs leading-8 tracking-wider text-gray-800 bg-white">
+            OR
+          </span>
+        </div>
+      </div>
+      <router-link class="text-base text-center" to="/signup">
+        Sign up for a new account
+      </router-link>
+    </form>
+  </LoginBox>
 </template>
+<script>
+import { Input, ErrorMessage } from "frappe-ui";
+import LoginBox from "@/components/LoginBox.vue";
 
-<script lang="ts" setup>
-import { session } from '../data/session'
-
-function submit(e) {
-  let formData = new FormData(e.target)
-  session.login.submit({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  })
-}
+export default {
+  name: "Login",
+  components: {
+    LoginBox,
+    Input,
+    ErrorMessage,
+  },
+  data() {
+    return {
+      loading: false,
+      email: null,
+      password: null,
+      errorMessage: null,
+      successMessage: null,
+      redirect_route: null,
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        this.errorMessage = null;
+        this.loading = true;
+        if (this.email && this.password) {
+          let res = await this.$store.dispatch("login", {
+            email: this.email,
+            password: this.password,
+          });
+          if (res) {
+            this.$router.push("/");
+          }
+        }
+      } catch (error) {
+        this.errorMessage = error.messages.join("\n");
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+};
 </script>
